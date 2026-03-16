@@ -111,7 +111,7 @@ exports.handler = async (event) => {
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       await resend.emails.send({
-        from: "Nuvik Digital <onboarding@resend.dev>",
+        from: "Nuvik Digital <notificaciones@nuvik.digital>",
         to: "helpnuvik@outlook.com",
         reply_to: String(email).trim(),
         subject: `Nueva cotización — ${String(nombre).trim()}`,
