@@ -406,20 +406,20 @@ footer{background:var(--bg2);padding:40px 48px;display:flex;justify-content:spac
 <!-- Stats -->
 <div class="stats-band reveal">
   <div class="stat">
-    <span class="stat-num" data-count="100">0</span><span class="stat-suf">%</span>
-    <div class="stat-label">Proyectos a medida</div>
-  </div>
-  <div class="stat">
-    <span class="stat-num" data-count="50">0</span>
-    <div class="stat-label">Proyectos completados</div>
+    <span class="stat-num" data-count="5">0</span>
+    <div class="stat-label">Días máximo de entrega</div>
   </div>
   <div class="stat">
     <span class="stat-num" data-count="4">0</span>
     <div class="stat-label">Productos propios</div>
   </div>
   <div class="stat">
-    <span class="stat-num" data-count="7">0</span>
-    <div class="stat-label">Días promedio de entrega</div>
+    <span class="stat-num" data-count="50">0</span><span class="stat-suf">ms</span>
+    <div class="stat-label">Para generar primera impresión</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num" data-count="7">0</span><span class="stat-suf">x</span>
+    <div class="stat-label">Más confianza con web profesional</div>
   </div>
 </div>
 
@@ -512,7 +512,7 @@ footer{background:var(--bg2);padding:40px 48px;display:flex;justify-content:spac
   <div class="faq-inner">
     <div class="sec-label">FAQ</div>
     <h2 class="sec-title" style="margin-bottom:48px">Preguntas <em>frecuentes</em></h2>
-    <div class="faq-item"><div class="faq-question"><span>¿Cuánto demora hacer un sitio web?</span><span class="faq-toggle">▼</span></div><div class="faq-answer">El tiempo varía según el tipo y complejidad. Una landing page puede estar lista en 5–10 días. Un sitio corporativo completo: 20–30 días. Una tienda online: 30–45 días. Al iniciar, te damos un estimado claro y realista para tu caso específico.</div></div>
+    <div class="faq-item"><div class="faq-question"><span>¿Cuánto demora hacer un sitio web?</span><span class="faq-toggle">▼</span></div><div class="faq-answer">La velocidad es uno de nuestros pilares. La mayoría de proyectos los entregamos en un máximo de 5 días hábiles — sin importar si es una landing page, un sitio corporativo o una tienda online. Trabajamos rápido sin sacrificar calidad. Al iniciar, te confirmamos el plazo exacto para tu caso.</div></div>
     <div class="faq-item"><div class="faq-question"><span>¿Qué necesito para empezar?</span><span class="faq-toggle">▼</span></div><div class="faq-answer">Solo necesitas claridad sobre tu negocio y el objetivo que quieres lograr. Lo demás lo trabajamos juntos. Escríbenos por Instagram (@nuvikdigital) o completa el formulario de contacto y te guiamos desde el inicio.</div></div>
     <div class="faq-item"><div class="faq-question"><span>¿Pueden rediseñar una web existente?</span><span class="faq-toggle">▼</span></div><div class="faq-answer">Sí. El rediseño es uno de nuestros servicios clave. Si tienes un sitio desactualizado o que no representa bien tu negocio, lo transformamos en algo moderno, profesional y perfectamente alineado con tu imagen actual.</div></div>
     <div class="faq-item"><div class="faq-question"><span>¿Mi sitio se verá bien en celular?</span><span class="faq-toggle">▼</span></div><div class="faq-answer">Sí, 100%. Todos los proyectos se diseñan mobile-first desde el día uno. Funcionan perfectamente en celulares, tablets y computadoras. La experiencia móvil es una prioridad absoluta para nosotros.</div></div>
@@ -537,7 +537,7 @@ footer{background:var(--bg2);padding:40px 48px;display:flex;justify-content:spac
 <footer>
   <div class="footer-brand">
     <p>nuvik.digital</p>
-    <small>© 2025 — Diseño Web, Software y Automatización Inteligente</small>
+    <small>© 2026 — Diseño Web, Software y Automatización Inteligente</small>
   </div>
   <div class="footer-links">
     <a href="#suite">Suite</a>
@@ -549,19 +549,21 @@ footer{background:var(--bg2);padding:40px 48px;display:flex;justify-content:spac
 </footer>
 
 <script>
-// Cursor
-const dot=document.createElement("div"),ring=document.createElement("div");
-dot.className="cursor-dot";ring.className="cursor-ring";
-document.body.appendChild(dot);document.body.appendChild(ring);
-let mx=0,my=0,dx=0,dy=0,rx=0,ry=0;
-document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY});
-(function tick(){
-  dx+=(mx-dx)*.15;dy+=(my-dy)*.15;
-  rx+=(mx-rx)*.09;ry+=(my-ry)*.09;
-  dot.style.left=dx+"px";dot.style.top=dy+"px";
-  ring.style.left=rx+"px";ring.style.top=ry+"px";
-  requestAnimationFrame(tick);
-})();
+// Cursor — solo en dispositivos con mouse (no touch)
+if(window.matchMedia("(pointer:fine)").matches){
+  const dot=document.createElement("div"),ring=document.createElement("div");
+  dot.className="cursor-dot";ring.className="cursor-ring";
+  document.body.appendChild(dot);document.body.appendChild(ring);
+  let mx=0,my=0,dx=0,dy=0,rx=0,ry=0;
+  document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY});
+  (function tick(){
+    dx+=(mx-dx)*.15;dy+=(my-dy)*.15;
+    rx+=(mx-rx)*.09;ry+=(my-ry)*.09;
+    dot.style.left=dx+"px";dot.style.top=dy+"px";
+    ring.style.left=rx+"px";ring.style.top=ry+"px";
+    requestAnimationFrame(tick);
+  })();
+}
 
 // Nav
 const nav=document.getElementById("nav");
