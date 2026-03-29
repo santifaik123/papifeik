@@ -6,7 +6,7 @@
 <title>Nuvik Digital — Presencia Digital Total para tu Negocio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -28,13 +28,14 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 /* Nav */
 #nav{position:fixed;top:0;left:0;right:0;z-index:98;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;transition:all .35s}
 #nav.sc{background:rgba(7,19,28,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--r2)}
-.nav-logo{font-size:17px;font-weight:700;color:var(--w);text-decoration:none;letter-spacing:-.3px}
+.nav-logo{font-size:17px;font-weight:800;font-family:'DM Sans',sans-serif;color:var(--w);text-decoration:none;letter-spacing:-.4px}
 .nav-links{display:flex;gap:32px;align-items:center}
 .nav-links a{color:var(--s);text-decoration:none;font-size:13px;font-family:'DM Sans',sans-serif;transition:color .25s}
 .nav-links a:hover{color:var(--w)}
 .nav-cta{padding:10px 22px;background:var(--b);color:white;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(42,68,201,.4)}
-@media(max-width:960px){#nav{padding:14px 20px}.nav-links{gap:16px}.nav-links a{font-size:12px}}
+@media(max-width:768px){#nav{padding:14px 20px}.nav-links a{display:none}.nav-cta{padding:9px 18px;font-size:13px}}
+@media(min-width:769px) and (max-width:960px){#nav{padding:14px 20px}.nav-links{gap:16px}.nav-links a{font-size:12px}}
 /* Hero */
 #inicio{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;padding:100px 40px 80px}
 .hero-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
@@ -116,10 +117,11 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .stats-band{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg3);border-top:1px solid var(--r2);border-bottom:1px solid var(--r2)}
 .stat{text-align:center;padding:48px 24px;position:relative}
 .stat+.stat::before{content:'';position:absolute;left:0;top:25%;height:50%;width:1px;background:var(--r2)}
-.stat-num{font-size:54px;font-weight:700;color:var(--b);line-height:1;display:block}
-.stat-suf{font-size:28px;font-weight:700;color:var(--b)}
+.stat-val{display:flex;align-items:baseline;justify-content:center;gap:3px;line-height:1}
+.stat-num{font-size:54px;font-weight:700;color:var(--b);line-height:1}
+.stat-suf{font-size:26px;font-weight:700;color:var(--b);line-height:1}
 .stat-label{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--s);margin-top:10px}
-@media(max-width:960px){.stats-band{grid-template-columns:repeat(2,1fr)}.stat+.stat::before{display:none}.stat{padding:32px 16px}.stat-num{font-size:40px}}
+@media(max-width:960px){.stats-band{grid-template-columns:repeat(2,1fr)}.stat+.stat::before{display:none}.stat{padding:32px 16px}.stat-num{font-size:40px}.stat-suf{font-size:20px}}
 /* Proceso */
 #proceso{padding:120px 48px;background:var(--bg2)}
 .proceso-inner{max-width:1060px;margin:0 auto}
@@ -406,19 +408,19 @@ footer{background:var(--bg2);padding:40px 48px;display:flex;justify-content:spac
 <!-- Stats -->
 <div class="stats-band reveal">
   <div class="stat">
-    <span class="stat-num" data-count="5">0</span>
+    <div class="stat-val"><span class="stat-num" data-count="5">0</span></div>
     <div class="stat-label">Días máximo de entrega</div>
   </div>
   <div class="stat">
-    <span class="stat-num" data-count="4">0</span>
+    <div class="stat-val"><span class="stat-num" data-count="4">0</span></div>
     <div class="stat-label">Productos propios</div>
   </div>
   <div class="stat">
-    <span class="stat-num" data-count="50">0</span><span class="stat-suf">ms</span>
+    <div class="stat-val"><span class="stat-num" data-count="50">0</span><span class="stat-suf">ms</span></div>
     <div class="stat-label">Para generar primera impresión</div>
   </div>
   <div class="stat">
-    <span class="stat-num" data-count="7">0</span><span class="stat-suf">x</span>
+    <div class="stat-val"><span class="stat-num" data-count="7">0</span><span class="stat-suf">x</span></div>
     <div class="stat-label">Más confianza con web profesional</div>
   </div>
 </div>
@@ -536,7 +538,7 @@ footer{background:var(--bg2);padding:40px 48px;display:flex;justify-content:spac
 <!-- Footer -->
 <footer>
   <div class="footer-brand">
-    <p>nuvik.digital</p>
+    <p style="font-family:'DM Sans',sans-serif;font-weight:800;letter-spacing:-.4px">nuvik.digital</p>
     <small>© 2026 — Diseño Web, Software y Automatización Inteligente</small>
   </div>
   <div class="footer-links">
