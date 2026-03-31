@@ -644,7 +644,11 @@ document.querySelectorAll(".faq-item").forEach(item=>{
 });
 
 // Contact panel
-function openContact(){
+function openContact(preselect){
+  if(preselect){
+    const sel=document.querySelector('#cpanel select[name="tipo"]');
+    if(sel)sel.value=preselect;
+  }
   document.getElementById("cpanel").classList.add("open");
   document.body.style.overflow="hidden";
 }
@@ -654,6 +658,12 @@ function closeContact(){
 }
 document.getElementById("cpanel").addEventListener("click",e=>{if(e.target.id==="cpanel")closeContact()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeContact()});
+
+// Auto-open from ?contact= URL param (used by product subpages)
+(function(){
+  const p=new URLSearchParams(location.search).get('contact');
+  if(p){history.replaceState({},'',location.pathname+location.hash);openContact(p)}
+})();
 
 // Form submit
 async function handleSubmit(e){
