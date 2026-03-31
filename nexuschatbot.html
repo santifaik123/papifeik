@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NexusChatBot — Chatbot inteligente para tu web | nuvik.digital</title>
+<meta name="description" content="Chatbot inteligente con burbuja flotante para tu web. Atiende clientes 24/7, captura leads automáticamente y se integra en cualquier sitio."/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07131C;--bg2:#091824;--bg3:#0d2030;
+  --w:#EFEEEA;--s:#8E94A0;--d:#3E5060;
+  --r:#0f2030;--r2:#152840;
+  --accent:#6366F1;--accent2:#818CF8;--accent3:#4F46E5;
+  --glass:rgba(99,102,241,0.06);--glass-border:rgba(99,102,241,0.15);
+  --glow:rgba(99,102,241,0.25);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--w);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+body.loaded #loader{opacity:0;pointer-events:none;transition:opacity .6s ease}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity .6s ease}
+.loader-icon{width:72px;height:72px;position:relative;animation:loaderPulse 1.5s ease-in-out infinite}
+.loader-icon-bg{position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:.15}
+.loader-icon-glow{position:absolute;inset:-8px;border-radius:24px;background:radial-gradient(circle,var(--glow),transparent 70%);animation:glowPulse 1.5s ease-in-out infinite}
+.loader-icon svg{position:relative;z-index:1;width:100%;height:100%}
+.loader-brand{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;letter-spacing:.12em;color:var(--s);text-transform:uppercase}
+.loader-bar-wrap{width:200px;height:2px;background:var(--r2);border-radius:2px;overflow:hidden}
+.loader-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .05s linear}
+.loader-pct{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--d);letter-spacing:.1em}
+@keyframes loaderPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes glowPulse{0%,100%{opacity:.4}50%{opacity:.8}}
+
+/* ── CANVAS ── */
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+/* ── CURSOR ── */
+.ncursor{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+.ncursor-ring{position:fixed;width:32px;height:32px;border-radius:50%;border:1px solid rgba(99,102,241,.5);pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.scrolled{background:rgba(7,19,28,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--r2);padding:14px 48px}
+.nav-back{display:inline-flex;align-items:center;gap:8px;color:var(--s);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.03em;transition:color .25s}
+.nav-back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.nav-back:hover{color:var(--w)}
+.nav-back:hover svg{transform:translateX(-3px)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:dotBlink 2s ease-in-out infinite}
+@keyframes dotBlink{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-brand-txt{font-size:14px;font-weight:700;color:var(--w);letter-spacing:-.01em}
+.nav-cta{padding:9px 20px;background:var(--accent);border:none;border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(99,102,241,.4)}
+@media(max-width:768px){nav{padding:16px 20px}nav.scrolled{padding:12px 20px}.nav-cta{display:none}}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 48px 80px;overflow:hidden;z-index:1}
+.hero-glow{position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 65%);pointer-events:none}
+.hero-inner{max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:100px;font-size:11px;font-weight:600;color:var(--accent2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:dotBlink 1.5s ease-in-out infinite}
+h1.hero-title{font-family:'Lora',serif;font-size:clamp(36px,5vw,64px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px}
+h1.hero-title em{font-style:italic;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:17px;line-height:1.65;color:var(--s);margin-bottom:36px;max-width:460px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{padding:14px 28px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(99,102,241,.4)}
+.btn-ghost{padding:14px 28px;background:transparent;border:1px solid var(--r2);border-radius:10px;color:var(--s);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{border-color:var(--accent);color:var(--w)}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{padding:5px 12px;background:var(--bg3);border:1px solid var(--r);border-radius:6px;font-size:11px;color:var(--d);letter-spacing:.04em}
+@media(max-width:900px){.hero{padding:100px 20px 60px}.hero-inner{grid-template-columns:1fr;gap:40px}.hero-sub{max-width:100%}}
+
+/* ── CHAT DEMO VISUAL ── */
+.chat-demo{position:relative;height:420px}
+.browser-frame{background:var(--bg2);border:1px solid var(--r2);border-radius:14px;overflow:hidden;height:100%;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+.browser-bar{padding:10px 16px;background:var(--bg3);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--r)}
+.browser-dot{width:10px;height:10px;border-radius:50%}
+.browser-url{flex:1;background:var(--r);border-radius:4px;padding:4px 10px;font-size:11px;color:var(--d);margin-left:8px}
+.browser-body{flex:1;position:relative;overflow:hidden;padding:20px;background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.site-mockup{opacity:.3}
+.site-bar{height:10px;background:var(--r2);border-radius:3px;margin-bottom:10px;width:60%}
+.site-bar.w80{width:80%}
+.site-bar.w40{width:40%}
+.site-block{height:60px;background:var(--r);border-radius:6px;margin-bottom:10px}
+.site-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.site-card{height:50px;background:var(--r);border-radius:6px}
+
+/* Chat bubble */
+.chat-bubble{position:absolute;bottom:20px;right:20px;width:52px;height:52px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 32px rgba(99,102,241,.5),0 0 0 0 rgba(99,102,241,.3);animation:bubblePulse 2s ease-in-out infinite}
+.chat-bubble svg{width:24px;height:24px;fill:#fff}
+.chat-bubble .notif{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:#EF4444;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
+@keyframes bubblePulse{0%,100%{box-shadow:0 8px 32px rgba(99,102,241,.5),0 0 0 0 rgba(99,102,241,.3)}50%{box-shadow:0 8px 32px rgba(99,102,241,.5),0 0 0 10px rgba(99,102,241,0)}}
+
+/* Chat window */
+.chat-window{position:absolute;bottom:82px;right:20px;width:280px;background:var(--bg3);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.6);transform:scale(.9) translateY(10px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.chat-window.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.chat-header{padding:14px 16px;background:var(--accent);display:flex;align-items:center;gap:10px}
+.chat-header-avatar{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px}
+.chat-header-info{flex:1}
+.chat-header-name{font-size:13px;font-weight:700;color:#fff}
+.chat-header-status{font-size:10px;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:4px}
+.chat-header-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ADE80;display:inline-block}
+.chat-body{padding:12px;min-height:120px;max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.chat-msg{max-width:85%;padding:8px 12px;border-radius:12px;font-size:12px;line-height:1.5;animation:msgIn .3s cubic-bezier(.34,1.56,.64,1)}
+.chat-msg.bot{background:var(--r2);color:var(--w);align-self:flex-start;border-bottom-left-radius:4px}
+.chat-msg.user{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-typing{display:flex;align-items:center;gap:4px;padding:8px 12px;background:var(--r2);border-radius:12px;border-bottom-left-radius:4px;align-self:flex-start;width:fit-content}
+.chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--d);animation:typing .9s ease-in-out infinite}
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-4px);opacity:1}}
+@keyframes msgIn{from{transform:scale(.8) translateY(5px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.chat-input-row{padding:10px 12px;border-top:1px solid var(--r);display:flex;gap:6px;align-items:center}
+.chat-input{flex:1;background:var(--r2);border:1px solid var(--r2);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--s);outline:none;font-family:'DM Sans',sans-serif}
+.chat-send{width:30px;height:30px;border-radius:7px;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-send svg{width:14px;height:14px;fill:#fff}
+
+/* ── STATS ── */
+.stats-band{position:relative;z-index:1;padding:60px 48px;background:linear-gradient(180deg,transparent,rgba(99,102,241,.04),transparent)}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--r2);border-radius:16px;overflow:hidden;border:1px solid var(--r2)}
+.stat-item{padding:36px 24px;text-align:center;background:var(--bg2);position:relative;overflow:hidden}
+.stat-item::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .4s}
+.stat-item:hover::after{opacity:1}
+.stat-num-wrap{display:flex;align-items:baseline;justify-content:center;gap:2px}
+.stat-n{font-size:44px;font-weight:800;color:var(--accent);line-height:1;font-family:'DM Sans',sans-serif}
+.stat-suf{font-size:20px;font-weight:700;color:var(--accent);line-height:1}
+.stat-lbl{font-size:12px;color:var(--s);margin-top:8px;line-height:1.4}
+@media(max-width:768px){.stats-band{padding:40px 20px}.stats-inner{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.stats-inner{grid-template-columns:1fr}}
+
+/* ── SECTION BASE ── */
+.section{position:relative;z-index:1;padding:100px 48px}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.sec-title{font-family:'Lora',serif;font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:20px}
+.sec-title em{font-style:italic;color:var(--accent2)}
+.sec-sub{font-size:16px;color:var(--s);line-height:1.7;max-width:600px;margin-bottom:56px}
+@media(max-width:768px){.section{padding:60px 20px}}
+
+/* ── FEATURES ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat-card{padding:32px;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;backdrop-filter:blur(20px);transition:all .4s;position:relative;overflow:hidden;cursor:default}
+.feat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(99,102,241,.08),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.feat-card:hover{border-color:rgba(99,102,241,.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(99,102,241,.12)}
+.feat-card:hover::before{opacity:1}
+.feat-icon{width:48px;height:48px;border-radius:12px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
+.feat-title{font-size:16px;font-weight:700;color:var(--w);margin-bottom:10px;letter-spacing:-.01em}
+.feat-desc{font-size:14px;color:var(--s);line-height:1.6}
+@media(max-width:900px){.features-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:550px){.features-grid{grid-template-columns:1fr}}
+
+/* ── HOW IT WORKS ── */
+.steps-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.steps-wrap::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
+.step{text-align:center;padding:0 16px;position:relative}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--bg2);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:18px;font-weight:800;color:var(--accent);position:relative;z-index:1;transition:all .4s}
+.step:hover .step-num{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 32px var(--glow)}
+.step-title{font-size:15px;font-weight:700;color:var(--w);margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--s);line-height:1.6}
+@media(max-width:768px){.steps-wrap{grid-template-columns:1fr 1fr;gap:32px}.steps-wrap::before{display:none}}
+@media(max-width:400px){.steps-wrap{grid-template-columns:1fr}}
+
+/* ── DEMO SECTION ── */
+.demo-section{background:linear-gradient(180deg,transparent,rgba(99,102,241,.04),transparent);padding:100px 48px}
+.demo-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.demo-text .sec-label{margin-bottom:12px}
+.demo-text .sec-title{margin-bottom:16px}
+.demo-text p{font-size:15px;color:var(--s);line-height:1.7;margin-bottom:12px}
+.demo-feats{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+.demo-feat{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--s)}
+.demo-feat-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.demo-visual{position:relative;height:400px}
+@media(max-width:900px){.demo-section{padding:60px 20px}.demo-inner{grid-template-columns:1fr;gap:40px}.demo-visual{height:340px}}
+
+/* ── INTEGRATIONS ── */
+.integ-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:700px;margin:0 auto}
+.integ-badge{padding:10px 20px;background:var(--bg2);border:1px solid var(--r2);border-radius:100px;font-size:13px;font-weight:500;color:var(--s);display:flex;align-items:center;gap:8px;transition:all .3s}
+.integ-badge:hover{border-color:var(--accent);color:var(--w)}
+.integ-badge-icon{font-size:16px}
+
+/* ── TESTIMONIAL / QUOTE ── */
+.quote-section{padding:80px 48px;text-align:center}
+.quote-wrap{max-width:700px;margin:0 auto;padding:48px;background:var(--glass);border:1px solid var(--glass-border);border-radius:24px;backdrop-filter:blur(20px);position:relative}
+.quote-mark{font-size:80px;line-height:.8;color:var(--accent);opacity:.3;font-family:'Lora',serif;position:absolute;top:20px;left:32px}
+blockquote{font-family:'Lora',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;line-height:1.6;color:var(--w);position:relative;z-index:1;margin-bottom:24px}
+.quote-author{font-size:13px;color:var(--s);font-style:normal}
+@media(max-width:768px){.quote-section{padding:40px 20px}.quote-wrap{padding:32px 24px}}
+
+/* ── CTA FINAL ── */
+.cta-final{padding:120px 48px;text-align:center;position:relative;z-index:1;overflow:hidden}
+.cta-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(99,102,241,.08),transparent);pointer-events:none}
+.cta-title{font-family:'Lora',serif;font-size:clamp(32px,5vw,60px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px}
+.cta-title em{font-style:italic;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-sub{font-size:17px;color:var(--s);max-width:500px;margin:0 auto 40px;line-height:1.6}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+@media(max-width:768px){.cta-final{padding:80px 20px}}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--r2);padding:32px 48px}
+.ft-row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.ft-brand p{font-size:17px;font-weight:800;letter-spacing:-.4px}
+.ft-brand small{font-size:11px;color:var(--d);display:block;margin-top:4px}
+.ft-links{display:flex;gap:20px;flex-wrap:wrap}
+.ft-links a{color:var(--s);text-decoration:none;font-size:13px;transition:color .25s}
+.ft-links a:hover{color:var(--accent)}
+.ft-copy{font-size:11px;color:var(--d);text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid var(--r)}
+@media(max-width:768px){footer{padding:24px 20px}.ft-row{flex-direction:column;align-items:flex-start;gap:16px}}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.left{transform:translateX(-30px)}
+.reveal.right{transform:translateX(30px)}
+.reveal.scale{transform:scale(.95)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.reveal-delay-5{transition-delay:.5s}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-icon">
+    <div class="loader-icon-glow"></div>
+    <div class="loader-icon-bg"></div>
+    <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="72" height="72" rx="18" fill="#07131C"/>
+      <path d="M20 22v28h6.5L42 34.5V50h6.5V22H42L26.5 37.5V22H20z" fill="url(#lg)"/>
+      <!-- Chat bubble tail -->
+      <circle cx="52" cy="24" r="6" fill="url(#lg)" opacity=".9"/>
+      <defs>
+        <linearGradient id="lg" x1="20" y1="22" x2="52" y2="50" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#6366F1"/>
+          <stop offset="100%" stop-color="#818CF8"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div class="loader-brand">NexusChatBot</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="lbar"></div></div>
+  <div class="loader-pct" id="lpct">0%</div>
+</div>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- CURSOR -->
+<div class="ncursor" id="nc"></div>
+<div class="ncursor-ring" id="ncr"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    nuvik.digital
+  </a>
+  <div class="nav-brand">
+    <div class="nav-dot"></div>
+    <span class="nav-brand-txt">NexusChatBot</span>
+  </div>
+  <a href="index.html#contacto" class="nav-cta" onclick="window.opener?window.close():window.location='index.html'">Solicitar demo</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <div class="hero-badge-dot"></div>
+        Chatbot inteligente · Nuvik Suite
+      </div>
+      <h1 class="hero-title reveal reveal-delay-1">
+        Tu web atendiendo<br/>clientes. <em>Siempre.</em>
+      </h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        NexusChatBot es una burbuja flotante inteligente que vive en tu web.
+        Responde, captura leads y convierte visitantes —
+        sin que tengas que estar presente.
+      </p>
+      <div class="hero-btns reveal reveal-delay-3">
+        <a href="index.html" class="btn-primary" onclick="sessionStorage.setItem('openContact','1');return true">Solicitar demo</a>
+        <a href="#como-funciona" class="btn-ghost">¿Cómo funciona?</a>
+      </div>
+      <div class="hero-tags reveal reveal-delay-4">
+        <span class="hero-tag">24/7 sin intervención</span>
+        <span class="hero-tag">Captura de leads</span>
+        <span class="hero-tag">1 línea de código</span>
+        <span class="hero-tag">Cualquier plataforma</span>
+      </div>
+    </div>
+
+    <!-- CHAT DEMO VISUAL -->
+    <div class="chat-demo reveal right reveal-delay-2">
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dot" style="background:#FF5F57"></div>
+          <div class="browser-dot" style="background:#FEBC2E"></div>
+          <div class="browser-dot" style="background:#28C840"></div>
+          <div class="browser-url">tunegocio.com</div>
+        </div>
+        <div class="browser-body">
+          <div class="site-mockup">
+            <div class="site-bar w80"></div>
+            <div class="site-bar w40"></div>
+            <div class="site-block"></div>
+            <div class="site-grid">
+              <div class="site-card"></div>
+              <div class="site-card"></div>
+            </div>
+            <div class="site-bar w60" style="width:60%"></div>
+            <div class="site-bar w80"></div>
+          </div>
+          <!-- Chat bubble -->
+          <div class="chat-bubble" id="chatBubble" onclick="toggleChat()">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+            <div class="notif">1</div>
+          </div>
+          <!-- Chat window -->
+          <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+              <div class="chat-header-avatar">🤖</div>
+              <div class="chat-header-info">
+                <div class="chat-header-name">NexusBot</div>
+                <div class="chat-header-status">En línea ahora</div>
+              </div>
+            </div>
+            <div class="chat-body" id="chatBody"></div>
+            <div class="chat-input-row">
+              <input class="chat-input" placeholder="Escribe un mensaje..." readonly/>
+              <button class="chat-send">
+                <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num-wrap"><span class="stat-n" data-count="80">0</span><span class="stat-suf">%</span></div>
+      <div class="stat-lbl">Preguntas respondidas automáticamente</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-num-wrap"><span class="stat-n">24</span><span class="stat-suf">/7</span></div>
+      <div class="stat-lbl">Disponibilidad total, sin días libres</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num-wrap"><span class="stat-n">+</span><span class="stat-n" data-count="35">0</span><span class="stat-suf">%</span></div>
+      <div class="stat-lbl">Más leads capturados desde el día 1</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num-wrap"><span class="stat-n">&lt;</span><span class="stat-n" data-count="2">0</span><span class="stat-suf">s</span></div>
+      <div class="stat-lbl">Tiempo de respuesta promedio</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="sec-label reveal">Capacidades</div>
+    <h2 class="sec-title reveal">Todo lo que necesita un chatbot<br/><em>de verdad.</em></h2>
+    <p class="sec-sub reveal">No es un FAQ glorificado. NexusChatBot entiende el contexto, captura datos y aprende de tu negocio.</p>
+    <div class="features-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon">💬</div>
+        <div class="feat-title">Burbuja flotante personalizable</div>
+        <div class="feat-desc">Aparece en la esquina de tu web con tus colores, nombre y avatar. Discreta hasta que el cliente la necesita.</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">🧠</div>
+        <div class="feat-title">Entrenado con tu información</div>
+        <div class="feat-desc">Le damos tu catálogo, preguntas frecuentes, precios y políticas. Responde exactamente lo que tus clientes preguntan.</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">🎯</div>
+        <div class="feat-title">Captura de leads automática</div>
+        <div class="feat-desc">Pide nombre, email y teléfono en el momento preciso. Los datos llegan directos a tu bandeja o CRM.</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">🔗</div>
+        <div class="feat-title">Integración en 1 línea</div>
+        <div class="feat-desc">Un snippet de código y listo. Compatible con WordPress, Shopify, Wix, Webflow o cualquier HTML.</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">🤝</div>
+        <div class="feat-title">Escalada a humano</div>
+        <div class="feat-desc">Cuando la consulta es compleja, transfiere la conversación a una persona real. Sin perder el historial.</div>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">📊</div>
+        <div class="feat-title">Panel de conversaciones</div>
+        <div class="feat-desc">Ve todas las charlas, los leads capturados y las preguntas más frecuentes. Datos reales de lo que preguntan tus clientes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="como-funciona" style="background:linear-gradient(180deg,transparent,rgba(99,102,241,.03),transparent)">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="sec-label reveal">Proceso</div>
+    <h2 class="sec-title reveal">De cero a atendiendo<br/><em>en 5 días.</em></h2>
+    <p class="sec-sub reveal" style="margin-left:auto;margin-right:auto">Sin reuniones infinitas. Sin tecnicismos. Sin que tengas que tocar código.</p>
+    <div class="steps-wrap">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-title">Nos cuentas tu negocio</div>
+        <div class="step-desc">Una sesión rápida para entender qué vendes, qué preguntan tus clientes y qué tono quieres usar.</div>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">2</div>
+        <div class="step-title">Entrenamos el bot</div>
+        <div class="step-desc">Cargamos tu catálogo, preguntas frecuentes, precios y políticas. El bot aprende tu negocio.</div>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">3</div>
+        <div class="step-title">Lo integramos en tu web</div>
+        <div class="step-desc">Pegamos 1 línea de código en tu sitio. Funciona en WordPress, Shopify, Wix o HTML puro.</div>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">4</div>
+        <div class="step-title">Listo. Empieza a trabajar.</div>
+        <div class="step-desc">Tu chatbot ya está atendiendo clientes 24/7, capturando leads mientras tú haces otra cosa.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO SECTION -->
+<section class="demo-section" id="demo">
+  <div class="demo-inner" style="max-width:1100px;margin:0 auto">
+    <div class="demo-text">
+      <div class="sec-label reveal">En acción</div>
+      <h2 class="sec-title reveal">Así se ve en<br/><em>tu web.</em></h2>
+      <p class="reveal">Una burbuja discreta en la esquina. Cuando un cliente hace click, se abre una ventana de chat limpia, rápida y con la identidad visual de tu marca.</p>
+      <div class="demo-feats">
+        <div class="demo-feat reveal reveal-delay-1"><div class="demo-feat-dot"></div>Responde en menos de 2 segundos</div>
+        <div class="demo-feat reveal reveal-delay-2"><div class="demo-feat-dot"></div>Soporta emojis, listas y links</div>
+        <div class="demo-feat reveal reveal-delay-3"><div class="demo-feat-dot"></div>Historial de conversación guardado</div>
+        <div class="demo-feat reveal reveal-delay-4"><div class="demo-feat-dot"></div>Mobile-first, se ve perfecto en celular</div>
+      </div>
+    </div>
+    <!-- Second live demo -->
+    <div class="demo-visual reveal right">
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dot" style="background:#FF5F57"></div>
+          <div class="browser-dot" style="background:#FEBC2E"></div>
+          <div class="browser-dot" style="background:#28C840"></div>
+          <div class="browser-url">tunegocio.com/productos</div>
+        </div>
+        <div class="browser-body">
+          <div class="site-mockup">
+            <div class="site-bar w80"></div>
+            <div class="site-grid">
+              <div class="site-card"></div>
+              <div class="site-card"></div>
+            </div>
+            <div class="site-bar w40"></div>
+          </div>
+          <div class="chat-bubble" id="chatBubble2" onclick="toggleChat2()" style="bottom:16px;right:16px">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <div class="chat-window" id="chatWindow2" style="bottom:78px;right:16px;width:260px">
+            <div class="chat-header">
+              <div class="chat-header-avatar">✨</div>
+              <div class="chat-header-info">
+                <div class="chat-header-name">Asistente</div>
+                <div class="chat-header-status">En línea ahora</div>
+              </div>
+            </div>
+            <div class="chat-body" id="chatBody2"></div>
+            <div class="chat-input-row">
+              <input class="chat-input" placeholder="Escribe aquí..." readonly/>
+              <button class="chat-send">
+                <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="section" style="text-align:center">
+  <div style="max-width:900px;margin:0 auto">
+    <div class="sec-label reveal">Compatibilidad</div>
+    <h2 class="sec-title reveal" style="text-align:center">Se integra en <em>cualquier web.</em></h2>
+    <p class="sec-sub reveal" style="margin:0 auto 40px">Sin importar con qué está hecho tu sitio, NexusChatBot funciona.</p>
+    <div class="integ-grid">
+      <div class="integ-badge reveal"><span class="integ-badge-icon">🔵</span>WordPress</div>
+      <div class="integ-badge reveal reveal-delay-1"><span class="integ-badge-icon">🟢</span>Shopify</div>
+      <div class="integ-badge reveal reveal-delay-2"><span class="integ-badge-icon">🟣</span>Webflow</div>
+      <div class="integ-badge reveal reveal-delay-3"><span class="integ-badge-icon">🟡</span>Wix</div>
+      <div class="integ-badge reveal reveal-delay-1"><span class="integ-badge-icon">⚡</span>HTML puro</div>
+      <div class="integ-badge reveal reveal-delay-2"><span class="integ-badge-icon">🔶</span>Squarespace</div>
+      <div class="integ-badge reveal reveal-delay-3"><span class="integ-badge-icon">💚</span>Next.js</div>
+      <div class="integ-badge reveal"><span class="integ-badge-icon">🔷</span>Framer</div>
+      <div class="integ-badge reveal reveal-delay-1"><span class="integ-badge-icon">🌐</span>Cualquier otro</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <div class="quote-wrap reveal scale">
+    <div class="quote-mark">"</div>
+    <blockquote>El chatbot empezó a capturar leads a las 3am mientras yo dormía. Primera semana, 12 contactos nuevos sin hacer nada.</blockquote>
+    <div class="quote-author">— Cliente de NexusChatBot · E-commerce de indumentaria, Buenos Aires</div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-glow"></div>
+  <div class="sec-label reveal">¿Listo para automatizar?</div>
+  <h2 class="cta-title reveal">Tu negocio merece<br/><em>un asistente 24/7.</em></h2>
+  <p class="cta-sub reveal">Hablamos 15 minutos. Te mostramos el bot en acción y en 5 días está en tu web.</p>
+  <div class="cta-btns reveal">
+    <a href="index.html" class="btn-primary" onclick="sessionStorage.setItem('openContact','1');return true" style="font-size:16px;padding:16px 36px">Quiero mi NexusChatBot</a>
+    <a href="index.html#suite" class="btn-ghost" style="font-size:16px;padding:16px 36px">Ver toda la suite</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-row">
+    <div class="ft-brand">
+      <p>nuvik.digital</p>
+      <small>NexusChatBot — parte de la Nuvik Suite</small>
+    </div>
+    <div class="ft-links">
+      <a href="index.html#suite">Suite</a>
+      <a href="index.html#servicios">Servicios</a>
+      <a href="index.html#proceso">Proceso</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+  </div>
+  <div class="ft-copy">© 2026 nuvik.digital — Santiago, Chile</div>
+</footer>
+
+<script>
+// ── LOADER ──────────────────────────────────────────────────────────────────
+(function(){
+  const bar=document.getElementById('lbar'),pct=document.getElementById('lpct');
+  let p=0;
+  const iv=setInterval(()=>{
+    p+=Math.random()*4+1;
+    if(p>=100){p=100;clearInterval(iv);setTimeout(()=>{document.body.classList.add('loaded')},400)}
+    bar.style.width=p+'%';
+    pct.textContent=Math.floor(p)+'%';
+  },40);
+})();
+
+// ── CURSOR ───────────────────────────────────────────────────────────────────
+if(window.matchMedia('(pointer:fine)').matches){
+  const nc=document.getElementById('nc'),ncr=document.getElementById('ncr');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  (function loop(){
+    nc.style.left=mx+'px';nc.style.top=my+'px';
+    rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+    ncr.style.left=rx+'px';ncr.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,button,[data-cursor]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{nc.style.width='16px';nc.style.height='16px';ncr.style.width='50px';ncr.style.height='50px'});
+    el.addEventListener('mouseleave',()=>{nc.style.width='10px';nc.style.height='10px';ncr.style.width='32px';ncr.style.height='32px'});
+  });
+} else {
+  document.body.style.cursor='auto';
+  document.getElementById('nc').style.display='none';
+  document.getElementById('ncr').style.display='none';
+}
+
+// ── NAV SCROLL ───────────────────────────────────────────────────────────────
+const navEl=document.getElementById('nav');
+window.addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+
+// ── PARTICLE CANVAS ──────────────────────────────────────────────────────────
+(function(){
+  const canvas=document.getElementById('bg-canvas'),ctx=canvas.getContext('2d');
+  let W=window.innerWidth,H=window.innerHeight;
+  canvas.width=W;canvas.height=H;
+  const mouse={x:W/2,y:H/2};
+  const N=Math.min(80,Math.floor(W*H/18000));
+  const colors=['rgba(99,102,241,','rgba(129,140,248,','rgba(79,70,229,'];
+  const pts=Array.from({length:N},()=>({
+    x:Math.random()*W,y:Math.random()*H,
+    vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,
+    r:Math.random()*1.5+.5,a:Math.random()*.5+.15,
+    c:colors[Math.floor(Math.random()*colors.length)]
+  }));
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      const dx=p.x-mouse.x,dy=p.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<100){const f=(100-d)/100;p.vx+=(dx/d)*f*.25;p.vy+=(dy/d)*f*.25}
+      p.vx*=.99;p.vy*=.99;
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.c+p.a+')';ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<130){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(99,102,241,'+(1-d/130)*.15+')';ctx.lineWidth=.5;ctx.stroke()}
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+  document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+  window.addEventListener('resize',()=>{W=window.innerWidth;H=window.innerHeight;canvas.width=W;canvas.height=H});
+})();
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────────────────
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+// ── COUNTERS ─────────────────────────────────────────────────────────────────
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting||e.target.dataset.done)return;
+      e.target.dataset.done='1';
+      const end=+e.target.dataset.count,dur=1800,steps=60;
+      let cur=0;
+      const iv=setInterval(()=>{
+        cur+=end/steps;
+        if(cur>=end){cur=end;clearInterval(iv)}
+        e.target.textContent=Math.floor(cur);
+      },dur/steps);
+    });
+  },{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(el=>obs.observe(el));
+})();
+
+// ── CHAT DEMO 1 ──────────────────────────────────────────────────────────────
+let chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
+  document.querySelector('#chatBubble .notif').style.display=chatOpen?'none':'flex';
+  if(chatOpen)runChat('chatBody',chat1Script);
+}
+const chat1Script=[
+  {type:'bot',text:'¡Hola! 👋 Soy el asistente de este negocio. ¿En qué puedo ayudarte hoy?',delay:600},
+  {type:'user',text:'¿Cuánto cuesta el producto premium?',delay:1800},
+  {type:'typing',delay:2400},
+  {type:'bot',text:'El plan Premium tiene un costo de $49/mes e incluye todo lo del plan Starter más soporte prioritario y analíticas avanzadas. 🚀',delay:3400},
+  {type:'user',text:'¿Tienen prueba gratis?',delay:5000},
+  {type:'typing',delay:5600},
+  {type:'bot',text:'¡Sí! 14 días de prueba gratis, sin tarjeta de crédito. ¿Te envío el link por email?',delay:6600},
+];
+
+// ── CHAT DEMO 2 (auto-play) ───────────────────────────────────────────────────
+let chat2Open=false,chat2Started=false;
+function toggleChat2(){
+  chat2Open=!chat2Open;
+  document.getElementById('chatWindow2').classList.toggle('open',chat2Open);
+  if(chat2Open&&!chat2Started){chat2Started=true;runChat('chatBody2',chat2Script)}
+}
+const chat2Script=[
+  {type:'bot',text:'Hola 😊 ¿Cómo puedo ayudarte?',delay:500},
+  {type:'user',text:'¿Hacen envíos a todo el país?',delay:1800},
+  {type:'typing',delay:2300},
+  {type:'bot',text:'Sí, hacemos envíos a todo Chile con Chilexpress y Starken. Envío gratis en compras sobre $30.000. 📦',delay:3200},
+  {type:'bot',text:'¿Te puedo anotar tu email para avisarte cuando haya descuentos?',delay:4400},
+  {type:'user',text:'Claro, es cliente@mail.com',delay:6000},
+  {type:'typing',delay:6500},
+  {type:'bot',text:'¡Perfecto! Ya te tengo anotado. Te llegarán las próximas ofertas. ✅',delay:7300},
+];
+
+let typingEl=null;
+function runChat(bodyId,script){
+  const body=document.getElementById(bodyId);
+  body.innerHTML='';
+  script.forEach(msg=>{
+    if(msg.type==='typing'){
+      setTimeout(()=>{
+        const el=document.createElement('div');
+        el.className='chat-typing';
+        el.innerHTML='<span></span><span></span><span></span>';
+        el.id='typing_'+bodyId;
+        body.appendChild(el);
+        body.scrollTop=body.scrollHeight;
+      },msg.delay);
+    } else {
+      setTimeout(()=>{
+        const t=document.getElementById('typing_'+bodyId);
+        if(t)t.remove();
+        const el=document.createElement('div');
+        el.className='chat-msg '+msg.type;
+        el.textContent=msg.text;
+        body.appendChild(el);
+        body.scrollTop=body.scrollHeight;
+      },msg.delay);
+    }
+  });
+}
+
+// Auto-open demo1 after 1.5s if not interacted
+setTimeout(()=>{
+  if(!chatOpen){
+    chatOpen=true;
+    document.getElementById('chatWindow').classList.add('open');
+    document.querySelector('#chatBubble .notif').style.display='none';
+    runChat('chatBody',chat1Script);
+  }
+},1500);
+
+// ── FEAT CARD MOUSE GLOW ────────────────────────────────────────────────────
+document.querySelectorAll('.feat-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+  });
+});
+
+// ── CONTACT REDIRECT ────────────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  if(sessionStorage.getItem('openContact')==='1'){
+    sessionStorage.removeItem('openContact');
+  }
+});
+</script>
+</body>
+</html>
