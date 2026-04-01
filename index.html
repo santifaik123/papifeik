@@ -232,6 +232,113 @@ footer{background:var(--bg2);border-top:1px solid var(--r2);padding:32px 48px}
 /* Reveal */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── PRICING ──────────────────────────────────────────────────────────────── */
+#precios{padding:120px 48px;background:var(--bg2);position:relative;overflow:hidden}
+#precios::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(42,68,201,.07),transparent 60%);border-radius:50%;pointer-events:none}
+.precios-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.precios-head{text-align:center;margin-bottom:52px}
+.price-note{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--d);margin-top:12px}
+
+/* Tab switcher */
+.price-tabs{display:flex;gap:4px;justify-content:center;background:var(--bg3);border:1px solid var(--r2);border-radius:12px;padding:5px;margin:0 auto 52px;width:fit-content}
+.ptab{padding:10px 28px;border-radius:8px;border:none;background:transparent;color:var(--s);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;letter-spacing:-.1px;white-space:nowrap}
+.ptab.active{background:var(--b);color:white;box-shadow:0 4px 16px rgba(42,68,201,.35)}
+.ptab:not(.active):hover{color:var(--w)}
+@media(max-width:600px){.price-tabs{flex-direction:column;width:100%;max-width:280px}.ptab{text-align:center}}
+
+/* Price panels */
+.price-panel{display:none}
+.price-panel.active{display:block}
+.price-cards{display:grid;gap:18px}
+.price-cards.single{grid-template-columns:minmax(0,480px);justify-content:center}
+.price-cards.triple{grid-template-columns:repeat(3,1fr)}
+@media(max-width:960px){.price-cards.triple{grid-template-columns:1fr}#precios{padding:80px 20px}}
+@media(max-width:600px){.price-cards.single{grid-template-columns:1fr}}
+
+/* Price card */
+.pc{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:36px 32px;position:relative;overflow:hidden;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:all .45s cubic-bezier(.23,1,.32,1)}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--pc-accent,var(--b)),transparent);opacity:.55;transition:opacity .4s}
+.pc::after{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 60% 0%,color-mix(in srgb,var(--pc-accent,var(--b)) 8%,transparent),transparent 55%);pointer-events:none;opacity:0;transition:opacity .4s}
+.pc:hover{border-color:var(--pc-accent,var(--b));box-shadow:0 28px 70px rgba(0,0,0,.4),0 0 0 1px var(--pc-accent,var(--b));transform:translateY(-6px)}
+.pc:hover::after{opacity:1}
+.pc.popular{border-color:var(--pc-accent,var(--b));box-shadow:0 0 0 1px var(--pc-accent,var(--b)),0 16px 48px rgba(0,0,0,.3)}
+.pc.popular::after{opacity:1}
+.pc-badge-pop{position:absolute;top:18px;right:18px;padding:4px 12px;background:var(--pc-accent,var(--b));color:white;border-radius:20px;font-size:10px;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.pc-tier{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--pc-accent,var(--b));margin-bottom:20px}
+.pc-price{font-size:clamp(26px,4vw,38px);font-weight:800;font-family:'DM Sans',sans-serif;line-height:1;margin-bottom:6px;letter-spacing:-1px}
+.pc-price small{font-size:14px;font-weight:500;color:var(--s);letter-spacing:0}
+.pc-delivery{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--s);margin-bottom:28px;display:flex;align-items:center;gap:7px}
+.pc-delivery-dot{width:7px;height:7px;border-radius:50%;background:var(--pc-accent,var(--b));flex-shrink:0;animation:pulse-dot 2.2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--pc-accent,var(--b)) 40%,transparent)}70%{box-shadow:0 0 0 5px transparent}}
+.pc-div{height:1px;background:linear-gradient(90deg,transparent,var(--r2),transparent);margin-bottom:24px}
+.pc-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pc-feat{display:flex;align-items:flex-start;gap:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--s);line-height:1.5}
+.pc-feat::before{content:'✓';width:18px;height:18px;min-width:18px;border-radius:5px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22);color:var(--emerald);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.pc-feat em{color:var(--w);font-style:normal;font-weight:500}
+.pc-cta{width:100%;padding:13px;border-radius:8px;background:transparent;border:2px solid var(--pc-accent,var(--b));color:var(--w);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .3s;position:relative;z-index:1}
+.pc-cta:hover{background:var(--pc-accent,var(--b));box-shadow:0 8px 32px color-mix(in srgb,var(--pc-accent,var(--b)) 40%,transparent);transform:translateY(-1px)}
+.pc.popular .pc-cta{background:var(--pc-accent,var(--b))}
+.pc.popular .pc-cta:hover{filter:brightness(1.12)}
+@media(max-width:960px){.pc{padding:28px 22px}}
+
+/* ── NEXUSCHATBOT WIDGET ──────────────────────────────────────────────────── */
+#ncb-bubble{position:fixed;bottom:28px;right:28px;z-index:990}
+.ncb-btn{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#4f46e5);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(99,102,241,.5);transition:all .3s;border:none;cursor:pointer}
+.ncb-btn:hover{transform:scale(1.08);box-shadow:0 12px 40px rgba(99,102,241,.65)}
+.ncb-btn svg{width:22px;height:22px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ncb-notif{position:absolute;top:-1px;right:-1px;width:14px;height:14px;background:#10B981;border-radius:50%;border:2px solid var(--bg);display:none;animation:ncb-pulse 2s ease-in-out infinite}
+@keyframes ncb-pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%{box-shadow:0 0 0 5px transparent}}
+
+#ncb-panel{position:fixed;bottom:96px;right:28px;width:340px;max-height:520px;background:var(--bg);border:1px solid var(--r2);border-radius:20px;box-shadow:0 32px 80px rgba(0,0,0,.55),0 0 0 1px rgba(99,102,241,.12);z-index:989;display:none;flex-direction:column;overflow:hidden}
+#ncb-panel.open{display:flex;animation:ncb-slide .3s cubic-bezier(.23,1,.32,1)}
+@keyframes ncb-slide{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+
+.ncb-hdr{padding:16px 18px;background:linear-gradient(135deg,#4f46e5,#6366F1);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ncb-hdr-av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;border:1px solid rgba(255,255,255,.2)}
+.ncb-hdr-info{flex:1;min-width:0}
+.ncb-hdr-name{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.2}
+.ncb-hdr-tag{font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(255,255,255,.55);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.ncb-hdr-status{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:5px}
+.ncb-hdr-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#10B981;flex-shrink:0;box-shadow:0 0 5px rgba(16,185,129,.6)}
+.ncb-hdr-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;font-size:17px;flex-shrink:0;line-height:1}
+.ncb-hdr-close:hover{background:rgba(255,255,255,.25)}
+
+.ncb-msgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.ncb-msgs::-webkit-scrollbar{width:3px}
+.ncb-msgs::-webkit-scrollbar-thumb{background:var(--r2);border-radius:2px}
+
+.ncb-msg{max-width:85%;display:flex;flex-direction:column;gap:3px}
+.ncb-msg.bot{align-self:flex-start}
+.ncb-msg.user{align-self:flex-end}
+.ncb-bubble-txt{padding:10px 13px;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.55;font-weight:400}
+.ncb-msg.bot .ncb-bubble-txt{background:var(--bg2);border:1px solid var(--r2);color:var(--w);border-bottom-left-radius:4px}
+.ncb-msg.user .ncb-bubble-txt{background:linear-gradient(135deg,#4f46e5,#6366F1);color:white;border-bottom-right-radius:4px}
+.ncb-msg-time{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--d)}
+.ncb-msg.user .ncb-msg-time{text-align:right}
+
+.ncb-typing-wrap{align-self:flex-start}
+.ncb-typing{display:inline-flex;align-items:center;gap:4px;padding:11px 14px;background:var(--bg2);border:1px solid var(--r2);border-radius:14px;border-bottom-left-radius:4px}
+.ncb-typing span{width:6px;height:6px;border-radius:50%;background:var(--s);animation:ncb-dot .9s ease-in-out infinite}
+.ncb-typing span:nth-child(2){animation-delay:.2s}
+.ncb-typing span:nth-child(3){animation-delay:.4s}
+@keyframes ncb-dot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+.ncb-qr{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px 10px;min-height:0}
+.ncb-qr-btn{padding:7px 12px;background:transparent;border:1px solid var(--r2);border-radius:20px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--s);cursor:pointer;transition:all .22s;white-space:nowrap}
+.ncb-qr-btn:hover{border-color:#6366F1;color:var(--w);background:rgba(99,102,241,.08)}
+
+.ncb-input-row{padding:10px 12px;border-top:1px solid var(--r2);display:flex;gap:8px;background:var(--bg);flex-shrink:0;align-items:center}
+.ncb-input{flex:1;background:var(--bg2);border:1px solid var(--r2);border-radius:20px;padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--w);outline:none;transition:border-color .25s;min-width:0}
+.ncb-input:focus{border-color:#6366F1}
+.ncb-input::placeholder{color:var(--d)}
+.ncb-send{width:36px;height:36px;min-width:36px;border-radius:50%;background:var(--b);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s}
+.ncb-send:hover{background:#1e35b0;transform:scale(1.06)}
+.ncb-send svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ncb-foot{padding:7px 14px;text-align:center;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--d);border-top:1px solid var(--r);flex-shrink:0}
+.ncb-foot a{color:#6366F1;text-decoration:none;font-weight:600}
+.ncb-foot a:hover{text-decoration:underline}
+@media(max-width:420px){#ncb-panel{right:10px;left:10px;width:auto;bottom:86px}#ncb-bubble{right:14px;bottom:18px}}
 </style>
 </head>
 <body>
@@ -299,6 +406,7 @@ footer{background:var(--bg2);border-top:1px solid var(--r2);padding:32px 48px}
     <a href="#servicios">Servicios</a>
     <a href="#proceso">Proceso</a>
     <a href="#faq">FAQ</a>
+    <a href="#precios">Precios</a>
     <button class="nav-cta" onclick="openContact()">Cotiza ahora</button>
   </div>
 </nav>
@@ -412,6 +520,151 @@ footer{background:var(--bg2);border-top:1px solid var(--r2);padding:32px 48px}
         <div class="servicio"><h4>Dar.io</h4><p>Software de gestión integral: inventario, ventas, costos, ganancias. Dashboard completo en tiempo real para tu negocio.</p></div>
         <div class="servicio"><h4>NexusChatBot</h4><p>Chatbot inteligente con burbuja flotante. Atiende clientes 24/7, captura leads y responde automáticamente.</p></div>
         <div class="servicio"><h4>Agentes WhatsApp</h4><p>Bots inteligentes para WhatsApp Business. Responden, toman pedidos y gestionan conversaciones sin intervención.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Precios -->
+<section id="precios">
+  <div class="precios-inner">
+    <div class="precios-head reveal">
+      <div class="sec-label center">Precios · Diseño Web</div>
+      <h2 class="sec-title" style="text-align:center">Planes claros, <em>sin sorpresas.</em></h2>
+      <p class="sec-sub" style="text-align:center;margin:0 auto">Tres categorías según tu proyecto. Todos incluyen diseño responsivo, soporte y código 100% a medida.</p>
+      <p class="price-note">Precios en pesos chilenos (CLP)</p>
+    </div>
+
+    <div class="price-tabs reveal" id="price-tabs">
+      <button class="ptab active" data-tab="starter">Starter</button>
+      <button class="ptab" data-tab="pro">Pro</button>
+      <button class="ptab" data-tab="commerce">Commerce</button>
+    </div>
+
+    <!-- ── STARTER ─────────────────────────────────────────────────────────── -->
+    <div class="price-panel active" id="panel-starter">
+      <div class="price-cards single">
+        <div class="pc reveal" style="--pc-accent:#2A44C9">
+          <div class="pc-tier">Starter</div>
+          <div class="pc-price">$200.000 <small>CLP</small></div>
+          <div class="pc-delivery"><span class="pc-delivery-dot"></span>Entrega en 3 días hábiles</div>
+          <div class="pc-div"></div>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--s);margin-bottom:20px;line-height:1.6">El punto de entrada. Limpio, simple y funcional — exactamente lo que un negocio necesita para arrancar.</p>
+          <div class="pc-features">
+            <div class="pc-feat">Landing page de <em>1 página completa</em></div>
+            <div class="pc-feat">Diseño responsivo — mobile, tablet y desktop</div>
+            <div class="pc-feat">SEO básico — meta tags, velocidad y estructura</div>
+            <div class="pc-feat">Formulario de contacto funcional</div>
+            <div class="pc-feat">Botón de WhatsApp (link directo)</div>
+            <div class="pc-feat">1 mes de soporte para cambios menores</div>
+          </div>
+          <button class="pc-cta" onclick="openContact('Landing page')">Empezar con Starter →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PRO ────────────────────────────────────────────────────────────── -->
+    <div class="price-panel" id="panel-pro">
+      <div class="price-cards triple">
+        <div class="pc reveal" style="--pc-accent:#10B981">
+          <div class="pc-tier">Pro Esencial</div>
+          <div class="pc-price">$450.000 <small>CLP</small></div>
+          <div class="pc-delivery"><span class="pc-delivery-dot" style="background:#10B981"></span>Entrega en 5 días hábiles</div>
+          <div class="pc-div"></div>
+          <div class="pc-features">
+            <div class="pc-feat">Web de hasta <em>5 páginas</em></div>
+            <div class="pc-feat">Diseño <em>completamente a medida</em></div>
+            <div class="pc-feat">SEO optimizado en todas las páginas</div>
+            <div class="pc-feat">Formulario de contacto</div>
+            <div class="pc-feat">Botón WhatsApp</div>
+            <div class="pc-feat">1 mes de soporte</div>
+          </div>
+          <button class="pc-cta" onclick="openContact('Web corporativa')">Elegir Esencial →</button>
+        </div>
+
+        <div class="pc popular reveal" style="--pc-accent:#6366F1">
+          <div class="pc-badge-pop">Más popular</div>
+          <div class="pc-tier">Pro Avanzado</div>
+          <div class="pc-price">$550.000 <small>CLP</small></div>
+          <div class="pc-delivery"><span class="pc-delivery-dot" style="background:#6366F1"></span>Entrega en 5–6 días hábiles</div>
+          <div class="pc-div"></div>
+          <div class="pc-features">
+            <div class="pc-feat">Todo lo del Pro Esencial</div>
+            <div class="pc-feat"><em>Animaciones y efectos custom</em></div>
+            <div class="pc-feat">Galería de fotos o carrusel de trabajos</div>
+            <div class="pc-feat">2 meses de soporte</div>
+          </div>
+          <button class="pc-cta" onclick="openContact('Web corporativa')">Elegir Avanzado →</button>
+        </div>
+
+        <div class="pc reveal" style="--pc-accent:#2A44C9">
+          <div class="pc-tier">Pro Completo</div>
+          <div class="pc-price">$650.000 <small>CLP</small></div>
+          <div class="pc-delivery"><span class="pc-delivery-dot"></span>Entrega en 6–7 días hábiles</div>
+          <div class="pc-div"></div>
+          <div class="pc-features">
+            <div class="pc-feat">Todo lo del Pro Avanzado</div>
+            <div class="pc-feat">Hasta <em>8 páginas</em></div>
+            <div class="pc-feat">Sección de blog o noticias</div>
+            <div class="pc-feat">Integración con redes sociales</div>
+            <div class="pc-feat">3 meses de soporte</div>
+          </div>
+          <button class="pc-cta" onclick="openContact('Web corporativa')">Elegir Completo →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMMERCE ───────────────────────────────────────────────────────── -->
+    <div class="price-panel" id="panel-commerce">
+      <div class="price-cards triple">
+        <div class="pc reveal" style="--pc-accent:#10B981">
+          <div class="pc-tier">Commerce Esencial</div>
+          <div class="pc-price">$750.000 <small>CLP</small></div>
+          <div class="pc-delivery"><span class="pc-delivery-dot" style="background:#10B981"></span>Entrega en 7 días hábiles</div>
+          <div class="pc-div"></div>
+          <div class="pc-features">
+            <div class="pc-feat">Tienda online con catálogo <em>sin límite de productos</em></div>
+            <div class="pc-feat">Diseño a medida</div>
+            <div class="pc-feat">Carrito de compra</div>
+            <div class="pc-feat">SEO optimizado</div>
+            <div class="pc-feat">Formulario de contacto + WhatsApp</div>
+            <div class="pc-feat">Pagos: transferencia o link de pago</div>
+            <div class="pc-feat">2 meses de soporte</div>
+          </div>
+          <button class="pc-cta" onclick="openContact('Tienda online')">Elegir Esencial →</button>
+        </div>
+
+        <div class="pc popular reveal" style="--pc-accent:#6366F1">
+          <div class="pc-badge-pop">Más popular</div>
+          <div class="pc-tier">Commerce Pro</div>
+          <div class="pc-price">$850.000 <small>CLP</small></div>
+          <div class="pc-delivery"><span class="pc-delivery-dot" style="background:#6366F1"></span>Entrega en 7–8 días hábiles</div>
+          <div class="pc-div"></div>
+          <div class="pc-features">
+            <div class="pc-feat">Todo lo del Commerce Esencial</div>
+            <div class="pc-feat"><em>Animaciones y efectos custom</em></div>
+            <div class="pc-feat">Filtros de productos por categoría</div>
+            <div class="pc-feat">Galería multi-foto por producto</div>
+            <div class="pc-feat">Página "Sobre nosotros" y FAQ</div>
+            <div class="pc-feat">3 meses de soporte</div>
+          </div>
+          <button class="pc-cta" onclick="openContact('Tienda online')">Elegir Pro →</button>
+        </div>
+
+        <div class="pc reveal" style="--pc-accent:#2A44C9">
+          <div class="pc-tier">Commerce Premium</div>
+          <div class="pc-price">$950.000 <small>CLP</small></div>
+          <div class="pc-delivery"><span class="pc-delivery-dot"></span>Entrega en 8–10 días hábiles</div>
+          <div class="pc-div"></div>
+          <div class="pc-features">
+            <div class="pc-feat">Todo lo del Commerce Pro</div>
+            <div class="pc-feat"><em>Dashboard para gestionar productos</em></div>
+            <div class="pc-feat">Blog o sección de novedades</div>
+            <div class="pc-feat">Diseño de marca completo (favicon, colores, tipografía)</div>
+            <div class="pc-feat">3 meses de soporte</div>
+          </div>
+          <button class="pc-cta" onclick="openContact('Tienda online')">Elegir Premium →</button>
+        </div>
       </div>
     </div>
   </div>
@@ -571,12 +824,41 @@ footer{background:var(--bg2);border-top:1px solid var(--r2);padding:32px 48px}
     <div class="f-links">
       <a href="#suite">Suite</a>
       <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
       <a href="#proceso">Proceso</a>
       <a href="#faq">FAQ</a>
     </div>
   </div>
   <div class="f-copy">© 2026 nuvik.digital — Santiago, Chile</div>
 </footer>
+
+<!-- NexusChatBot Widget -->
+<div id="ncb-bubble" title="Habla con nosotros">
+  <button class="ncb-btn" aria-label="Abrir chat">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  </button>
+  <div class="ncb-notif" id="ncb-notif"></div>
+</div>
+<div id="ncb-panel" role="dialog" aria-label="Chat Nuvik Digital">
+  <div class="ncb-hdr">
+    <div class="ncb-hdr-av">💬</div>
+    <div class="ncb-hdr-info">
+      <div class="ncb-hdr-tag">NexusChatBot</div>
+      <div class="ncb-hdr-name">Asistente Nuvik</div>
+      <div class="ncb-hdr-status">En línea ahora</div>
+    </div>
+    <button class="ncb-hdr-close" id="ncb-hdr-close" aria-label="Cerrar chat">×</button>
+  </div>
+  <div class="ncb-msgs" id="ncb-msgs"></div>
+  <div class="ncb-qr" id="ncb-qr"></div>
+  <div class="ncb-input-row">
+    <input type="text" class="ncb-input" id="ncb-input" placeholder="Escribí tu consulta..." autocomplete="off"/>
+    <button class="ncb-send" id="ncb-send" aria-label="Enviar">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="ncb-foot">Powered by <a href="nexuschatbot.html" target="_blank">NexusChatBot</a></div>
+</div>
 
 <script>
 // Cursor — solo en dispositivos con mouse (no touch)
@@ -664,6 +946,127 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeContact()});
   const p=new URLSearchParams(location.search).get('contact');
   if(p){history.replaceState({},'',location.pathname+location.hash);openContact(p)}
 })();
+
+// ── PRICING TABS ──────────────────────────────────────────────────────────────
+document.querySelectorAll('.ptab').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.price-panel').forEach(p=>p.classList.remove('active'));
+    this.classList.add('active');
+    const panel=document.getElementById('panel-'+this.dataset.tab);
+    panel.classList.add('active');
+    panel.querySelectorAll('.reveal:not(.visible)').forEach(el=>revObs.observe(el));
+  });
+});
+
+// ── NEXUSCHATBOT WIDGET ───────────────────────────────────────────────────────
+const NCB_TREE={
+  start:{msg:'¡Hola! 👋 Soy el asistente de Nuvik Digital. ¿En qué te puedo ayudar hoy?',replies:['Ver servicios','Ver precios','Quiero una cotización','Hablar con el equipo']},
+  'Ver servicios':{msg:'Ofrecemos tres líneas principales:\n\n🌐 <b>Diseño web</b> — desde landing pages hasta e-commerce\n📊 <b>Dar.io</b> — software de gestión para negocios\n💬 <b>NexusChatBot</b> — chatbots y automatización',replies:['Diseño web','Software Dar.io','Chatbots','Ver precios']},
+  'Diseño web':{msg:'Webs a medida en 3 a 7 días. Sin plantillas. Tenemos tres planes: <b>Starter</b> ($200K), <b>Pro</b> (desde $450K) y <b>Commerce</b> (desde $750K).',replies:['Ver precios de webs','Quiero una cotización','Volver']},
+  'Software Dar.io':{msg:'Dar.io es nuestro software de gestión integral: inventario, ventas, costos y márgenes en tiempo real. 100% web, sin instalaciones.',replies:['Ir a Dar.io','Quiero una cotización','Volver']},
+  'Chatbots':{msg:'NexusChatBot se integra en cualquier web como burbuja flotante. Atiende clientes 24/7, captura leads y responde automáticamente. (¡Como este chat! 😄)',replies:['Ir a NexusChatBot','Quiero una cotización','Volver']},
+  'Ver precios':{msg:'Planes de diseño web:\n\n⚡ <b>Starter</b> — $200.000 · 3 días\n⭐ <b>Pro</b> — desde $450.000 · 5–7 días\n🛒 <b>Commerce</b> — desde $750.000 · 7–10 días\n\n¿Cuál te interesa?',replies:['Plan Starter','Planes Pro','Planes Commerce','Quiero una cotización']},
+  'Ver precios de webs':{msg:'Planes de diseño web:\n\n⚡ <b>Starter</b> — $200.000 · 3 días\n⭐ <b>Pro</b> — desde $450.000 · 5–7 días\n🛒 <b>Commerce</b> — desde $750.000 · 7–10 días',replies:['Plan Starter','Planes Pro','Planes Commerce','Quiero una cotización']},
+  'Plan Starter':{msg:'<b>Starter — $200.000 CLP</b> · 3 días\n\nLanding page de 1 página, diseño responsivo, SEO básico, formulario de contacto, botón WhatsApp y 1 mes de soporte.',replies:['Quiero una cotización','Ver Planes Pro']},
+  'Planes Pro':{msg:'<b>Pro Esencial</b> — $450K · 5 días\n<b>Pro Avanzado</b> — $550K · 5-6 días (+animaciones, galería)\n<b>Pro Completo</b> — $650K · 6-7 días (+8 páginas, blog)\n\nTodos con diseño 100% a medida.',replies:['Quiero una cotización','Planes Commerce','Plan Starter']},
+  'Planes Commerce':{msg:'<b>Commerce Esencial</b> — $750K · 7 días\n<b>Commerce Pro</b> — $850K · 7-8 días (+filtros, galería)\n<b>Commerce Premium</b> — $950K · 8-10 días (+dashboard, blog)\n\nTienda online a medida, catálogo sin límite.',replies:['Quiero una cotización','Planes Pro']},
+  'Ver Planes Pro':{msg:'<b>Pro</b> (3 tramos):\n\nEsencial $450K · Avanzado $550K · Completo $650K\n\nTodos con diseño a medida y SEO optimizado.',replies:['Quiero una cotización']},
+  'Hablar con el equipo':{msg:'Podés escribirnos directo por Instagram <b>@nuvikdigital</b> o completar el formulario. Respondemos en el día. 🙌',replies:['Abrir formulario','Ver Instagram','Volver']},
+  'Quiero una cotización':{msg:'¡Perfecto! Abriendo el formulario para que nos cuentes tu proyecto. Sin compromisos. 🙂',replies:null,action:'openContact'},
+  'Abrir formulario':{msg:'Abriendo el formulario de contacto...',replies:null,action:'openContact'},
+  'Ir a Dar.io':{msg:'¡Te llevo a la página de Dar.io!',replies:null,action:'goto:dario.html'},
+  'Ir a NexusChatBot':{msg:'¡Te llevo a la página de NexusChatBot!',replies:null,action:'goto:nexuschatbot.html'},
+  'Ver Instagram':{msg:'¡Ahí nos encontramos! Buscanos como @nuvikdigital.',replies:null,action:'goto:https://instagram.com/nuvikdigital'},
+  'Volver':{msg:'Claro, ¿en qué más te puedo ayudar?',replies:['Ver servicios','Ver precios','Quiero una cotización','Hablar con el equipo']}
+};
+let ncbIsOpen=false;
+
+document.getElementById('ncb-bubble').addEventListener('click',()=>ncbIsOpen?ncbClose():ncbOpen());
+document.getElementById('ncb-hdr-close').addEventListener('click',ncbClose);
+
+function ncbOpen(){
+  ncbIsOpen=true;
+  document.getElementById('ncb-panel').classList.add('open');
+  document.getElementById('ncb-notif').style.display='none';
+  if(!document.getElementById('ncb-msgs').children.length){
+    setTimeout(async()=>{await ncbTyping();ncbMsg('bot',NCB_TREE.start.msg,NCB_TREE.start.replies);},420);
+  }
+}
+function ncbClose(){
+  ncbIsOpen=false;
+  document.getElementById('ncb-panel').classList.remove('open');
+}
+function ncbTyping(){
+  return new Promise(res=>{
+    const msgs=document.getElementById('ncb-msgs');
+    const t=document.createElement('div');
+    t.className='ncb-typing-wrap';t.id='ncb-ti';
+    t.innerHTML='<div class="ncb-typing"><span></span><span></span><span></span></div>';
+    msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+    setTimeout(()=>{t.remove();res();},920);
+  });
+}
+function ncbMsg(type,text,replies){
+  const msgs=document.getElementById('ncb-msgs');
+  const now=new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
+  const m=document.createElement('div');
+  m.className='ncb-msg '+type;
+  m.innerHTML=`<div class="ncb-bubble-txt">${text.replace(/\n/g,'<br>')}</div><div class="ncb-msg-time">${now}</div>`;
+  msgs.appendChild(m);msgs.scrollTop=msgs.scrollHeight;
+  ncbSetReplies(replies||[]);
+}
+function ncbSetReplies(replies){
+  const qr=document.getElementById('ncb-qr');
+  qr.innerHTML=replies.map(r=>`<button class="ncb-qr-btn" onclick="ncbReply('${r.replace(/'/g,'&#39;')}')">${r}</button>`).join('');
+}
+function ncbReply(choice){
+  document.getElementById('ncb-qr').innerHTML='';
+  ncbMsg('user',choice,null);
+  const node=NCB_TREE[choice]||NCB_TREE['Volver'];
+  setTimeout(async()=>{
+    await ncbTyping();
+    ncbMsg('bot',node.msg,node.replies);
+    if(node.action){
+      setTimeout(()=>{
+        if(node.action==='openContact'){ncbClose();openContact();}
+        else if(node.action.startsWith('goto:')){window.open(node.action.slice(5),'_blank');}
+      },500);
+    }
+  },280);
+}
+window.ncbReply=ncbReply;
+
+document.getElementById('ncb-send').addEventListener('click',ncbSend);
+document.getElementById('ncb-input').addEventListener('keydown',e=>{if(e.key==='Enter')ncbSend();});
+function ncbSend(){
+  const inp=document.getElementById('ncb-input');
+  const text=inp.value.trim();if(!text)return;
+  inp.value='';
+  ncbMsg('user',text,null);
+  const l=text.toLowerCase();
+  let resp=null;
+  if(/precio|costo|cuánto|cuanto|valor|cobr/.test(l))resp='Ver precios';
+  else if(/starter|básico|basico|landind|landing/.test(l))resp='Plan Starter';
+  else if(/commerce|tienda|ecommerce|shop|venta/.test(l))resp='Planes Commerce';
+  else if(/\bpro\b|avanzado|completo/.test(l))resp='Planes Pro';
+  else if(/dar\.?io|software|gestión|gestion|inventario/.test(l))resp='Software Dar.io';
+  else if(/chatbot|nexus|bot|chat/.test(l))resp='Chatbots';
+  else if(/web|diseño|diseno|página|pagina|sitio/.test(l))resp='Diseño web';
+  else if(/cotiz|presupuest|quiero|necesito/.test(l))resp='Quiero una cotización';
+  else if(/hola|buenas|buenos|hi|hey/.test(l))resp='start';
+  else if(/servicio/.test(l))resp='Ver servicios';
+  setTimeout(async()=>{
+    await ncbTyping();
+    if(resp){
+      const node=resp==='start'?NCB_TREE.start:NCB_TREE[resp];
+      if(node){ncbMsg('bot',node.msg,node.replies);return;}
+    }
+    ncbMsg('bot','No estoy 100% seguro de lo que buscás. Podés escribirnos por Instagram o abrimos el formulario y el equipo te ayuda enseguida.',['Abrir formulario','Ver Instagram']);
+  },280);
+}
+// Show notification after 3.5s
+setTimeout(()=>{if(!ncbIsOpen)document.getElementById('ncb-notif').style.display='block';},3500);
 
 // Form submit
 async function handleSubmit(e){
