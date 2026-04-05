@@ -1,589 +1,467 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Dar.io — Software de gestión empresarial | nuvik.digital</title>
-<meta name="description" content="Dar.io: controla inventario, ventas, costos y ganancias en tiempo real. Dashboard completo para negocios que quieren crecer con datos."/>
-<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-/* ── RESET & ROOT ─────────────────────────────────────────────────────────── */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dar.io — Software de Gestión para Negocios | Nuvik Suite</title>
+  <meta name="description" content="Dar.io es el dashboard que faltaba en tu negocio. Inventario, ventas, costos y ganancias en tiempo real, todo desde un solo lugar." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+/* ============================================================
+   DAR.IO — Nuvik Suite
+   Accent: Emerald #10b981 | Base: Nuvik Design System v2
+   ============================================================ */
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+img,svg,video{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{background:none;border:none;font:inherit;cursor:pointer}
+ul,ol{list-style:none}
+
 :root{
-  --void:#03030a;
-  --surf:#080f0d;
-  --surf2:#0a1410;
-  --em:oklch(0.69 0.17 162);
-  --em2:oklch(0.78 0.14 172);
-  --em3:oklch(0.52 0.14 155);
-  --gold:oklch(0.82 0.14 95);
-  --text:oklch(0.95 0.005 160);
-  --body-text:oklch(0.65 0.02 160);
-  --muted:oklch(0.48 0.02 160);
-  --dim:oklch(0.32 0.02 160);
-  --fd:'Orbitron',sans-serif;
-  --fh:'Space Grotesk',sans-serif;
-  --fb:'DM Sans',sans-serif;
-  --fm:'JetBrains Mono',monospace;
+  --bg:#050b12;--bg2:#081420;--bg3:#0d1e30;
+  --t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b;
+  /* Dar.io accent: emerald */
+  --a:#10b981;--a2:#34d399;
+  --ar:16,185,129;--a2r:52,211,153;
+  --s0:rgba(255,255,255,.03);--s1:rgba(255,255,255,.055);--s2:rgba(255,255,255,.09);
+  --b0:rgba(255,255,255,.07);--b1:rgba(255,255,255,.12);--b2:rgba(255,255,255,.22);
+  --r1:6px;--r2:10px;--r3:14px;--r4:20px;--rf:9999px;
+  --ease:cubic-bezier(.23,1,.32,1);--td:.22s;--cw:1100px
 }
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{background:var(--void);color:var(--text);font-family:var(--fb);overflow-x:hidden;cursor:none}
-@media(max-width:768px){body{cursor:auto}}
-::selection{background:oklch(0.69 0.17 162 / 28%);color:var(--text)}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--void)}
-::-webkit-scrollbar-thumb{background:oklch(0.69 0.17 162 / 38%);border-radius:2px}
 
-/* ── LOADER ───────────────────────────────────────────────────────────────── */
-#loader{position:fixed;inset:0;background:var(--void);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .8s cubic-bezier(.23,1,.32,1)}
-#loader.out{opacity:0;pointer-events:none}
-.l-hex{position:relative;width:72px;height:72px}
-.l-hex-out{position:absolute;inset:0;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);background:linear-gradient(135deg,var(--em),var(--em2));animation:hexspin 5s linear infinite}
-.l-hex-in{position:absolute;inset:3px;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);background:var(--void);display:flex;align-items:center;justify-content:center}
-.l-hex-in svg{width:34px;height:34px}
-@keyframes hexspin{to{transform:rotate(360deg)}}
-.l-name{font-family:var(--fd);font-size:11px;letter-spacing:.3em;color:var(--muted);font-weight:700}
-.l-track{width:200px;height:1px;background:oklch(1 0 0 / 7%);overflow:hidden;border-radius:1px}
-.l-fill{height:100%;width:0;background:linear-gradient(90deg,var(--em),var(--em2));transition:width .04s linear}
-.l-st{font-family:var(--fm);font-size:10px;color:var(--dim);letter-spacing:.14em;min-height:14px}
+body{font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--t1);background:var(--bg);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:800;line-height:1.1;letter-spacing:-.025em}
+p{color:var(--t2)}
 
-/* ── CANVAS ───────────────────────────────────────────────────────────────── */
-#bg-c{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.wrap{width:100%;max-width:var(--cw);margin:0 auto;padding:0 24px}
+section{padding:clamp(80px,10vw,120px) 0}
 
-/* ── CURSOR ───────────────────────────────────────────────────────────────── */
-.cur{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--em);pointer-events:none;z-index:99999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .2s,height .2s,background .2s}
-.cur-r{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid oklch(0.69 0.17 162 / 45%);pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .4s cubic-bezier(.23,1,.32,1),height .4s,border-color .3s}
+.ey{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.ey::before{content:'';width:18px;height:1px;background:var(--a);flex-shrink:0}
 
-/* ── NAV ──────────────────────────────────────────────────────────────────── */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
-nav.sc{background:oklch(0.04 0.01 160 / 92%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid oklch(1 0 0 / 5%);padding:12px 48px}
-.nav-back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);text-decoration:none;font-family:var(--fm);font-size:11px;letter-spacing:.1em;transition:color .25s}
-.nav-back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
-.nav-back:hover{color:var(--text)}
-.nav-back:hover svg{transform:translateX(-3px)}
-.nav-logo{display:flex;align-items:center;gap:9px}
-.nav-hex{position:relative;width:26px;height:26px;flex-shrink:0}
-.nav-hex-out{position:absolute;inset:0;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);background:linear-gradient(135deg,var(--em),var(--em2));animation:hexspin 8s linear infinite}
-.nav-hex-in{position:absolute;inset:2px;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);background:var(--void)}
-.nav-nm{font-family:var(--fd);font-size:10px;letter-spacing:.2em;color:var(--text);font-weight:700}
-.nav-btn{padding:8px 18px;background:linear-gradient(135deg,var(--em),var(--em2));border:none;border-radius:3px;color:var(--void);font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
-.nav-btn:hover{box-shadow:0 0 28px oklch(0.69 0.17 162 / 45%);transform:translateY(-1px)}
-@media(max-width:768px){nav{padding:14px 16px}nav.sc{padding:10px 16px}.nav-nm{font-size:9px;letter-spacing:.12em}.nav-btn{display:none}}
+.grad{background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* ── DIVIDER ──────────────────────────────────────────────────────────────── */
-.div{width:100%;height:1px;background:linear-gradient(90deg,transparent,oklch(0.69 0.17 162 / 38%),oklch(0.78 0.14 172 / 38%),transparent)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--rf);font-family:'Inter',sans-serif;font-weight:600;font-size:14px;cursor:pointer;transition:all var(--td) var(--ease);white-space:nowrap;border:1px solid transparent}
+.btn-p{background:var(--a);color:#fff;border-color:var(--a)}
+.btn-p:hover{background:#059669;transform:translateY(-2px);box-shadow:0 8px 28px rgba(var(--ar),.45)}
+.btn-g{background:transparent;color:var(--t2);border-color:var(--b0)}
+.btn-g:hover{color:var(--t1);border-color:var(--b1);background:var(--s1);transform:translateY(-2px)}
+.btn-sm{padding:8px 16px;font-size:13px}
 
-/* ── HERO ─────────────────────────────────────────────────────────────────── */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;z-index:1}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
-.orb-a{width:clamp(400px,60vw,750px);height:clamp(400px,60vw,750px);background:radial-gradient(circle,oklch(0.69 0.17 162 / 10%) 0%,transparent 70%);top:-15%;left:-10%;animation:oa 9s ease-in-out infinite}
-.orb-b{width:clamp(250px,40vw,480px);height:clamp(250px,40vw,480px);background:radial-gradient(circle,oklch(0.78 0.14 172 / 8%) 0%,transparent 70%);bottom:0%;right:0%;animation:ob 12s ease-in-out infinite}
-.orb-c{width:clamp(200px,30vw,360px);height:clamp(200px,30vw,360px);background:radial-gradient(circle,oklch(0.82 0.14 95 / 5%) 0%,transparent 70%);top:40%;right:20%;animation:oa 7s ease-in-out infinite;animation-delay:-3s}
-@keyframes oa{0%,100%{transform:translateY(0) scale(1)}45%{transform:translateY(-22px) scale(1.04)}}
-@keyframes ob{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(18px) scale(1.05)}}
-.h-grid{position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(oklch(0.69 0.17 162 / 2%) 1px,transparent 1px),linear-gradient(90deg,oklch(0.69 0.17 162 / 2%) 1px,transparent 1px);
-  background-size:72px 72px;transition:transform .5s ease}
-.scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,var(--em) 40%,var(--em2) 60%,transparent 100%);opacity:.16;animation:sweep 11s linear infinite;top:0;pointer-events:none}
-@keyframes sweep{0%{top:0%;opacity:.16}100%{top:100%;opacity:.04}}
-.hud{position:absolute;padding:10px 14px;background:oklch(1 0 0 / 3%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid oklch(1 0 0 / 6%);border-radius:3px;pointer-events:none;animation:oa 8s ease-in-out infinite}
-.hud-a{top:20%;right:5%;animation-delay:-1s}
-.hud-b{bottom:30%;left:4%;animation-delay:-5s}
-.hud-k{font-family:var(--fm);font-size:9px;letter-spacing:.1em;color:var(--em2);line-height:1.9}
-.hud-v{font-family:var(--fm);font-size:9px;letter-spacing:.08em;color:var(--dim)}
-@media(max-width:960px){.hud{display:none}}
+.card{background:var(--s0);border:1px solid var(--b0);border-radius:var(--r3);transition:all var(--td) var(--ease);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(var(--ar),.06),transparent 60%);opacity:0;transition:opacity var(--td)}
+.card:hover{border-color:rgba(var(--ar),.28);transform:translateY(-4px);box-shadow:0 18px 48px rgba(0,0,0,.4)}
+.card:hover::before{opacity:1}
 
-.hero-in{max-width:1100px;width:100%;margin:0 auto;padding:clamp(100px,12vh,140px) clamp(16px,4vw,48px) clamp(60px,8vh,90px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center;position:relative;z-index:2}
-@media(max-width:900px){.hero-in{grid-template-columns:1fr}}
+/* Nav */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:1060px;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-radius:var(--r4);background:rgba(5,11,18,.65);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);border:1px solid var(--b0);transition:all var(--td)}
+.nav.sc{background:rgba(5,11,18,.9);border-color:var(--b1)}
+.nav-back{font-size:13px;color:var(--t3);display:flex;align-items:center;gap:6px;transition:color var(--td)}
+.nav-back:hover{color:var(--t1)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--t1)}
+.nav-logo span{color:var(--a)}
+.nav-tog{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:var(--r2);border:1px solid var(--b0)}
+.nav-tog span{display:block;width:18px;height:1.5px;background:var(--t2);border-radius:2px}
 
-/* Hero text entrance */
-@keyframes fadeup{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
-@keyframes fadein{from{opacity:0}to{opacity:1}}
+/* Hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
+.orb1{width:600px;height:600px;top:-150px;right:-80px;background:radial-gradient(circle,rgba(var(--ar),.13) 0%,transparent 70%);animation:orb1 13s ease-in-out infinite alternate}
+.orb2{width:500px;height:500px;bottom:-120px;left:-80px;background:radial-gradient(circle,rgba(var(--a2r),.08) 0%,transparent 70%);animation:orb2 17s ease-in-out infinite alternate}
+@keyframes orb1{to{transform:translate(60px,40px) scale(1.12)}}
+@keyframes orb2{to{transform:translate(-50px,-60px) scale(1.18)}}
 
-.h-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 13px;background:oklch(0.69 0.17 162 / 10%);border:1px solid oklch(0.69 0.17 162 / 28%);border-radius:100px;font-family:var(--fm);font-size:9px;letter-spacing:.14em;color:var(--em2);margin-bottom:24px;animation:fadeup .7s cubic-bezier(.23,1,.32,1) .2s both}
-.blink{width:6px;height:6px;border-radius:50%;background:var(--em);animation:blink 1.6s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 7px var(--em)}50%{opacity:.3;box-shadow:none}}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;padding-top:20px;padding-bottom:40px}
+.hero-title{font-size:clamp(42px,6.5vw,76px);margin:8px 0 20px;line-height:1.05}
+.hero-sub{font-size:clamp(15px,2vw,17px);color:var(--t2);max-width:460px;line-height:1.7;margin-bottom:32px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.hero-tag{padding:5px 12px;background:var(--s0);border:1px solid var(--b0);border-radius:var(--rf);font-size:11px;font-weight:500;color:var(--t3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
 
-h1.h1{font-family:var(--fd);font-size:clamp(34px,6vw,68px);font-weight:900;line-height:.95;letter-spacing:-.01em;margin-bottom:22px;animation:fadeup .8s cubic-bezier(.23,1,.32,1) .35s both}
-@media(max-width:480px){h1.h1{font-size:clamp(30px,9vw,46px);line-height:1}}
+/* Browser mockup */
+.browser{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r4);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+.browser-bar{background:var(--bg3);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--b0)}
+.browser-dots{display:flex;gap:6px}
+.browser-dots span{width:10px;height:10px;border-radius:50%;display:block}
+.browser-dots span:nth-child(1){background:#ff5f57}
+.browser-dots span:nth-child(2){background:#febc2e}
+.browser-dots span:nth-child(3){background:#28c840}
+.browser-url{flex:1;background:var(--s0);border:1px solid var(--b0);border-radius:var(--rf);padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);text-align:center}
+.browser-body{padding:0}
 
-.holo{background:linear-gradient(270deg,var(--em),var(--em2),oklch(0.82 0.12 90),var(--em3),var(--em));background-size:400% 400%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:holo 5s ease infinite}
-@keyframes holo{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.grad{background:linear-gradient(120deg,oklch(0.88 0.08 160),var(--em),var(--em2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* Dashboard inside browser */
+.dash{display:grid;grid-template-columns:160px 1fr;min-height:320px}
+.dash-side{background:rgba(0,0,0,.25);border-right:1px solid var(--b0);padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+.dash-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--a);letter-spacing:-.02em;padding:6px 8px;margin-bottom:8px}
+.dash-nav-item{padding:7px 10px;border-radius:var(--r2);font-size:12px;color:var(--t3);cursor:default;transition:all var(--td)}
+.dash-nav-item.act{background:rgba(var(--ar),.12);color:var(--a);font-weight:600}
+.dash-nav-item:not(.act):hover{background:var(--s0);color:var(--t2)}
+.dash-main{padding:16px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.dash-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.dm{background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);padding:10px 12px}
+.dm-label{font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.dm-val{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--t1);letter-spacing:-.02em}
+.dm-delta{font-size:10px;margin-top:3px;font-family:'JetBrains Mono',monospace}
+.dm-delta.up{color:#4ade80}
+.dm-delta.warn{color:#f59e0b}
+.dash-chart-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end}
+.dash-chart{flex:1}
+.dash-chart-title{font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.dash-bars{display:flex;gap:4px;align-items:flex-end;height:60px}
+.dash-bar{flex:1;border-radius:3px 3px 0 0;background:rgba(var(--ar),.25);height:var(--h);position:relative;transition:background var(--td)}
+.dash-bar.hi{background:var(--a)}
+.dash-bar span{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--t3);font-family:'JetBrains Mono',monospace}
+.dash-table-title{font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.dash-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--b0);font-size:11px;gap:8px}
+.dash-row:last-child{border-bottom:none}
+.dash-row>span:first-child{color:var(--t2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dash-row>span:last-child{color:var(--t1);font-family:'JetBrains Mono',monospace;font-weight:600;flex-shrink:0}
+.dbadge{padding:2px 8px;border-radius:var(--rf);font-size:9px;font-weight:600;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.dbadge.ok{background:rgba(74,222,128,.12);color:#4ade80}
+.dbadge.pend{background:rgba(251,191,36,.12);color:#fbbf24}
 
-.h-sub{font-family:var(--fb);font-size:clamp(15px,1.8vw,17px);line-height:1.72;color:var(--body-text);margin-bottom:32px;max-width:460px;font-weight:400;animation:fadeup .8s cubic-bezier(.23,1,.32,1) .5s both}
-.h-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeup .8s cubic-bezier(.23,1,.32,1) .65s both}
-@media(max-width:480px){.h-btns{flex-direction:column}.h-btns a{text-align:center;justify-content:center}}
+/* Marquee */
+.mq{overflow:hidden;padding:18px 0;border-top:1px solid var(--b0);border-bottom:1px solid var(--b0);position:relative}
+.mq::before,.mq::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.mq::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.mq::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.mq-track{display:flex;width:max-content;animation:mq 26s linear infinite}
+.mq:hover .mq-track{animation-play-state:paused}
+.mq-item{display:flex;align-items:center;gap:20px;padding:0 20px;font-size:12px;font-weight:500;color:var(--t3);white-space:nowrap;text-transform:uppercase;letter-spacing:.1em;font-family:'JetBrains Mono',monospace}
+.mq-dot{width:4px;height:4px;border-radius:50%;background:var(--a);flex-shrink:0}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-.btn-p{position:relative;padding:13px 28px;background:linear-gradient(135deg,var(--em),var(--em2));border:none;border-radius:3px;color:var(--void);font-family:var(--fh);font-size:14px;font-weight:700;letter-spacing:.06em;cursor:pointer;overflow:hidden;transition:transform .1s ease,box-shadow .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 36px oklch(0.69 0.17 162 / 36%),0 0 72px oklch(0.69 0.17 162 / 16%)}
-.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--em2),var(--em));opacity:0;transition:opacity .3s}
-.btn-p:hover{box-shadow:0 0 52px oklch(0.69 0.17 162 / 52%),0 0 100px oklch(0.69 0.17 162 / 25%);transform:translateY(-2px)}
-.btn-p:hover::after{opacity:1}
-.btn-p span{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px}
-.btn-g{padding:13px 28px;background:transparent;border:1px solid oklch(1 0 0 / 13%);border-radius:3px;color:oklch(0.80 0.02 160);font-family:var(--fh);font-size:14px;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-g:hover{background:oklch(1 0 0 / 4%);border-color:oklch(1 0 0 / 24%);color:var(--text)}
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)}
+.stat{padding:28px 20px;border-right:1px solid var(--b0);display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,4vw,48px);letter-spacing:-.04em;line-height:1}
+.stat-l{font-size:12px;color:var(--t2);max-width:100px;line-height:1.4}
 
-.h-tags{margin-top:28px;display:flex;gap:7px;flex-wrap:wrap;animation:fadeup .8s cubic-bezier(.23,1,.32,1) .8s both}
-.htag{padding:4px 11px;background:oklch(1 0 0 / 3%);border:1px solid oklch(1 0 0 / 6%);border-radius:3px;font-family:var(--fm);font-size:9px;color:var(--dim);letter-spacing:.08em}
-.scroll-h{margin-top:44px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;animation:fadein 1s ease 1.2s both}
-.s-lbl{font-family:var(--fm);font-size:9px;letter-spacing:.2em;color:var(--dim)}
-.s-line{width:1px;height:44px;background:oklch(1 0 0 / 9%);position:relative;overflow:hidden}
-.s-line::after{content:'';position:absolute;top:0;left:0;width:100%;height:40%;background:linear-gradient(to bottom,var(--em),transparent);animation:sweep 2.2s ease-in-out infinite}
-@media(max-width:900px){.scroll-h{display:none}}
+/* Feature cards */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
+.feat-card{padding:26px;display:flex;flex-direction:column;gap:10px}
+.feat-icon{width:38px;height:38px;border-radius:var(--r2);background:rgba(var(--ar),.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.feat-name{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--t1)}
+.feat-desc{font-size:13px;color:var(--t2);line-height:1.55}
 
-/* ── DASHBOARD VISUAL ─────────────────────────────────────────────────────── */
-.dash-wrap{position:relative;animation:fadeup .9s cubic-bezier(.23,1,.32,1) .5s both}
-.dash-wrap::before{content:'';position:absolute;bottom:-28px;left:8%;right:8%;height:40px;background:radial-gradient(ellipse,oklch(0.69 0.17 162 / 18%) 0%,transparent 70%);filter:blur(22px);pointer-events:none}
-.browser{background:var(--surf);border:1px solid oklch(1 0 0 / 7%);border-radius:12px;overflow:hidden;height:clamp(340px,42vh,440px);display:flex;flex-direction:column;box-shadow:0 48px 120px rgba(0,0,0,.65),0 0 0 1px oklch(1 0 0 / 4%)}
-.br-bar{padding:9px 14px;background:var(--surf2);display:flex;align-items:center;gap:6px;border-bottom:1px solid oklch(1 0 0 / 5%);flex-shrink:0}
-.bd{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.br-url{flex:1;background:oklch(1 0 0 / 4%);border-radius:3px;padding:3px 9px;font-family:var(--fm);font-size:9px;color:var(--dim);margin-left:5px;letter-spacing:.04em}
+/* How it works */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+.step{padding:24px;display:flex;flex-direction:column;gap:8px}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--a);letter-spacing:.1em;margin-bottom:2px}
+.step-title{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--t1)}
+.step-desc{font-size:13px;color:var(--t2);line-height:1.55}
 
-/* Dashboard body */
-.dash-body{flex:1;overflow:hidden;background:linear-gradient(160deg,var(--surf2),var(--void));display:flex;flex-direction:column;gap:0}
-/* Dash header bar */
-.d-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid oklch(1 0 0 / 5%);flex-shrink:0}
-.d-hdr-logo{font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--em)}
-.d-hdr-date{font-family:var(--fm);font-size:8px;color:var(--dim);letter-spacing:.08em}
-.d-hdr-dot{width:6px;height:6px;border-radius:50%;background:var(--em);box-shadow:0 0 8px var(--em);animation:blink 2s ease-in-out infinite}
-/* Metrics row */
-.d-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:oklch(1 0 0 / 4%);flex-shrink:0}
-.d-met{padding:9px 10px;background:var(--surf2);text-align:center}
-.d-met-val{font-family:var(--fd);font-size:clamp(13px,1.8vw,16px);font-weight:800;line-height:1;margin-bottom:3px}
-.d-met-lbl{font-family:var(--fm);font-size:8px;color:var(--dim);letter-spacing:.06em}
-/* Chart area */
-.d-chart{flex:1;padding:10px 12px 6px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
-.d-chart-hdr{display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.d-chart-ttl{font-family:var(--fm);font-size:8px;color:var(--muted);letter-spacing:.1em}
-.d-chart-leg{display:flex;gap:8px}
-.d-chart-leg span{font-family:var(--fm);font-size:7px;color:var(--dim);display:flex;align-items:center;gap:3px}
-.d-chart-leg span::before{content:'';width:8px;height:2px;border-radius:1px;background:var(--em)}
-.d-bars{flex:1;display:flex;align-items:flex-end;gap:4px;min-height:0}
-.d-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
-.d-bar{width:100%;border-radius:2px 2px 0 0;transform-origin:bottom;transform:scaleY(0);transition:transform 1.2s cubic-bezier(.23,1,.32,1)}
-.d-bar.anim{transform:scaleY(1)}
-.d-bar-lbl{font-family:var(--fm);font-size:7px;color:var(--dim);letter-spacing:.03em}
-/* Mini table */
-.d-table{padding:0 12px 8px;flex-shrink:0}
-.d-tr{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid oklch(1 0 0 / 4%)}
-.d-tr:last-child{border-bottom:none}
-.d-td{font-family:var(--fm);font-size:8px;color:var(--body-text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.03em}
-.d-td.mono{font-size:7px;color:var(--muted)}
-.d-badge{padding:2px 6px;border-radius:2px;font-family:var(--fm);font-size:7px;letter-spacing:.04em;flex-shrink:0}
-.d-badge.ok{background:oklch(0.69 0.17 162 / 12%);color:var(--em);border:1px solid oklch(0.69 0.17 162 / 20%)}
-.d-badge.pend{background:oklch(0.82 0.14 95 / 10%);color:var(--gold);border:1px solid oklch(0.82 0.14 95 / 20%)}
+/* Demo section */
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:48px}
+.demo-list{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.demo-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--t2)}
+.demo-item::before{content:'→';color:var(--a);font-weight:600;flex-shrink:0}
 
-/* ── MARQUEE ──────────────────────────────────────────────────────────────── */
-.mqw{position:relative;overflow:hidden;padding:24px 0;z-index:1}
-.mqw::before,.mqw::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:10;pointer-events:none}
-.mqw::before{left:0;background:linear-gradient(to right,var(--void),transparent)}
-.mqw::after{right:0;background:linear-gradient(to left,var(--void),transparent)}
-.mq-t{display:flex;gap:44px;width:max-content;animation:mq 28s linear infinite}
-.mq-i{display:flex;align-items:center;gap:9px;white-space:nowrap;font-family:var(--fm);font-size:10px;letter-spacing:.18em;color:var(--dim);font-weight:500}
-.mq-d{width:3px;height:3px;border-radius:50%;background:var(--em);opacity:.55;flex-shrink:0}
-@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* Platforms */
+.plat-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+.plat-tag{padding:7px 15px;border-radius:var(--rf);background:var(--s0);border:1px solid var(--b0);font-size:12px;font-weight:600;color:var(--t2);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;transition:all var(--td)}
+.plat-tag:hover{border-color:rgba(var(--ar),.3);color:var(--t1);background:var(--s1)}
 
-/* ── STATS ────────────────────────────────────────────────────────────────── */
-.stats-s{position:relative;z-index:1;padding:clamp(40px,6vh,80px) clamp(16px,4vw,48px)}
-.stats-g{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:oklch(1 0 0 / 5%);border-radius:4px;overflow:hidden;border:1px solid oklch(1 0 0 / 5%)}
-.st-c{padding:clamp(22px,4vh,38px) clamp(14px,3vw,24px);background:var(--void);text-align:center;position:relative;overflow:hidden;transition:background .4s}
-.st-c::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--em),var(--em2),transparent);opacity:0;transition:opacity .4s}
-.st-c:hover{background:oklch(0.69 0.17 162 / 4%)}
-.st-c:hover::before{opacity:1}
-.st-v{display:flex;align-items:baseline;justify-content:center;gap:1px;margin-bottom:8px}
-.st-n{font-family:var(--fd);font-size:clamp(30px,5vw,44px);font-weight:900;line-height:1}
-.st-sf{font-family:var(--fd);font-size:clamp(15px,2.5vw,20px);font-weight:700;line-height:1}
-.st-l{font-family:var(--fm);font-size:9px;color:var(--dim);letter-spacing:.1em;line-height:1.55;margin-top:4px}
-@media(max-width:720px){.stats-g{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:380px){.stats-g{grid-template-columns:1fr}}
+/* CTA section */
+.cta-sec{padding:clamp(80px,10vw,120px) 0;position:relative;overflow:hidden;text-align:center}
+.cta-inner{position:relative;z-index:1}
+.cta-h{font-size:clamp(28px,5vw,52px);max-width:620px;margin:0 auto 16px;color:var(--t1)}
+.cta-s{font-size:16px;color:var(--t2);max-width:440px;margin:0 auto 32px;line-height:1.65}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
 
-/* ── SECTION ──────────────────────────────────────────────────────────────── */
-.sec{position:relative;z-index:1;padding:clamp(60px,8vh,100px) clamp(16px,4vw,48px)}
-.inn{max-width:1100px;margin:0 auto}
-.ey{font-family:var(--fm);font-size:10px;letter-spacing:.2em;color:var(--em);margin-bottom:16px}
-.stit{font-family:var(--fd);font-size:clamp(24px,4vw,48px);font-weight:900;line-height:1.0;letter-spacing:-.01em;margin-bottom:16px}
-.sbod{font-family:var(--fb);font-size:clamp(14px,1.6vw,16px);color:var(--body-text);line-height:1.75;max-width:540px;font-weight:400;margin-bottom:48px}
+/* Footer */
+footer{border-top:1px solid var(--b0);padding:40px 0 24px}
+.foot-g{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.flogo{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:var(--t1);letter-spacing:-.02em}
+.ftag{font-size:12px;color:var(--t3);margin-top:4px}
+.flinks{display:flex;gap:24px}
+.flinks a{font-size:13px;color:var(--t3);transition:color var(--td)}
+.flinks a:hover{color:var(--t1)}
+.footer-bot{border-top:1px solid var(--b0);padding-top:20px;margin-top:28px;display:flex;align-items:center;justify-content:space-between}
+.fcopy{font-size:12px;color:var(--t3)}
 
-/* ── FEATURES ─────────────────────────────────────────────────────────────── */
-.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:oklch(1 0 0 / 5%);border:1px solid oklch(1 0 0 / 5%)}
-.fc{position:relative;padding:clamp(22px,3vw,34px) clamp(18px,3vw,30px);background:var(--void);overflow:hidden;cursor:default;transform-style:preserve-3d;transition:transform .12s ease,background .4s}
-.fc::before{content:'';position:absolute;inset:0;padding:1px;background:linear-gradient(135deg,var(--em),var(--em2),oklch(0.69 0.17 162 / 0%));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s;pointer-events:none}
-.fc:hover::before{opacity:1}
-.fc:hover{background:oklch(0.69 0.17 162 / 3%)}
-.csh{position:absolute;inset:0;pointer-events:none;z-index:10;transition:background .15s}
-.fi{width:44px;height:44px;border-radius:3px;background:oklch(0.69 0.17 162 / 8%);border:1px solid oklch(0.69 0.17 162 / 14%);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.fi svg{width:22px;height:22px}
-.fn{position:absolute;top:clamp(14px,2.5vw,22px);right:clamp(14px,2.5vw,26px);font-family:var(--fm);font-size:10px;color:var(--dim);letter-spacing:.1em}
-.ft{font-family:var(--fh);font-size:clamp(13px,1.4vw,15px);font-weight:700;color:var(--text);margin-bottom:9px;line-height:1.3}
-.fd{font-family:var(--fb);font-size:clamp(13px,1.3vw,14px);color:var(--body-text);line-height:1.65;font-weight:400}
-@media(max-width:900px){.fg{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.fg{grid-template-columns:1fr}}
+/* Focus styles */
+:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
+button:focus-visible,a:focus-visible{border-radius:var(--r2)}
 
-/* ── STEPS ────────────────────────────────────────────────────────────────── */
-.sp-o{position:relative;padding-top:16px}
-.sp-line{position:absolute;top:44px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,var(--em),var(--em2),transparent);opacity:.18}
-.sp-g{display:grid;grid-template-columns:repeat(4,1fr)}
-.sp{text-align:center;padding:0 clamp(8px,2vw,20px)}
-.sp-c{width:52px;height:52px;border-radius:50%;background:var(--surf);border:1px solid oklch(1 0 0 / 7%);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:var(--fd);font-size:14px;font-weight:900;position:relative;z-index:1;transition:all .4s;color:var(--em)}
-.sp:hover .sp-c{background:var(--em);color:var(--void);border-color:var(--em);box-shadow:0 0 36px oklch(0.69 0.17 162 / 28%),0 0 72px oklch(0.69 0.17 162 / 12%)}
-.sp-t{font-family:var(--fh);font-size:clamp(12px,1.3vw,14px);font-weight:700;color:var(--text);margin-bottom:7px;line-height:1.3}
-.sp-d{font-family:var(--fb);font-size:clamp(12px,1.2vw,13px);color:var(--body-text);line-height:1.65;font-weight:400}
-@media(max-width:740px){.sp-g{grid-template-columns:1fr 1fr;gap:28px}.sp-line{display:none}}
-@media(max-width:400px){.sp-g{grid-template-columns:1fr;gap:24px}}
+/* Cursor pointer en cards */
+.card{cursor:pointer}
 
-/* ── DEMO SECTION ─────────────────────────────────────────────────────────── */
-.di{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
-.d-list{margin-top:24px;display:flex;flex-direction:column;gap:14px}
-.d-item{display:flex;align-items:flex-start;gap:14px;font-family:var(--fb);font-size:clamp(13px,1.4vw,14px);color:var(--body-text);font-weight:500;line-height:1.5}
-.d-item::before{content:'';width:1px;height:20px;min-height:20px;background:linear-gradient(to bottom,var(--em),transparent);flex-shrink:0;margin-top:2px}
-@media(max-width:900px){.di{grid-template-columns:1fr;gap:36px}}
-
-/* ── PLATFORMS ─────────────────────────────────────────────────────────────── */
-.ig{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:680px;margin:0 auto}
-.ip{padding:8px 16px;background:oklch(1 0 0 / 3%);border:1px solid oklch(1 0 0 / 6%);border-radius:3px;font-family:var(--fm);font-size:10px;font-weight:500;color:var(--dim);display:flex;align-items:center;gap:7px;letter-spacing:.06em;transition:all .3s;cursor:default}
-.ip:hover{border-color:oklch(0.69 0.17 162 / 35%);color:var(--text);background:oklch(0.69 0.17 162 / 4%)}
-.ip em{font-style:normal;font-size:13px}
-
-/* ── CTA ──────────────────────────────────────────────────────────────────── */
-.cta-s{position:relative;z-index:1;padding:clamp(80px,10vh,140px) clamp(16px,4vw,48px);text-align:center;overflow:hidden}
-.cta-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(300px,60vw,600px);height:clamp(300px,60vw,600px);background:radial-gradient(circle,oklch(0.69 0.17 162 / 7%) 0%,transparent 65%);pointer-events:none;border-radius:50%;filter:blur(60px);animation:oa 8s ease-in-out infinite}
-.cta-t{font-family:var(--fd);font-size:clamp(26px,5.5vw,60px);font-weight:900;line-height:.97;letter-spacing:-.01em;margin-bottom:18px;position:relative;z-index:1}
-.cta-sub{font-family:var(--fb);font-size:clamp(14px,1.6vw,16px);color:var(--body-text);max-width:460px;margin:0 auto 36px;line-height:1.7;position:relative;z-index:1;font-weight:400}
-.cta-bs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
-@media(max-width:480px){.cta-bs{flex-direction:column;align-items:center}.cta-bs a{width:100%;max-width:320px;justify-content:center}}
-
-/* CTA glow ring */
-.btn-p.cta-main{font-size:clamp(13px,1.5vw,14px);padding:clamp(12px,2vh,15px) clamp(24px,4vw,36px)}
-.btn-p.cta-main::before{content:'';position:absolute;inset:-3px;border-radius:5px;background:linear-gradient(135deg,var(--em),var(--em2),var(--em));z-index:-1;animation:ring-g 3s ease-in-out infinite;opacity:0}
-@keyframes ring-g{0%,100%{opacity:0;transform:scale(1)}50%{opacity:.4;transform:scale(1.03)}}
-
-/* ── FOOTER ───────────────────────────────────────────────────────────────── */
-footer{background:var(--surf);border-top:1px solid oklch(1 0 0 / 5%);padding:clamp(24px,4vh,32px) clamp(16px,4vw,48px);position:relative;z-index:1}
-.ft-r{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.ft-b{font-family:var(--fd);font-size:11px;letter-spacing:.18em;font-weight:700;color:var(--text)}
-.ft-b small{display:block;font-family:var(--fm);font-size:9px;color:var(--dim);letter-spacing:.1em;margin-top:3px;font-weight:400}
-.ft-l{display:flex;gap:18px;flex-wrap:wrap}
-.ft-l a{color:var(--dim);text-decoration:none;font-family:var(--fm);font-size:10px;letter-spacing:.08em;transition:color .25s}
-.ft-l a:hover{color:var(--em)}
-.ft-c{font-family:var(--fm);font-size:9px;color:var(--dim);text-align:center;padding-top:18px;margin-top:18px;border-top:1px solid oklch(1 0 0 / 4%);letter-spacing:.1em}
-@media(max-width:600px){.ft-r{flex-direction:column;align-items:flex-start;gap:14px}}
-
-/* ── REVEAL ───────────────────────────────────────────────────────────────── */
-.rv{opacity:0;transition:opacity .85s cubic-bezier(.23,1,.32,1),transform .85s cubic-bezier(.23,1,.32,1)}
-.rv.up{transform:translateY(44px)}.rv.rt{transform:translateX(44px)}.rv.sc{transform:scale(.88)}
-.rv.on{opacity:1;transform:none}
+/* Reveal */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.v{opacity:1;transform:none}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
-</style>
+
+.sh{max-width:640px;margin-bottom:8px}
+.st{font-size:clamp(26px,4.5vw,46px);line-height:1.12;color:var(--t1)}
+.ss{font-size:16px;color:var(--t2);margin-top:12px;max-width:500px;line-height:1.65}
+
+/* Responsive */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .demo-grid{grid-template-columns:1fr;gap:40px}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(3){border-right:1px solid var(--b0)}
+  .dash{grid-template-columns:1fr}
+  .dash-side{display:none}
+  .dash-metrics{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-tog{display:flex}
+  .feat-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){
+  .hero-ctas,.cta-btns{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .orb{animation:none}.mq-track{animation:none}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+  </style>
 </head>
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="l-hex">
-    <div class="l-hex-out"></div>
-    <div class="l-hex-in">
-      <svg viewBox="0 0 32 32" fill="none">
-        <rect x="4" y="8" width="24" height="17" rx="2" stroke="url(#lg)" stroke-width="1.5" fill="url(#lg)" fill-opacity=".08"/>
-        <path d="M10 13h12M10 17h8M10 21h5" stroke="url(#lg)" stroke-width="1.2" stroke-linecap="round"/>
-        <circle cx="24" cy="9" r="3" fill="url(#lg)" opacity=".9"/>
-        <defs><linearGradient id="lg" x1="4" y1="8" x2="28" y2="25" gradientUnits="userSpaceOnUse"><stop stop-color="oklch(0.69 0.17 162)"/><stop offset="1" stop-color="oklch(0.78 0.14 172)"/></linearGradient></defs>
-      </svg>
-    </div>
-  </div>
-  <div class="l-name">DAR.IO</div>
-  <div class="l-track"><div class="l-fill" id="lf"></div></div>
-  <div class="l-st" id="lst">CARGANDO SISTEMA...</div>
-</div>
-
-<canvas id="bg-c"></canvas>
-<div class="cur" id="cr"></div>
-<div class="cur-r" id="crr"></div>
-
-<!-- NAV -->
-<nav id="mn">
+<!-- Nav -->
+<nav class="nav" id="nav">
   <a href="index.html" class="nav-back">
-    <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     nuvik.digital
   </a>
-  <div class="nav-logo">
-    <div class="nav-hex"><div class="nav-hex-out"></div><div class="nav-hex-in"></div></div>
-    <span class="nav-nm">DAR.IO</span>
-  </div>
-  <a href="index.html?contact=Software Dar.io" class="nav-btn">SOLICITAR DEMO</a>
+  <div class="nav-logo">DAR<span>.</span>IO</div>
+  <button class="btn btn-p btn-sm" type="button" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Solicitar demo</button>
 </nav>
 
-<!-- ── HERO ───────────────────────────────────────────────────────────────── -->
-<section class="hero">
-  <div class="orb orb-a" id="oa"></div>
-  <div class="orb orb-b" id="ob"></div>
-  <div class="orb orb-c"></div>
-  <div class="h-grid" id="hg"></div>
-  <div class="scan"></div>
-  <div class="hud hud-a">
-    <div class="hud-k">VENTAS_HOY: $<span id="hv">24.5K</span></div>
-    <div class="hud-v">MARGEN: 34.2% ↑</div>
+<!-- Hero -->
+<section class="hero" id="inicio">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
   </div>
-  <div class="hud hud-b">
-    <div class="hud-k">STOCK_ALERT: <span id="sa">3</span> items</div>
-    <div class="hud-v">UPTIME: 99.9%</div>
-  </div>
-
-  <div class="hero-in">
-    <!-- LEFT COPY -->
+  <div class="wrap hero-inner">
     <div>
-      <div class="h-badge"><span class="blink"></span>NUVIK SUITE — SOFTWARE DE GESTIÓN</div>
-      <h1 class="h1">
-        <span class="grad">TU NEGOCIO</span><br/>
-        <span class="holo">BAJO CONTROL.</span><br/>
-        TOTAL.
-      </h1>
-      <p class="h-sub">Dar.io es el dashboard que faltaba en tu negocio. Inventario, ventas, costos y ganancias en tiempo real — todo desde un solo lugar.</p>
-      <div class="h-btns">
-        <a href="index.html?contact=Software Dar.io" class="btn-p"><span>VER DEMO EN VIVO <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-        <a href="#proceso" class="btn-g">¿CÓMO FUNCIONA? <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="ey rv">Nuvik Suite — Software de gestión</div>
+      <h1 class="hero-title rv d1">Tu negocio bajo<br>control. <span class="grad">Total.</span></h1>
+      <p class="hero-sub rv d2">Dar.io es el dashboard que faltaba en tu negocio. Inventario, ventas, costos y ganancias en tiempo real — todo desde un solo lugar.</p>
+      <div class="hero-ctas rv d3">
+        <button class="btn btn-p" type="button" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Ver demo en vivo</button>
+        <button class="btn btn-g" type="button" onclick="document.getElementById('como').scrollIntoView({behavior:'smooth'})">¿Cómo funciona?</button>
       </div>
-      <div class="h-tags">
-        <span class="htag">TIEMPO REAL</span>
-        <span class="htag">INVENTARIO</span>
-        <span class="htag">VENTAS & COSTOS</span>
-        <span class="htag">REPORTES AUTO</span>
+      <div class="hero-tags rv d4">
+        <span class="hero-tag">Tiempo real</span>
+        <span class="hero-tag">Inventario</span>
+        <span class="hero-tag">Ventas &amp; Costos</span>
+        <span class="hero-tag">Reportes auto</span>
       </div>
-      <div class="scroll-h"><span class="s-lbl">SCROLL TO EXPLORE</span><div class="s-line"></div></div>
     </div>
-
-    <!-- RIGHT: DASHBOARD MOCKUP -->
-    <div class="dash-wrap">
+    <div class="rv d2">
       <div class="browser">
-        <div class="br-bar">
-          <div class="bd" style="background:#FF5F57"></div>
-          <div class="bd" style="background:#FEBC2E"></div>
-          <div class="bd" style="background:#28C840"></div>
-          <div class="br-url">app.dar.io/dashboard</div>
+        <div class="browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">app.dar.io/dashboard</div>
         </div>
-        <div class="dash-body">
-          <!-- Dash header -->
-          <div class="d-hdr">
-            <div style="display:flex;align-items:center;gap:7px">
-              <div class="d-hdr-dot"></div>
-              <span class="d-hdr-logo">DAR.IO</span>
+        <div class="browser-body">
+          <div class="dash">
+            <div class="dash-side">
+              <div class="dash-logo">DAR.IO</div>
+              <div class="dash-nav-item act">Dashboard</div>
+              <div class="dash-nav-item">Inventario</div>
+              <div class="dash-nav-item">Ventas</div>
+              <div class="dash-nav-item">Costos</div>
+              <div class="dash-nav-item">Reportes</div>
             </div>
-            <span class="d-hdr-date" id="dash-date">HOY — OCT 2026</span>
-          </div>
-          <!-- Metrics -->
-          <div class="d-metrics">
-            <div class="d-met">
-              <div class="d-met-val grad">$<span id="dm1">24.5K</span></div>
-              <div class="d-met-lbl">VENTAS HOY</div>
-            </div>
-            <div class="d-met">
-              <div class="d-met-val" style="background:linear-gradient(120deg,var(--em2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"><span id="dm2">148</span></div>
-              <div class="d-met-lbl">ÓRDENES</div>
-            </div>
-            <div class="d-met">
-              <div class="d-met-val grad">+<span id="dm3">12</span>%</div>
-              <div class="d-met-lbl">VS AYER</div>
-            </div>
-          </div>
-          <!-- Bar chart -->
-          <div class="d-chart">
-            <div class="d-chart-hdr">
-              <span class="d-chart-ttl">VENTAS SEMANALES</span>
-              <div class="d-chart-leg"><span>INGRESOS</span></div>
-            </div>
-            <div class="d-bars" id="dbars">
-              <!-- filled by JS -->
-            </div>
-          </div>
-          <!-- Mini table -->
-          <div class="d-table">
-            <div class="d-tr" style="border-bottom:1px solid oklch(1 0 0 / 6%);padding-bottom:4px;margin-bottom:4px">
-              <span class="d-td" style="color:var(--dim);font-size:7px;letter-spacing:.1em">PRODUCTO</span>
-              <span class="d-td mono" style="color:var(--dim);font-size:7px;letter-spacing:.1em">CANT</span>
-              <span class="d-td mono" style="color:var(--dim);font-size:7px;letter-spacing:.1em">TOTAL</span>
-              <span class="d-badge" style="opacity:0">—</span>
-            </div>
-            <div class="d-tr"><span class="d-td">Zapatillas Runner Pro</span><span class="d-td mono">x3</span><span class="d-td mono" style="color:var(--em)">$180</span><span class="d-badge ok">✓</span></div>
-            <div class="d-tr"><span class="d-td">Remera Oversize Basic</span><span class="d-td mono">x5</span><span class="d-td mono" style="color:var(--em)">$75</span><span class="d-badge ok">✓</span></div>
-            <div class="d-tr"><span class="d-td">Buzo Winter Edition</span><span class="d-td mono">x2</span><span class="d-td mono" style="color:var(--gold)">$220</span><span class="d-badge pend">⏳</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="div"></div>
-<div class="mqw">
-  <div class="mq-t">
-    <span class="mq-i"><span class="mq-d"></span>INVENTARIO</span>
-    <span class="mq-i"><span class="mq-d"></span>VENTAS EN TIEMPO REAL</span>
-    <span class="mq-i"><span class="mq-d"></span>CONTROL DE COSTOS</span>
-    <span class="mq-i"><span class="mq-d"></span>REPORTES AUTOMÁTICOS</span>
-    <span class="mq-i"><span class="mq-d"></span>GANANCIAS POR PRODUCTO</span>
-    <span class="mq-i"><span class="mq-d"></span>MULTI-USUARIO</span>
-    <span class="mq-i"><span class="mq-d"></span>ALERTAS DE STOCK</span>
-    <span class="mq-i"><span class="mq-d"></span>DASHBOARD COMPLETO</span>
-    <span class="mq-i"><span class="mq-d"></span>INVENTARIO</span>
-    <span class="mq-i"><span class="mq-d"></span>VENTAS EN TIEMPO REAL</span>
-    <span class="mq-i"><span class="mq-d"></span>CONTROL DE COSTOS</span>
-    <span class="mq-i"><span class="mq-d"></span>REPORTES AUTOMÁTICOS</span>
-    <span class="mq-i"><span class="mq-d"></span>GANANCIAS POR PRODUCTO</span>
-    <span class="mq-i"><span class="mq-d"></span>MULTI-USUARIO</span>
-    <span class="mq-i"><span class="mq-d"></span>ALERTAS DE STOCK</span>
-    <span class="mq-i"><span class="mq-d"></span>DASHBOARD COMPLETO</span>
-  </div>
-</div>
-<div class="div"></div>
-
-<!-- STATS -->
-<div class="stats-s">
-  <div class="stats-g">
-    <div class="st-c rv up">
-      <div class="st-v"><span class="st-n grad" data-count="5">0</span><span class="st-sf grad">K+</span></div>
-      <div class="st-l">NEGOCIOS<br/>ACTIVOS</div>
-    </div>
-    <div class="st-c rv up d1">
-      <div class="st-v"><span class="st-n grad" data-count="2">0</span><span class="st-sf grad">M+</span></div>
-      <div class="st-l">TRANSACCIONES<br/>PROCESADAS</div>
-    </div>
-    <div class="st-c rv up d2">
-      <div class="st-v"><span class="st-n grad">99</span><span class="st-sf grad">.9%</span></div>
-      <div class="st-l">UPTIME<br/>GARANTIZADO</div>
-    </div>
-    <div class="st-c rv up d3">
-      <div class="st-v"><span class="st-n grad">&lt;</span><span class="st-n grad" data-count="50">0</span><span class="st-sf grad">ms</span></div>
-      <div class="st-l">TIEMPO DE<br/>RESPUESTA</div>
-    </div>
-  </div>
-</div>
-
-<!-- FEATURES -->
-<section class="sec">
-  <div class="inn">
-    <div class="ey rv up">— CAPACIDADES</div>
-    <h2 class="stit rv up d1">TODO LO QUE<br/><span class="holo">NECESITA TU NEGOCIO</span></h2>
-    <p class="sbod rv up d2">Un solo dashboard para tener todo bajo control. Sin planillas de Excel. Sin perder el hilo.</p>
-    <div class="fg">
-      <div class="fc rv up">
-        <div class="csh"></div><span class="fn">01</span>
-        <div class="fi"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="oklch(0.69 0.17 162)" stroke-width="1.5" fill="oklch(0.69 0.17 162 / 10%)"/><path d="M9 9h6M9 12h6M9 15h4" stroke="oklch(0.69 0.17 162)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="ft">Dashboard en tiempo real</div>
-        <div class="fd">Todo tu negocio en una sola vista. Ventas, stock, ganancias y métricas clave actualizadas al instante.</div>
-      </div>
-      <div class="fc rv up d1">
-        <div class="csh"></div><span class="fn">02</span>
-        <div class="fi"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" stroke="oklch(0.78 0.14 172)" stroke-width="1.5" fill="oklch(0.78 0.14 172 / 10%)"/><path d="M16 3v4M8 3v4M3 11h18" stroke="oklch(0.78 0.14 172)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="ft">Gestión de inventario</div>
-        <div class="fd">Controlá tu stock con alertas automáticas cuando un producto baja del mínimo configurado.</div>
-      </div>
-      <div class="fc rv up d2">
-        <div class="csh"></div><span class="fn">03</span>
-        <div class="fi"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="oklch(0.82 0.14 95)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 16l4-5 4 3 4-6" stroke="oklch(0.82 0.14 95)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
-        <div class="ft">Registro de ventas</div>
-        <div class="fd">Historial completo de cada venta: producto, cantidad, precio, cliente y fecha. Todo filtrable y exportable.</div>
-      </div>
-      <div class="fc rv up d1">
-        <div class="csh"></div><span class="fn">04</span>
-        <div class="fi"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="oklch(0.69 0.17 162)" stroke-width="1.5" fill="oklch(0.69 0.17 162 / 10%)"/><path d="M12 8v4l3 3" stroke="oklch(0.69 0.17 162)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="ft">Costos y márgenes exactos</div>
-        <div class="fd">Ingresás el costo de cada producto y Dar.io te muestra el margen real en cada venta — sin cálculos manuales.</div>
-      </div>
-      <div class="fc rv up d2">
-        <div class="csh"></div><span class="fn">05</span>
-        <div class="fi"><svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="oklch(0.78 0.14 172)" stroke-width="1.5" fill="oklch(0.78 0.14 172 / 10%)"/><polyline points="14,2 14,8 20,8" stroke="oklch(0.78 0.14 172)" stroke-width="1.3"/><line x1="16" y1="13" x2="8" y2="13" stroke="oklch(0.78 0.14 172)" stroke-width="1.3" stroke-linecap="round"/><line x1="16" y1="17" x2="8" y2="17" stroke="oklch(0.78 0.14 172)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="ft">Reportes automáticos</div>
-        <div class="fd">Reportes semanales y mensuales generados solos. PDFs listos para compartir con tu contador o equipo.</div>
-      </div>
-      <div class="fc rv up d3">
-        <div class="csh"></div><span class="fn">06</span>
-        <div class="fi"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="oklch(0.82 0.14 95)" stroke-width="1.5" fill="oklch(0.82 0.14 95 / 10%)"/><circle cx="9" cy="7" r="4" stroke="oklch(0.82 0.14 95)" stroke-width="1.5" fill="oklch(0.82 0.14 95 / 10%)"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="oklch(0.82 0.14 95)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="ft">Multi-usuario con roles</div>
-        <div class="fd">Administrador, vendedor, solo lectura. Cada persona de tu equipo accede con sus permisos específicos.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="sec" id="proceso" style="background:linear-gradient(180deg,transparent,oklch(0.69 0.17 162 / 2%),transparent)">
-  <div class="inn" style="text-align:center">
-    <div class="ey rv up" style="text-align:center">— PROCESO</div>
-    <h2 class="stit rv up d1" style="text-align:center">LISTO PARA USAR<br/><span class="grad">EN UN DÍA.</span></h2>
-    <p class="sbod rv up d2" style="margin:0 auto 48px">Sin instalaciones complejas. Sin configuraciones eternas.</p>
-    <div class="sp-o">
-      <div class="sp-line"></div>
-      <div class="sp-g">
-        <div class="sp rv up">
-          <div class="sp-c">01</div>
-          <div class="sp-t">Creás tu cuenta</div>
-          <div class="sp-d">Accedés online desde cualquier dispositivo. Sin instalar nada, sin hardware.</div>
-        </div>
-        <div class="sp rv up d1">
-          <div class="sp-c">02</div>
-          <div class="sp-t">Cargás tu catálogo</div>
-          <div class="sp-d">Productos, costos y stock inicial. Importación masiva desde Excel o carga manual.</div>
-        </div>
-        <div class="sp rv up d2">
-          <div class="sp-c">03</div>
-          <div class="sp-t">Registrás ventas</div>
-          <div class="sp-d">Cada venta actualiza el stock y suma a tus métricas en tiempo real, automáticamente.</div>
-        </div>
-        <div class="sp rv up d3">
-          <div class="sp-c">04</div>
-          <div class="sp-t">El sistema trabaja solo</div>
-          <div class="sp-d">Reportes, alertas y análisis generados solos. Vos te enfocás en vender.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DEMO SECTION -->
-<section class="sec">
-  <div class="inn">
-    <div class="di">
-      <div>
-        <div class="ey rv up">— EN ACCIÓN</div>
-        <h2 class="stit rv up d1">TODO LO QUE<br/><span class="grad">NECESITÁS VER.</span></h2>
-        <p style="font-family:var(--fb);font-size:clamp(14px,1.5vw,16px);color:var(--body-text);line-height:1.75;font-weight:400" class="rv up d2">Un dashboard limpio, rápido y pensado para negocios reales. Sin información de más, sin ruido visual.</p>
-        <div class="d-list">
-          <div class="d-item rv up d2">Vista de ganancias netas por periodo</div>
-          <div class="d-item rv up d3">Comparativo semanal y mensual automático</div>
-          <div class="d-item rv up d4">Alertas de stock crítico con un click</div>
-          <div class="d-item rv up d5">Acceso desde celular, tablet y PC</div>
-        </div>
-      </div>
-      <!-- Second dashboard visual (smaller) -->
-      <div class="dash-wrap rv rt d2" style="animation:none">
-        <div class="browser" style="height:clamp(280px,36vh,360px)">
-          <div class="br-bar">
-            <div class="bd" style="background:#FF5F57"></div><div class="bd" style="background:#FEBC2E"></div><div class="bd" style="background:#28C840"></div>
-            <div class="br-url">app.dar.io/inventario</div>
-          </div>
-          <div class="dash-body">
-            <div class="d-hdr">
-              <span class="d-hdr-logo">INVENTARIO</span>
-              <span class="d-hdr-date">STOCK CRÍTICO: <span style="color:oklch(0.75 0.18 30)">3</span></span>
-            </div>
-            <div class="d-metrics" style="grid-template-columns:repeat(3,1fr)">
-              <div class="d-met"><div class="d-met-val grad">287</div><div class="d-met-lbl">PRODUCTOS</div></div>
-              <div class="d-met"><div class="d-met-val" style="color:var(--em)">94%</div><div class="d-met-lbl">DISPONIBLE</div></div>
-              <div class="d-met"><div class="d-met-val" style="color:oklch(0.75 0.18 30)">3</div><div class="d-met-lbl">CRÍTICOS</div></div>
-            </div>
-            <div class="d-table" style="padding-top:8px">
-              <div class="d-tr" style="border-bottom:1px solid oklch(1 0 0 / 6%);padding-bottom:4px;margin-bottom:4px">
-                <span class="d-td" style="color:var(--dim);font-size:7px;letter-spacing:.1em">PRODUCTO</span>
-                <span class="d-td mono" style="color:var(--dim);font-size:7px;letter-spacing:.1em">STOCK</span>
-                <span class="d-badge" style="opacity:0">—</span>
+            <div class="dash-main">
+              <div class="dash-metrics">
+                <div class="dm"><div class="dm-label">Ventas hoy</div><div class="dm-val">$284K</div><div class="dm-delta up">+12.4%</div></div>
+                <div class="dm"><div class="dm-label">Órdenes</div><div class="dm-val">47</div><div class="dm-delta up">+8 hoy</div></div>
+                <div class="dm"><div class="dm-label">Margen neto</div><div class="dm-val">38.2%</div><div class="dm-delta up">+2.1%</div></div>
+                <div class="dm"><div class="dm-label">Stock alerts</div><div class="dm-val" style="color:#ef4444">3</div><div class="dm-delta warn">crítico</div></div>
               </div>
-              <div class="d-tr"><span class="d-td">Zapatillas Air Max 42</span><span class="d-td mono" style="color:var(--em)">24 ud</span><span class="d-badge ok">OK</span></div>
-              <div class="d-tr"><span class="d-td">Remera Oversize Black</span><span class="d-td mono" style="color:var(--gold)">4 ud</span><span class="d-badge pend">BAJO</span></div>
-              <div class="d-tr"><span class="d-td">Buzo Winter L</span><span class="d-td mono" style="color:oklch(0.68 0.18 30)">1 ud</span><span class="d-badge" style="background:oklch(0.65 0.22 25 / 12%);color:oklch(0.75 0.18 30);border:1px solid oklch(0.65 0.22 25 / 20%)">CRÍTICO</span></div>
-              <div class="d-tr"><span class="d-td">Calza Running Pro</span><span class="d-td mono" style="color:var(--em)">31 ud</span><span class="d-badge ok">OK</span></div>
+              <div>
+                <div class="dash-chart-title">Ventas semanales</div>
+                <div class="dash-bars">
+                  <div class="dash-bar" style="--h:45%"><span>L</span></div>
+                  <div class="dash-bar" style="--h:72%"><span>M</span></div>
+                  <div class="dash-bar" style="--h:58%"><span>X</span></div>
+                  <div class="dash-bar" style="--h:88%"><span>J</span></div>
+                  <div class="dash-bar" style="--h:65%"><span>V</span></div>
+                  <div class="dash-bar hi" style="--h:100%"><span>S</span></div>
+                  <div class="dash-bar" style="--h:28%;opacity:.4"><span>D</span></div>
+                </div>
+              </div>
+              <div style="margin-top:16px">
+                <div class="dash-table-title">Últimas ventas</div>
+                <div class="dash-row"><span>Zapatillas Runner Pro</span><span class="dbadge ok">Completado</span><span>$89.990</span></div>
+                <div class="dash-row"><span>Remera Oversize Basic</span><span class="dbadge ok">Completado</span><span>$24.990</span></div>
+                <div class="dash-row"><span>Buzo Winter Edition</span><span class="dbadge pend">Pendiente</span><span>$59.990</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.35" aria-hidden="true">
+    <div style="width:20px;height:30px;border:1px solid var(--b1);border-radius:10px;display:flex;justify-content:center;padding-top:6px">
+      <div style="width:3px;height:6px;background:var(--a);border-radius:2px;animation:scrolldot 1.8s ease-in-out infinite"></div>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)">Scroll</span>
+  </div>
+  <style>@keyframes scrolldot{0%,100%{transform:translateY(0);opacity:1}60%{transform:translateY(8px);opacity:0}}@media(max-width:768px){.hero .scroll-ind{display:none}}</style>
+</section>
+
+<!-- Marquee -->
+<div class="mq" aria-hidden="true">
+  <div class="mq-track">
+    <div class="mq-item"><span class="mq-dot"></span>Inventario</div>
+    <div class="mq-item"><span class="mq-dot"></span>Ventas en tiempo real</div>
+    <div class="mq-item"><span class="mq-dot"></span>Control de costos</div>
+    <div class="mq-item"><span class="mq-dot"></span>Reportes automáticos</div>
+    <div class="mq-item"><span class="mq-dot"></span>Ganancias por producto</div>
+    <div class="mq-item"><span class="mq-dot"></span>Multi-usuario</div>
+    <div class="mq-item"><span class="mq-dot"></span>Alertas de stock</div>
+    <div class="mq-item"><span class="mq-dot"></span>Dashboard completo</div>
+    <div class="mq-item"><span class="mq-dot"></span>Inventario</div>
+    <div class="mq-item"><span class="mq-dot"></span>Ventas en tiempo real</div>
+    <div class="mq-item"><span class="mq-dot"></span>Control de costos</div>
+    <div class="mq-item"><span class="mq-dot"></span>Reportes automáticos</div>
+    <div class="mq-item"><span class="mq-dot"></span>Ganancias por producto</div>
+    <div class="mq-item"><span class="mq-dot"></span>Multi-usuario</div>
+    <div class="mq-item"><span class="mq-dot"></span>Alertas de stock</div>
+    <div class="mq-item"><span class="mq-dot"></span>Dashboard completo</div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-row" role="region" aria-label="Estadísticas de Dar.io">
+  <div class="stat rv"><div class="stat-n grad">5K+</div><div class="stat-l">Negocios activos</div></div>
+  <div class="stat rv d1"><div class="stat-n grad">2M+</div><div class="stat-l">Transacciones procesadas</div></div>
+  <div class="stat rv d2"><div class="stat-n" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">99.9%</div><div class="stat-l">Uptime garantizado</div></div>
+  <div class="stat rv d3"><div class="stat-n" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">&lt;50ms</div><div class="stat-l">Tiempo de respuesta</div></div>
+</div>
+
+<!-- Features -->
+<section id="features">
+  <div class="wrap">
+    <div class="ey rv">— Capacidades</div>
+    <div class="sh"><h2 class="st rv d1">Todo lo que necesita tu negocio.</h2></div>
+    <div class="feat-grid">
+      <div class="card feat-card rv d1">
+        <div class="feat-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div class="feat-name">Dashboard en tiempo real</div>
+        <p class="feat-desc">Todo tu negocio en una sola vista. Ventas, stock, ganancias y métricas clave actualizadas al instante.</p>
+      </div>
+      <div class="card feat-card rv d2">
+        <div class="feat-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+        <div class="feat-name">Gestión de inventario</div>
+        <p class="feat-desc">Controlá tu stock con alertas automáticas cuando un producto baja del mínimo configurado.</p>
+      </div>
+      <div class="card feat-card rv d3">
+        <div class="feat-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="feat-name">Registro de ventas</div>
+        <p class="feat-desc">Historial completo de cada venta: producto, cantidad, precio, cliente y fecha. Todo filtrable y exportable.</p>
+      </div>
+      <div class="card feat-card rv d1">
+        <div class="feat-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="feat-name">Costos y márgenes exactos</div>
+        <p class="feat-desc">Ingresás el costo de cada producto y Dar.io te muestra el margen real en cada venta — sin cálculos manuales.</p>
+      </div>
+      <div class="card feat-card rv d2">
+        <div class="feat-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="feat-name">Reportes automáticos</div>
+        <p class="feat-desc">Reportes semanales y mensuales generados solos. PDFs listos para compartir con tu contador o equipo.</p>
+      </div>
+      <div class="card feat-card rv d3">
+        <div class="feat-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="feat-name">Multi-usuario con roles</div>
+        <p class="feat-desc">Administrador, vendedor, solo lectura. Cada persona de tu equipo accede con sus permisos específicos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Como funciona -->
+<section id="como" style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
+  <div class="wrap">
+    <div class="ey rv">— Proceso</div>
+    <div class="sh">
+      <h2 class="st rv d1">Listo para usar en un día.</h2>
+      <p class="ss rv d2">Sin instalaciones complejas. Sin configuraciones eternas.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="card step rv d1"><div class="step-num">01</div><div class="step-title">Creás tu cuenta</div><p class="step-desc">Accedés online desde cualquier dispositivo. Sin instalar nada, sin hardware adicional.</p></div>
+      <div class="card step rv d2"><div class="step-num">02</div><div class="step-title">Cargás tu catálogo</div><p class="step-desc">Productos, costos y stock inicial. Importación masiva desde Excel o carga manual.</p></div>
+      <div class="card step rv d3"><div class="step-num">03</div><div class="step-title">Registrás ventas</div><p class="step-desc">Cada venta actualiza el stock y suma a tus métricas en tiempo real, automáticamente.</p></div>
+      <div class="card step rv d4"><div class="step-num">04</div><div class="step-title">El sistema trabaja solo</div><p class="step-desc">Reportes, alertas y análisis generados solos. Vos te enfocás en vender.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo -->
+<section>
+  <div class="wrap">
+    <div class="demo-grid">
+      <div>
+        <div class="ey rv">— En acción</div>
+        <h2 class="st rv d1">Todo lo que necesitás ver.</h2>
+        <p class="ss rv d2">Un dashboard limpio, rápido y pensado para negocios reales. Sin información de más, sin ruido visual.</p>
+        <ul class="demo-list rv d3">
+          <li class="demo-item">Vista de ganancias netas por periodo</li>
+          <li class="demo-item">Comparativo semanal y mensual automático</li>
+          <li class="demo-item">Alertas de stock crítico con un click</li>
+          <li class="demo-item">Acceso desde celular, tablet y PC</li>
+        </ul>
+      </div>
+      <div class="rv d2">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">app.dar.io/reportes</div>
+          </div>
+          <div style="padding:16px;background:var(--bg2)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+              <div style="background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);padding:14px">
+                <div style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Ganancia neta mes</div>
+                <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;color:var(--a)">$1.284.500</div>
+                <div style="font-size:11px;color:var(--t3);margin-top:4px;font-family:'JetBrains Mono',monospace">vs mes anterior</div>
+              </div>
+              <div style="background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);padding:14px">
+                <div style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Variación</div>
+                <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;color:#4ade80">+18.4%</div>
+                <div style="font-size:11px;color:#4ade80;margin-top:4px;font-family:'JetBrains Mono',monospace">mejor mes del año</div>
+              </div>
+            </div>
+            <div style="background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);padding:12px">
+              <div style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Top productos</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="flex:1;font-size:12px;color:var(--t2)">Zapatillas Runner Pro</div>
+                  <div style="height:6px;width:70%;background:rgba(var(--ar),.2);border-radius:3px;overflow:hidden"><div style="height:100%;width:80%;background:var(--a);border-radius:3px"></div></div>
+                  <div style="font-size:11px;color:var(--a);font-family:'JetBrains Mono',monospace;flex-shrink:0">$487K</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="flex:1;font-size:12px;color:var(--t2)">Remera Oversize</div>
+                  <div style="height:6px;width:70%;background:rgba(var(--ar),.2);border-radius:3px;overflow:hidden"><div style="height:100%;width:55%;background:var(--a);border-radius:3px;opacity:.7"></div></div>
+                  <div style="font-size:11px;color:var(--a);font-family:'JetBrains Mono',monospace;flex-shrink:0">$312K</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="flex:1;font-size:12px;color:var(--t2)">Buzo Winter Ed.</div>
+                  <div style="height:6px;width:70%;background:rgba(var(--ar),.2);border-radius:3px;overflow:hidden"><div style="height:100%;width:38%;background:var(--a);border-radius:3px;opacity:.5"></div></div>
+                  <div style="font-size:11px;color:var(--a);font-family:'JetBrains Mono',monospace;flex-shrink:0">$218K</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -592,237 +470,67 @@ footer{background:var(--surf);border-top:1px solid oklch(1 0 0 / 5%);padding:cla
   </div>
 </section>
 
-<!-- PLATFORMS -->
-<section class="sec" style="text-align:center">
-  <div class="inn" style="text-align:center">
-    <div class="ey rv up" style="text-align:center">— COMPATIBLE CON</div>
-    <h2 class="stit rv up d1" style="text-align:center">FUNCIONA EN<br/><span class="grad">CUALQUIER DISPOSITIVO.</span></h2>
-    <p class="sbod rv up d2" style="margin:0 auto 36px;text-align:center">100% web. Sin instalar nada. Siempre actualizado.</p>
-    <div class="ig">
-      <div class="ip rv up"><em>🖥️</em> COMPUTADORA</div>
-      <div class="ip rv up d1"><em>📱</em> CELULAR</div>
-      <div class="ip rv up d2"><em>📲</em> TABLET</div>
-      <div class="ip rv up d3"><em>🍎</em> MAC / iPAD</div>
-      <div class="ip rv up d1"><em>🪟</em> WINDOWS</div>
-      <div class="ip rv up d2"><em>🌐</em> CUALQUIER BROWSER</div>
-      <div class="ip rv up d3"><em>☁️</em> 100% CLOUD</div>
-      <div class="ip rv up"><em>🔒</em> DATOS SEGUROS</div>
+<!-- Plataformas -->
+<section style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
+  <div class="wrap">
+    <div class="ey rv">— Compatible con</div>
+    <h2 class="st rv d1">Funciona en cualquier dispositivo.</h2>
+    <p class="ss rv d2">100% web. Sin instalar nada. Siempre actualizado.</p>
+    <div class="plat-grid rv d3">
+      <span class="plat-tag">Computadora</span>
+      <span class="plat-tag">Celular</span>
+      <span class="plat-tag">Tablet</span>
+      <span class="plat-tag">Mac</span>
+      <span class="plat-tag">iPad</span>
+      <span class="plat-tag">Windows</span>
+      <span class="plat-tag">Any Browser</span>
+      <span class="plat-tag">100% Cloud</span>
+      <span class="plat-tag">Datos seguros</span>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-s">
-  <div class="cta-orb"></div>
-  <div class="ey rv up" style="text-align:center">— ¿LISTO PARA TOMAR EL CONTROL?</div>
-  <h2 class="cta-t rv up d1">TU NEGOCIO MERECE<br/><span class="holo">DATOS REALES.</span></h2>
-  <p class="cta-sub rv up d2">Demo personalizada. Te mostramos Dar.io con tus propios productos y números.</p>
-  <div class="cta-bs rv up d3">
-    <a href="index.html?contact=Software Dar.io" class="btn-p cta-main"><span>QUIERO VER DAR.IO EN ACCIÓN <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-    <a href="index.html#suite" class="btn-g" style="font-size:clamp(12px,1.4vw,14px);padding:clamp(12px,2vh,15px) clamp(20px,3vw,32px)">VER TODA LA SUITE</a>
+<section class="cta-sec" id="cta">
+  <div class="hero-bg" aria-hidden="true"><div class="orb orb1"></div><div class="orb orb2" style="opacity:.5"></div></div>
+  <div class="wrap cta-inner">
+    <div class="ey rv" style="justify-content:center">— ¿Listo para tomar el control?</div>
+    <h2 class="cta-h rv d1">Tu negocio merece datos reales.</h2>
+    <p class="cta-s rv d2">Demo personalizada. Te mostramos Dar.io con tus propios productos y números.</p>
+    <div class="cta-btns rv d3">
+      <a href="https://instagram.com/nuvikdigital" class="btn btn-p" target="_blank" rel="noopener noreferrer">Quiero ver Dar.io en acción</a>
+      <a href="index.html#suite" class="btn btn-g">Ver toda la Suite</a>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- Footer -->
 <footer>
-  <div class="ft-r">
-    <div class="ft-b">NUVIK.DIGITAL<small>DAR.IO — PARTE DE LA NUVIK SUITE</small></div>
-    <div class="ft-l">
-      <a href="index.html#suite">SUITE</a>
-      <a href="index.html#servicios">SERVICIOS</a>
-      <a href="index.html#proceso">PROCESO</a>
-      <a href="index.html#faq">FAQ</a>
+  <div class="wrap">
+    <div class="foot-g">
+      <div>
+        <div class="flogo">NUVIK.DIGITAL</div>
+        <div class="ftag">DAR.IO — Parte de la Nuvik Suite</div>
+      </div>
+      <div class="flinks">
+        <a href="index.html#suite">Suite</a>
+        <a href="index.html#servicios">Servicios</a>
+        <a href="index.html#proceso">Proceso</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <span class="fcopy">© 2026 nuvik.digital — Santiago, Chile</span>
+      <span class="fcopy">Dar.io — Nuvik Suite</span>
     </div>
   </div>
-  <div class="ft-c">© 2026 NUVIK.DIGITAL — SANTIAGO, CHILE</div>
 </footer>
 
 <script>
-// ── LOADER ────────────────────────────────────────────────────────────────────
-(function(){
-  const f=document.getElementById('lf'),s=document.getElementById('lst');
-  const msgs=['CARGANDO SISTEMA...','CONECTANDO BASE DE DATOS...','SINCRONIZANDO DATOS...','SISTEMA LISTO ✓'];
-  let p=0,mi=0;
-  const iv=setInterval(()=>{
-    p+=Math.random()*3.2+1.6;
-    if(p>=100){p=100;s.textContent=msgs[3];f.style.width='100%';clearInterval(iv);setTimeout(()=>document.getElementById('loader').classList.add('out'),400);return}
-    if(p>25&&mi===0){mi=1;s.textContent=msgs[1]}
-    if(p>60&&mi===1){mi=2;s.textContent=msgs[2]}
-    f.style.width=p+'%';
-  },38);
-})();
-
-// ── PARTICLE CANVAS ───────────────────────────────────────────────────────────
-(function(){
-  const c=document.getElementById('bg-c'),ctx=c.getContext('2d');
-  let W=innerWidth,H=innerHeight;
-  c.width=W;c.height=H;
-  const mouse={x:W/2,y:H/2};
-  const N=Math.min(100,Math.floor(W*H/14000));
-  const cols=['oklch(0.69 0.17 162)','oklch(0.78 0.14 172)','oklch(0.52 0.14 155)','oklch(0.82 0.14 95)','oklch(0.65 0.02 160)'];
-  const pts=Array.from({length:N},()=>({
-    x:Math.random()*W,y:Math.random()*H,
-    vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,
-    r:Math.random()*2+.5,a:Math.random()*.55+.18,
-    col:cols[Math.floor(Math.random()*cols.length)]
-  }));
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    const mx=mouse.x,my=mouse.y;
-    pts.forEach(p=>{
-      const dx=p.x-mx,dy=p.y-my,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<120&&d>0){const f=(120-d)/120;p.vx+=(dx/d)*f*.3;p.vy+=(dy/d)*f*.3}
-      p.vx*=.99;p.vy*=.99;p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.col.replace(')',` / ${p.a})`);ctx.fill();
-    });
-    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
-      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<140){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-        ctx.strokeStyle=`oklch(0.69 0.17 162 / ${(1-d/140)*.2})`;ctx.lineWidth=.5;ctx.stroke()}
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-  document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY},{passive:true});
-  addEventListener('resize',()=>{W=innerWidth;H=innerHeight;c.width=W;c.height=H},{passive:true});
-})();
-
-// ── CURSOR ────────────────────────────────────────────────────────────────────
-if(window.matchMedia('(pointer:fine)').matches){
-  const cr=document.getElementById('cr'),crr=document.getElementById('crr');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY},{passive:true});
-  (function loop(){cr.style.left=mx+'px';cr.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crr.style.left=rx+'px';crr.style.top=ry+'px';requestAnimationFrame(loop)})();
-  document.querySelectorAll('a,button,[role=button]').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cr.style.width='18px';cr.style.height='18px';cr.style.background='oklch(0.78 0.14 172)';crr.style.width='56px';crr.style.height='56px';crr.style.borderColor='oklch(0.78 0.14 172 / 60%)'});
-    el.addEventListener('mouseleave',()=>{cr.style.width='12px';cr.style.height='12px';cr.style.background='oklch(0.69 0.17 162)';crr.style.width='36px';crr.style.height='36px';crr.style.borderColor='oklch(0.69 0.17 162 / 45%)'});
-  });
-} else {
-  document.getElementById('cr').style.display='none';
-  document.getElementById('crr').style.display='none';
-}
-
-// ── HERO PARALLAX ─────────────────────────────────────────────────────────────
-(function(){
-  const oa=document.getElementById('oa'),ob=document.getElementById('ob'),hg=document.getElementById('hg');
-  let t=false;
-  document.addEventListener('mousemove',e=>{
-    if(t)return;t=true;
-    requestAnimationFrame(()=>{
-      const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);
-      oa.style.transform=`translate(${x*28}px,${y*28}px)`;
-      ob.style.transform=`translate(${x*-18}px,${y*-18}px)`;
-      if(hg)hg.style.transform=`translate(${x*7}px,${y*7}px)`;
-      t=false;
-    });
-  },{passive:true});
-})();
-
-// ── NAV SCROLL ────────────────────────────────────────────────────────────────
-const mn=document.getElementById('mn');
-addEventListener('scroll',()=>mn.classList.toggle('sc',scrollY>60),{passive:true});
-
-// ── SCROLL REVEAL ──────────────────────────────────────────────────────────────
-(function(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
-  },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-})();
-
-// ── COUNTERS ──────────────────────────────────────────────────────────────────
-(function(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(!e.isIntersecting||e.target.dataset.done)return;
-      e.target.dataset.done='1';
-      const end=+e.target.dataset.count,dur=1600,steps=60;
-      let cur=0;
-      const iv=setInterval(()=>{cur+=end/steps;if(cur>=end){cur=end;clearInterval(iv)}e.target.textContent=Math.floor(cur)},dur/steps);
-    });
-  },{threshold:.5});
-  document.querySelectorAll('[data-count]').forEach(el=>obs.observe(el));
-})();
-
-// ── TILT + MAGNETIC ───────────────────────────────────────────────────────────
-document.querySelectorAll('.fc').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-    card.style.transform=`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*5}deg) scale(1.02)`;
-    const sh=card.querySelector('.csh');
-    if(sh)sh.style.background=`radial-gradient(circle at ${(x+.5)*100}% ${(y+.5)*100}%,oklch(1 0 0 / 5%) 0%,transparent 65%)`;
-  });
-  card.addEventListener('mouseleave',()=>{
-    card.style.transform='perspective(900px) rotateX(0) rotateY(0) scale(1)';
-    card.style.transition='transform .6s cubic-bezier(.23,1,.32,1)';
-    const sh=card.querySelector('.csh');if(sh)sh.style.background='transparent';
-  });
-  card.addEventListener('mouseenter',()=>{card.style.transition='transform .12s ease'});
-});
-document.querySelectorAll('.btn-p,.btn-g').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.18}px) translateY(-2px)`;
-  });
-  btn.addEventListener('mouseleave',()=>{btn.style.transform='';btn.style.transition='transform .5s cubic-bezier(.23,1,.32,1),box-shadow .3s'});
-  btn.addEventListener('mouseenter',()=>{btn.style.transition='transform .1s ease,box-shadow .3s'});
-});
-
-// ── DASHBOARD BAR CHART ───────────────────────────────────────────────────────
-(function(){
-  const container=document.getElementById('dbars');
-  if(!container)return;
-  const days=['LUN','MAR','MIÉ','JUE','VIE','SÁB','HOY'];
-  const vals=[62,78,55,88,72,95,100];
-  const colors=['oklch(0.69 0.17 162 / 60%)','oklch(0.69 0.17 162 / 65%)','oklch(0.69 0.17 162 / 58%)','oklch(0.69 0.17 162 / 70%)','oklch(0.69 0.17 162 / 65%)','oklch(0.69 0.17 162 / 80%)','oklch(0.69 0.17 162)'];
-  days.forEach((d,i)=>{
-    const col=document.createElement('div');
-    col.className='d-bar-col';
-    const bar=document.createElement('div');
-    bar.className='d-bar';
-    bar.style.height=vals[i]+'%';
-    bar.style.background=colors[i];
-    if(i===6)bar.style.boxShadow='0 0 10px oklch(0.69 0.17 162 / 50%)';
-    bar.style.transitionDelay=(i*.07)+'s';
-    const lbl=document.createElement('div');
-    lbl.className='d-bar-lbl';
-    lbl.textContent=d;
-    col.appendChild(bar);col.appendChild(lbl);
-    container.appendChild(col);
-  });
-  // Animate bars when visible
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        container.querySelectorAll('.d-bar').forEach(b=>b.classList.add('anim'));
-        obs.disconnect();
-      }
-    });
-  },{threshold:.3});
-  obs.observe(container);
-})();
-
-// ── HUD LIVE VALUES ───────────────────────────────────────────────────────────
-(function(){
-  const hv=document.getElementById('hv'),sa=document.getElementById('sa');
-  if(!hv||!sa)return;
-  const ventas=['24.5K','25.1K','23.8K','26.2K','24.9K'];
-  let vi=0;
-  setInterval(()=>{vi=(vi+1)%ventas.length;hv.textContent=ventas[vi]},3800);
-  setInterval(()=>{sa.textContent=Math.floor(Math.random()*3+2)},5000);
-})();
-
-// ── DASHBOARD DATE ────────────────────────────────────────────────────────────
-(function(){
-  const el=document.getElementById('dash-date');
-  if(!el)return;
-  const now=new Date();
-  const m=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
-  el.textContent=`HOY — ${now.getDate()} ${m[now.getMonth()]} ${now.getFullYear()}`;
-})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60),{passive:true});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>

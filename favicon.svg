@@ -1,27 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
   <defs>
     <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2A44C9"/>
-      <stop offset="100%" stop-color="#10B981"/>
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
     </linearGradient>
     <clipPath id="clip">
       <rect width="32" height="32" rx="8"/>
     </clipPath>
   </defs>
-  <!-- Background -->
-  <rect width="32" height="32" rx="8" fill="#07131C"/>
-  <!-- Subtle inner glow -->
-  <rect width="32" height="32" rx="8" fill="url(#g)" opacity="0.08"/>
-  <!-- N letter -->
+  <rect width="32" height="32" rx="8" fill="#050b12"/>
+  <rect width="32" height="32" rx="8" fill="url(#g)" opacity="0.1"/>
   <g clip-path="url(#clip)">
-    <text
-      x="16" y="23"
-      text-anchor="middle"
-      font-family="Georgia, serif"
-      font-weight="700"
-      font-size="22"
-      fill="url(#g)"
-      letter-spacing="-1"
-    >N</text>
+    <text x="16" y="23" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="22" fill="url(#g)" letter-spacing="-1">N</text>
   </g>
 </svg>
