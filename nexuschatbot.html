@@ -8,7 +8,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
 /* ============================================================
    NEXUSCHATBOT — Nuvik Suite
@@ -35,7 +35,7 @@ ul,ol{list-style:none}
 }
 
 body{font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--t1);background:var(--bg);overflow-x:hidden}
-h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:800;line-height:1.1;letter-spacing:-.025em}
+h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;line-height:1.1;letter-spacing:-.025em}
 p{color:var(--t2)}
 
 .wrap{width:100%;max-width:var(--cw);margin:0 auto;padding:0 24px}
@@ -63,12 +63,12 @@ section{padding:clamp(80px,10vw,120px) 0}
 .nav.sc{background:rgba(5,11,18,.9);border-color:var(--b1)}
 .nav-back{font-size:13px;color:var(--t3);display:flex;align-items:center;gap:6px;transition:color var(--td)}
 .nav-back:hover{color:var(--t1)}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;letter-spacing:-.025em;color:var(--t1)}
+.nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;letter-spacing:-.025em;color:var(--t1)}
 .nav-logo span{color:var(--a)}
 
 /* Hero */
-.hero{min-height:100svh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:80px;position:relative}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
 .orb1{width:600px;height:600px;top:-150px;right:-80px;background:radial-gradient(circle,rgba(var(--ar),.12) 0%,transparent 70%);animation:orb1 13s ease-in-out infinite alternate}
 .orb2{width:500px;height:500px;bottom:-120px;left:-80px;background:radial-gradient(circle,rgba(var(--a2r),.08) 0%,transparent 70%);animation:orb2 17s ease-in-out infinite alternate}
@@ -87,7 +87,7 @@ section{padding:clamp(80px,10vw,120px) 0}
 .chat-window{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r4);overflow:hidden;width:100%;max-width:360px;box-shadow:0 32px 80px rgba(0,0,0,.5)}
 .chat-win-hdr{background:var(--bg3);padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--b0)}
 .chat-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--a2));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:600}
-.chat-name{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--t1)}
+.chat-name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;color:var(--t1)}
 .chat-status{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px;margin-top:1px}
 .dot-on{width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:pulse-dot 2.5s ease-in-out infinite}
 @keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.4)}50%{box-shadow:0 0 0 4px rgba(74,222,128,0)}}
@@ -129,21 +129,21 @@ section{padding:clamp(80px,10vw,120px) 0}
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)}
 .stat{padding:28px 20px;border-right:1px solid var(--b0);display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
 .stat:last-child{border-right:none}
-.stat-n{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(30px,4vw,46px);letter-spacing:-.04em;line-height:1}
+.stat-n{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(30px,4vw,46px);letter-spacing:-.04em;line-height:1}
 .stat-l{font-size:12px;color:var(--t2);max-width:100px;line-height:1.4}
 
 /* Features */
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
 .feat-card{padding:26px;display:flex;flex-direction:column;gap:10px}
 .feat-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--a);letter-spacing:.1em;width:24px;height:24px;border-radius:50%;border:1px solid rgba(var(--ar),.3);display:flex;align-items:center;justify-content:center;margin-bottom:2px;flex-shrink:0}
-.feat-name{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--t1)}
+.feat-name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:var(--t1)}
 .feat-desc{font-size:13px;color:var(--t2);line-height:1.55}
 
 /* Process */
 .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
 .step{padding:24px;display:flex;flex-direction:column;gap:8px}
 .step-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--a);letter-spacing:.1em;margin-bottom:2px}
-.step-title{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--t1)}
+.step-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;color:var(--t1)}
 .step-desc{font-size:13px;color:var(--t2);line-height:1.55}
 
 /* Demo */
@@ -175,8 +175,11 @@ section{padding:clamp(80px,10vw,120px) 0}
 
 /* Footer */
 footer{border-top:1px solid var(--b0);padding:40px 0 24px}
-.foot-g{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
-.flogo{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:var(--t1);letter-spacing:-.02em}
+.foot-g{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.fsocials{display:flex;gap:7px;margin-top:12px}
+.fsoc{padding:6px 12px;background:var(--s0);border:1px solid var(--b0);border-radius:var(--rf);font-size:12px;color:var(--t2);transition:all var(--td);display:flex;align-items:center;gap:6px}
+.fsoc:hover{color:var(--t1);border-color:var(--b1);background:var(--s1)}
+.flogo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;color:var(--t1);letter-spacing:-.02em}
 .ftag{font-size:12px;color:var(--t3);margin-top:4px}
 .flinks{display:flex;gap:24px}
 .flinks a{font-size:13px;color:var(--t3);transition:color var(--td)}
@@ -474,6 +477,16 @@ button:focus-visible,a:focus-visible{border-radius:var(--r2)}
       <div>
         <div class="flogo">NUVIK.DIGITAL</div>
         <div class="ftag">NEXUSCHATBOT — Parte de la Nuvik Suite</div>
+        <div class="fsocials">
+          <a href="https://www.linkedin.com/in/santiago-delfino-448227277/" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn CEO Santiago">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            CEO Santiago
+          </a>
+          <a href="https://www.linkedin.com/in/nicolas-leonardo-torres-pf%C3%A4fflin-7579013bb/" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn CTO Nicolás">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            CTO Nicolás
+          </a>
+        </div>
       </div>
       <div class="flinks">
         <a href="index.html#suite">Suite</a>
@@ -510,5 +523,24 @@ if(typing){
   },2800);
 }
 </script>
+
+<!-- NexusChat Widget -->
+<script>
+window.NexusChatConfig = {
+  tenantId: 'nuvik',
+  serverUrl: 'https://nexuschat-cgat.onrender.com',
+  language: 'es',
+  name: 'Asistente Nuvik',
+  welcomeMessage: '¡Hola! ¿Querés integrar NexusChatBot en tu sitio? Te cuento todo.',
+  placeholder: 'Escribí tu consulta...',
+  primaryColor: '#8b5cf6',
+  secondaryColor: '#06b6d4',
+  theme: 'dark',
+  position: 'bottom-right',
+  quickReplies: ['¿Cómo funciona?', 'Ver precios', 'Quiero mi chatbot', 'Volver a Nuvik'],
+  showBranding: false,
+};
+</script>
+<script src="https://nexuschat-cgat.onrender.com/widget/nexuschat.min.js"></script>
 </body>
 </html>

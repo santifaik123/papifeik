@@ -8,7 +8,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
 /* ============================================================
    DAR.IO — Nuvik Suite
@@ -35,7 +35,7 @@ ul,ol{list-style:none}
 }
 
 body{font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--t1);background:var(--bg);overflow-x:hidden}
-h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:800;line-height:1.1;letter-spacing:-.025em}
+h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;line-height:1.1;letter-spacing:-.025em}
 p{color:var(--t2)}
 
 .wrap{width:100%;max-width:var(--cw);margin:0 auto;padding:0 24px}
@@ -63,14 +63,14 @@ section{padding:clamp(80px,10vw,120px) 0}
 .nav.sc{background:rgba(5,11,18,.9);border-color:var(--b1)}
 .nav-back{font-size:13px;color:var(--t3);display:flex;align-items:center;gap:6px;transition:color var(--td)}
 .nav-back:hover{color:var(--t1)}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--t1)}
+.nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--t1)}
 .nav-logo span{color:var(--a)}
 .nav-tog{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:var(--r2);border:1px solid var(--b0)}
 .nav-tog span{display:block;width:18px;height:1.5px;background:var(--t2);border-radius:2px}
 
 /* Hero */
-.hero{min-height:100svh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:80px;position:relative}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
 .orb1{width:600px;height:600px;top:-150px;right:-80px;background:radial-gradient(circle,rgba(var(--ar),.13) 0%,transparent 70%);animation:orb1 13s ease-in-out infinite alternate}
 .orb2{width:500px;height:500px;bottom:-120px;left:-80px;background:radial-gradient(circle,rgba(var(--a2r),.08) 0%,transparent 70%);animation:orb2 17s ease-in-out infinite alternate}
@@ -98,7 +98,7 @@ section{padding:clamp(80px,10vw,120px) 0}
 /* Dashboard inside browser */
 .dash{display:grid;grid-template-columns:160px 1fr;min-height:320px}
 .dash-side{background:rgba(0,0,0,.25);border-right:1px solid var(--b0);padding:16px 12px;display:flex;flex-direction:column;gap:4px}
-.dash-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--a);letter-spacing:-.02em;padding:6px 8px;margin-bottom:8px}
+.dash-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;color:var(--a);letter-spacing:-.02em;padding:6px 8px;margin-bottom:8px}
 .dash-nav-item{padding:7px 10px;border-radius:var(--r2);font-size:12px;color:var(--t3);cursor:default;transition:all var(--td)}
 .dash-nav-item.act{background:rgba(var(--ar),.12);color:var(--a);font-weight:600}
 .dash-nav-item:not(.act):hover{background:var(--s0);color:var(--t2)}
@@ -106,7 +106,7 @@ section{padding:clamp(80px,10vw,120px) 0}
 .dash-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .dm{background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);padding:10px 12px}
 .dm-label{font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
-.dm-val{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--t1);letter-spacing:-.02em}
+.dm-val{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;color:var(--t1);letter-spacing:-.02em}
 .dm-delta{font-size:10px;margin-top:3px;font-family:'JetBrains Mono',monospace}
 .dm-delta.up{color:#4ade80}
 .dm-delta.warn{color:#f59e0b}
@@ -141,21 +141,21 @@ section{padding:clamp(80px,10vw,120px) 0}
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)}
 .stat{padding:28px 20px;border-right:1px solid var(--b0);display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
 .stat:last-child{border-right:none}
-.stat-n{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,4vw,48px);letter-spacing:-.04em;line-height:1}
+.stat-n{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(32px,4vw,48px);letter-spacing:-.04em;line-height:1}
 .stat-l{font-size:12px;color:var(--t2);max-width:100px;line-height:1.4}
 
 /* Feature cards */
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
 .feat-card{padding:26px;display:flex;flex-direction:column;gap:10px}
 .feat-icon{width:38px;height:38px;border-radius:var(--r2);background:rgba(var(--ar),.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.feat-name{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--t1)}
+.feat-name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:var(--t1)}
 .feat-desc{font-size:13px;color:var(--t2);line-height:1.55}
 
 /* How it works */
 .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
 .step{padding:24px;display:flex;flex-direction:column;gap:8px}
 .step-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--a);letter-spacing:.1em;margin-bottom:2px}
-.step-title{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--t1)}
+.step-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;color:var(--t1)}
 .step-desc{font-size:13px;color:var(--t2);line-height:1.55}
 
 /* Demo section */
@@ -178,8 +178,11 @@ section{padding:clamp(80px,10vw,120px) 0}
 
 /* Footer */
 footer{border-top:1px solid var(--b0);padding:40px 0 24px}
-.foot-g{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
-.flogo{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:var(--t1);letter-spacing:-.02em}
+.foot-g{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.fsocials{display:flex;gap:7px;margin-top:12px}
+.fsoc{padding:6px 12px;background:var(--s0);border:1px solid var(--b0);border-radius:var(--rf);font-size:12px;color:var(--t2);transition:all var(--td);display:flex;align-items:center;gap:6px}
+.fsoc:hover{color:var(--t1);border-color:var(--b1);background:var(--s1)}
+.flogo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;color:var(--t1);letter-spacing:-.02em}
 .ftag{font-size:12px;color:var(--t3);margin-top:4px}
 .flinks{display:flex;gap:24px}
 .flinks a{font-size:13px;color:var(--t3);transition:color var(--td)}
@@ -434,12 +437,12 @@ button:focus-visible,a:focus-visible{border-radius:var(--r2)}
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
               <div style="background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);padding:14px">
                 <div style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Ganancia neta mes</div>
-                <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;color:var(--a)">$1.284.500</div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;color:var(--a)">$1.284.500</div>
                 <div style="font-size:11px;color:var(--t3);margin-top:4px;font-family:'JetBrains Mono',monospace">vs mes anterior</div>
               </div>
               <div style="background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);padding:14px">
                 <div style="font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Variación</div>
-                <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;color:#4ade80">+18.4%</div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;color:#4ade80">+18.4%</div>
                 <div style="font-size:11px;color:#4ade80;margin-top:4px;font-family:'JetBrains Mono',monospace">mejor mes del año</div>
               </div>
             </div>
@@ -511,6 +514,16 @@ button:focus-visible,a:focus-visible{border-radius:var(--r2)}
       <div>
         <div class="flogo">NUVIK.DIGITAL</div>
         <div class="ftag">DAR.IO — Parte de la Nuvik Suite</div>
+        <div class="fsocials">
+          <a href="https://www.linkedin.com/in/santiago-delfino-448227277/" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn CEO Santiago">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            CEO Santiago
+          </a>
+          <a href="https://www.linkedin.com/in/nicolas-leonardo-torres-pf%C3%A4fflin-7579013bb/" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn CTO Nicolás">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            CTO Nicolás
+          </a>
+        </div>
       </div>
       <div class="flinks">
         <a href="index.html#suite">Suite</a>
@@ -532,5 +545,24 @@ window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60),{pass
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 </script>
+
+<!-- NexusChat Widget -->
+<script>
+window.NexusChatConfig = {
+  tenantId: 'nuvik',
+  serverUrl: 'https://nexuschat-cgat.onrender.com',
+  language: 'es',
+  name: 'Asistente Nuvik',
+  welcomeMessage: '¡Hola! ¿Querés saber más sobre Dar.io? Con gusto te ayudo.',
+  placeholder: 'Escribí tu consulta...',
+  primaryColor: '#10b981',
+  secondaryColor: '#34d399',
+  theme: 'dark',
+  position: 'bottom-right',
+  quickReplies: ['¿Qué hace Dar.io?', 'Ver precios', 'Solicitar demo', 'Volver a Nuvik'],
+  showBranding: false,
+};
+</script>
+<script src="https://nexuschat-cgat.onrender.com/widget/nexuschat.min.js"></script>
 </body>
 </html>
