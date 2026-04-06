@@ -223,8 +223,8 @@ footer{border-top:1px solid var(--b0);padding:40px 0 24px}
 :focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
 button:focus-visible,a:focus-visible{border-radius:var(--r2)}
 
-/* Cursor pointer en cards */
-.card{cursor:pointer}
+/* Cursor pointer solo en cards interactivas */
+a.card,button.card{cursor:pointer}
 
 /* Reveal */
 .rv{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
