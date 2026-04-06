@@ -1,0 +1,37 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#050B12"/>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1015" cy="122" r="210" fill="url(#orb1)" opacity="0.9"/>
+  <circle cx="179" cy="538" r="240" fill="url(#orb2)" opacity="0.75"/>
+  <circle cx="862" cy="486" r="162" fill="url(#orb3)" opacity="0.55"/>
+  <rect x="72" y="68" width="1056" height="494" rx="28" fill="rgba(8,20,32,0.72)" stroke="rgba(255,255,255,0.12)"/>
+  <text x="112" y="160" fill="#F1F5F9" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5">nuvik.digital</text>
+  <text x="112" y="252" fill="#F1F5F9" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="700" letter-spacing="-2.5">Sitios a medida,</text>
+  <text x="112" y="336" fill="#F1F5F9" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="700" letter-spacing="-2.5">software propio y</text>
+  <text x="112" y="420" fill="#7DD3FC" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="700" letter-spacing="-2.5">automatización útil.</text>
+  <text x="112" y="486" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400">Nuvik Digital centraliza el funnel entre web a medida, Dar.io y NexusChatBot.</text>
+  <rect x="112" y="520" width="192" height="50" rx="25" fill="rgba(37,99,235,0.16)" stroke="rgba(37,99,235,0.35)"/>
+  <text x="144" y="552" fill="#BFDBFE" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Sitios a medida</text>
+  <rect x="326" y="520" width="132" height="50" rx="25" fill="rgba(16,185,129,0.16)" stroke="rgba(16,185,129,0.35)"/>
+  <text x="369" y="552" fill="#A7F3D0" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Dar.io</text>
+  <rect x="480" y="520" width="204" height="50" rx="25" fill="rgba(139,92,246,0.16)" stroke="rgba(139,92,246,0.35)"/>
+  <text x="519" y="552" fill="#DDD6FE" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">NexusChatBot</text>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#050B12"/>
+      <stop offset="1" stop-color="#07131C"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1015 122) rotate(90) scale(210)">
+      <stop stop-color="#00D4FF"/>
+      <stop offset="1" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(179 538) rotate(90) scale(240)">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(862 486) rotate(90) scale(162)">
+      <stop stop-color="#10B981"/>
+      <stop offset="1" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

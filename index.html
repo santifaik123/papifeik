@@ -3,12 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuvik Digital — Diseño Web, Software y Automatización</title>
-  <meta name="description" content="Webs profesionales, software a medida y chatbots inteligentes para negocios que quieren crecer de verdad. Santiago, Chile." />
+  <title>Nuvik Digital | Sitios a medida, Dar.io y NexusChatBot</title>
+  <meta name="description" content="Sitios a medida, software propio y automatización útil para negocios que necesitan vender mejor, responder más rápido y operar con más orden." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#050b12" />
+  <link rel="canonical" href="https://nuvik.digital/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Nuvik Digital" />
+  <meta property="og:title" content="Nuvik Digital | Sitios a medida, Dar.io y NexusChatBot" />
+  <meta property="og:description" content="Sitios a medida, software propio y automatización útil para negocios que necesitan vender mejor, responder más rápido y operar con más orden." />
+  <meta property="og:url" content="https://nuvik.digital/" />
+  <meta property="og:image" content="https://nuvik.digital/social-card.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nuvik Digital | Sitios a medida, Dar.io y NexusChatBot" />
+  <meta name="twitter:description" content="Sitios a medida, software propio y automatización útil para negocios que necesitan vender mejor, responder más rápido y operar con más orden." />
+  <meta name="twitter:image" content="https://nuvik.digital/social-card.svg" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Nuvik Digital",
+    "url": "https://nuvik.digital/",
+    "description": "Estudio digital que diseña sitios a medida y activa productos propios como Dar.io y NexusChatBot.",
+    "areaServed": "CL",
+    "sameAs": [
+      "https://instagram.com/nuvikdigital",
+      "https://www.linkedin.com/in/santiago-delfino-448227277/",
+      "https://www.linkedin.com/in/nicolas-leonardo-torres-pf%C3%A4fflin-7579013bb/"
+    ]
+  }
+  </script>
   <style>
 /* ============================================================
    NUVIK DIGITAL v2 — Sistema de diseño unificado
@@ -268,6 +297,13 @@ section{padding:clamp(80px,10vw,120px) 0}
 textarea.fc{resize:vertical;min-height:90px}
 select.fc{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;appearance:none;padding-right:34px}
 .cp-send{width:100%;justify-content:center;padding:13px;font-size:14px;margin-top:6px}
+.cp-help{font-size:12px;color:var(--t3);line-height:1.55;margin:8px 0 10px}
+.cp-status{display:none;padding:11px 13px;border-radius:var(--r2);font-size:13px;line-height:1.5;margin-bottom:14px;border:1px solid transparent}
+.cp-status.show{display:block}
+.cp-status.ok{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.22);color:#86efac}
+.cp-status.err{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:#fca5a5}
+.cp-status.pending{background:rgba(var(--ar),.08);border-color:rgba(var(--ar),.25);color:#bfdbfe}
+.cp-hidden{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
 /* Footer */
 footer{border-top:1px solid var(--b0);padding:48px 0 28px}
@@ -281,6 +317,8 @@ footer{border-top:1px solid var(--b0);padding:48px 0 28px}
 .flinks ul{display:flex;flex-direction:column;gap:7px}
 .flinks a{font-size:13px;color:var(--t3);transition:color var(--td)}
 .flinks a:hover{color:var(--t1)}
+.flinks button{font:inherit;background:none;border:none;padding:0;color:var(--t3);cursor:pointer;transition:color var(--td);text-align:left}
+.flinks button:hover{color:var(--t1)}
 .footer-bot{border-top:1px solid var(--b0);padding-top:22px;display:flex;align-items:center;justify-content:space-between}
 .fcopy{font-size:12px;color:var(--t3)}
 
@@ -386,7 +424,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
     <a href="#faq" class="nav-link" role="menuitem">FAQ</a>
     <a href="#precios" class="nav-link" role="menuitem">Precios</a>
   </div>
-  <button class="btn btn-p btn-sm nav-cta cp-open" type="button">Cotiza ahora</button>
+  <button class="btn btn-p btn-sm nav-cta cp-open" type="button" data-contact="Consulta general" data-track-event="form_open" data-track-label="home_nav_quote">Cotiza ahora</button>
   <button class="nav-tog" id="navtog" aria-label="Abrir menú" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -402,7 +440,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
   <a href="#faq" class="mob-link">FAQ</a>
   <a href="#precios" class="mob-link">Precios</a>
   <div class="mob-cta-wrap">
-    <button class="btn btn-p cp-open mob-cta" type="button" style="padding:13px 36px;font-size:15px">Cotiza ahora</button>
+    <button class="btn btn-p cp-open mob-cta" type="button" style="padding:13px 36px;font-size:15px" data-contact="Consulta general" data-track-event="form_open" data-track-label="home_mobile_quote">Cotiza ahora</button>
   </div>
   <div class="mob-products">
     <a href="dario.html" class="mob-prod c-blue">Dar.io</a>
@@ -419,11 +457,11 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
   <div class="wrap hero-inner">
     <div class="hero-content">
       <div class="ey rv">nuvik.digital · Santiago, Chile</div>
-      <h1 class="hero-title rv d1">Tu negocio merece<br><span class="grad">presencia digital total.</span></h1>
-      <p class="hero-sub rv d2">Webs profesionales, software a medida y chatbots inteligentes para negocios que quieren crecer de verdad.</p>
+      <h1 class="hero-title rv d1">Sitios a medida,<br><span class="grad">software propio y automatización útil.</span></h1>
+      <p class="hero-sub rv d2">Nuvik combina diseño web con productos propios como Dar.io y NexusChatBot para que tu presencia digital no termine en una landing bonita, sino en un sistema que también vende, responde y ordena.</p>
       <div class="hero-ctas rv d3">
-        <a href="#suite" class="btn btn-p">Ver productos</a>
-        <button class="btn btn-g cp-open" type="button">Cotizar ahora</button>
+        <a href="#suite" class="btn btn-p" data-track-event="cta_click" data-track-label="home_hero_products">Ver productos</a>
+        <button class="btn btn-g cp-open" type="button" data-contact="Consulta general" data-track-event="form_open" data-track-label="home_hero_quote">Cotizar ahora</button>
       </div>
     </div>
     <style>
@@ -448,8 +486,8 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
       </a>
       <div class="p-card p-emerald">
         <span class="p-tag">Automatización</span>
-        <span class="p-name">WhatsApp Agents</span>
-        <span class="p-desc">Bots inteligentes para negocios</span>
+        <span class="p-name">Agentes WhatsApp</span>
+        <span class="p-desc">Beta privada para negocios con alta demanda</span>
       </div>
       <div class="p-card p-cyan">
         <span class="p-tag">Diseño Web</span>
@@ -507,10 +545,10 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
         <span class="sc-link">Ver NexusChatBot →</span>
       </a>
       <div class="card suite-card c-emerald rv d3">
-        <span class="sc-tag">Automatización</span>
+        <span class="sc-tag">Beta privada</span>
         <span class="sc-name">Agentes WhatsApp</span>
-        <p class="sc-desc">Automatización inteligente para WhatsApp Business. Responde consultas, toma pedidos y gestiona conversaciones mientras duermes.</p>
-        <span class="sc-link">Próximamente →</span>
+        <p class="sc-desc">Estamos activando una beta cuidada para negocios con alto volumen de consultas en WhatsApp. Se abre por cupos y con implementación guiada.</p>
+        <button class="sc-link cp-open" type="button" data-contact="Agente WhatsApp" data-track-event="form_open" data-track-label="home_suite_whatsapp_beta">Unirme a la beta →</button>
       </div>
       <div class="card suite-card c-cyan rv d4">
         <span class="sc-tag">Diseño Web</span>
@@ -529,7 +567,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
       <div>
         <div class="ey rv">— Nosotros</div>
         <h2 class="st rv d1" style="max-width:480px">No solo construimos páginas.<br>Construimos soluciones.</h2>
-        <p class="about-desc rv d2">Somos un equipo de jóvenes universitarios que decidimos invertir nuestro tiempo en algo que realmente aporte valor: ayudar a negocios y emprendedores a tener la presencia digital que merecen.</p>
+        <p class="about-desc rv d2">Somos un equipo pequeño que diseña, construye y opera sus propias herramientas. Nuvik existe para que un negocio no tenga que elegir entre verse bien, responder rápido o tener orden operativo.</p>
         <div class="appr rv d3">
           <div class="appr-item"><strong>Diseño Estratégico</strong><p>Cada decisión visual tiene un propósito: guiar al usuario hacia la conversión.</p></div>
           <div class="appr-item"><strong>Software Propio</strong><p>Construimos nuestras herramientas. Sabemos cómo funcionan porque las usamos nosotros mismos.</p></div>
@@ -539,11 +577,36 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
         </div>
       </div>
       <div class="about-right rv d2">
-        <div class="acard"><div class="anum grad" data-count="5">0</div><div class="alabel">Días máximo de entrega</div></div>
-        <div class="acard"><div class="anum grad" data-count="4">0</div><div class="alabel">Productos propios en la suite</div></div>
-        <div class="acard"><div class="anum" style="font-size:38px;background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">50ms</div><div class="alabel">Para generar primera impresión</div></div>
-        <div class="acard"><div class="anum" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">7x</div><div class="alabel">Más confianza con web profesional</div></div>
+        <div class="acard"><div class="anum grad" data-count="2">0</div><div class="alabel">Productos activos para demo hoy</div></div>
+        <div class="acard"><div class="anum grad" data-count="1">0</div><div class="alabel">Funnel principal de cotización</div></div>
+        <div class="acard"><div class="anum" style="font-size:26px;background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">CEO + CTO</div><div class="alabel">Hablas con quienes diseñan y construyen el proyecto</div></div>
+        <div class="acard"><div class="anum" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Live</div><div class="alabel">Web, widget y captación conectados en producción</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Prueba Real -->
+<section>
+  <div class="wrap">
+    <div class="ey rv">— Prueba real</div>
+    <div class="sh">
+      <h2 class="st rv d1">Lo que ya puedes ver funcionando hoy.</h2>
+      <p class="ss rv d2">Sin logos inventados ni humo. Estas son las pruebas que ya están activas y visibles en el ecosistema Nuvik.</p>
+    </div>
+    <div class="srv-grid rv d3">
+      <div class="card srv-card">
+        <div class="srv-name">Sitio principal en producción</div>
+        <p class="srv-desc">La home ya opera con funnel real de cotización, CTA unificado y NexusChat embebido como prueba pública del producto.</p>
+      </div>
+      <a href="dario.html" class="card srv-card" style="text-decoration:none" data-track-event="cta_click" data-track-label="home_proof_dario">
+        <div class="srv-name" style="color:#2563eb">Dar.io listo para demo</div>
+        <p class="srv-desc">Página de producto, narrativa clara y demo guiada para mostrar inventario, ventas, costos y orden operativo sin instalar nada.</p>
+      </a>
+      <a href="nexuschatbot.html" class="card srv-card" style="text-decoration:none" data-track-event="cta_click" data-track-label="home_proof_nexus">
+        <div class="srv-name" style="color:#8b5cf6">NexusChatBot ya embebido</div>
+        <p class="srv-desc">El chatbot que se vende también está funcionando en esta misma web, con branding propio y quick replies ajustadas al negocio.</p>
+      </a>
     </div>
   </div>
 </section>
@@ -571,7 +634,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
       <div class="srv-grid">
         <a href="dario.html" class="card srv-card" style="text-decoration:none"><div class="srv-name" style="color:#2563eb">Dar.io</div><p class="srv-desc">Software de gestión integral: inventario, ventas, costos, ganancias. Dashboard completo en tiempo real.</p></a>
         <a href="nexuschatbot.html" class="card srv-card" style="text-decoration:none"><div class="srv-name" style="color:#8b5cf6">NexusChatBot</div><p class="srv-desc">Chatbot inteligente con burbuja flotante. Atiende clientes 24/7, captura leads y responde automáticamente.</p></a>
-        <div class="card srv-card"><div class="srv-name" style="color:#10b981">Agentes WhatsApp</div><p class="srv-desc">Bots inteligentes para WhatsApp Business. Responden, toman pedidos y gestionan conversaciones sin intervención.</p></div>
+        <div class="card srv-card"><div class="srv-name" style="color:#10b981">Agentes WhatsApp · Beta</div><p class="srv-desc">Beta privada para negocios con alto volumen. Se activa por cupos, con implementación guiada y casos de uso bien definidos.</p></div>
       </div>
     </div>
   </div>
@@ -581,10 +644,10 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <div class="stats-band">
   <div class="wrap">
     <div class="stats-row">
-      <div class="stat rv"><div class="stat-n grad" data-count="5">5</div><div class="stat-l">Días máximo de entrega</div></div>
-      <div class="stat rv d1"><div class="stat-n grad" data-count="4">4</div><div class="stat-l">Productos propios</div></div>
-      <div class="stat rv d2"><div class="stat-n" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">50ms</div><div class="stat-l">Para generar primera impresión</div></div>
-      <div class="stat rv d3"><div class="stat-n" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">7x</div><div class="stat-l">Más confianza con web profesional</div></div>
+      <div class="stat rv"><div class="stat-n grad" data-count="2">0</div><div class="stat-l">Productos listos para demo</div></div>
+      <div class="stat rv d1"><div class="stat-n grad" data-count="1">0</div><div class="stat-l">Canal principal de contacto</div></div>
+      <div class="stat rv d2"><div class="stat-n" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">&lt;24h</div><div class="stat-l">Tiempo objetivo de primera respuesta</div></div>
+      <div class="stat rv d3"><div class="stat-n" style="background:linear-gradient(125deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">100%</div><div class="stat-l">Código y despliegue a medida</div></div>
     </div>
   </div>
 </div>
@@ -595,7 +658,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
     <div class="ey rv">— Proceso</div>
     <div class="sh"><h2 class="st rv d1">De la idea al lanzamiento,<br>sin sorpresas.</h2></div>
     <div class="proc-grid">
-      <div class="card pstep rv d1"><div class="pstep-num">01</div><div class="pstep-title">Descubrimiento</div><p class="pstep-desc">Conversamos sobre tu negocio, objetivos y audiencia. Sin formularios complicados, solo una charla directa por Instagram.</p></div>
+      <div class="card pstep rv d1"><div class="pstep-num">01</div><div class="pstep-title">Descubrimiento</div><p class="pstep-desc">Partimos con un brief corto y una conversación directa para entender negocio, oferta, audiencia y objetivo comercial.</p></div>
       <div class="card pstep rv d2"><div class="pstep-num">02</div><div class="pstep-title">Definición</div><p class="pstep-desc">Definimos el propósito del proyecto, arquitectura de información y elementos clave para convertir visitantes en clientes.</p></div>
       <div class="card pstep rv d3"><div class="pstep-num">03</div><div class="pstep-title">Diseño Visual</div><p class="pstep-desc">Creamos la identidad visual completa: colores, tipografía y jerarquía. Cada decisión tiene propósito estratégico.</p></div>
       <div class="card pstep rv d4"><div class="pstep-num">04</div><div class="pstep-title">Desarrollo</div><p class="pstep-desc">Código limpio, responsive y optimizado. Velocidad, SEO técnico y compatibilidad total incluidos.</p></div>
@@ -725,7 +788,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
             <li class="pc-feat">Botón de WhatsApp (link directo)</li>
             <li class="pc-feat">1 mes de soporte para cambios menores</li>
           </ul>
-          <button class="btn btn-p pc-cta cp-open" type="button">Cotizar Starter →</button>
+          <button class="btn btn-p pc-cta cp-open" type="button" data-contact="Landing Page" data-track-event="form_open" data-track-label="pricing_starter">Cotizar Starter →</button>
         </div>
       </div>
     </div>
@@ -745,7 +808,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
             <li class="pc-feat">Botón WhatsApp</li>
             <li class="pc-feat">1 mes de soporte</li>
           </ul>
-          <button class="btn btn-g pc-cta cp-open" type="button">Cotizar →</button>
+          <button class="btn btn-g pc-cta cp-open" type="button" data-contact="Web Corporativa" data-track-event="form_open" data-track-label="pricing_pro_esencial">Cotizar →</button>
         </div>
         <div class="card pc hot">
           <div class="pc-badge">Más popular</div>
@@ -759,7 +822,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
             <li class="pc-feat">Galería de fotos o carrusel</li>
             <li class="pc-feat">2 meses de soporte</li>
           </ul>
-          <button class="btn btn-p pc-cta cp-open" type="button">Cotizar →</button>
+          <button class="btn btn-p pc-cta cp-open" type="button" data-contact="Web Corporativa" data-track-event="form_open" data-track-label="pricing_pro_avanzado">Cotizar →</button>
         </div>
         <div class="card pc">
           <div class="pc-plan">Pro Completo</div>
@@ -773,7 +836,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
             <li class="pc-feat">Integración con redes sociales</li>
             <li class="pc-feat">3 meses de soporte</li>
           </ul>
-          <button class="btn btn-g pc-cta cp-open" type="button">Cotizar →</button>
+          <button class="btn btn-g pc-cta cp-open" type="button" data-contact="Web Corporativa" data-track-event="form_open" data-track-label="pricing_pro_completo">Cotizar →</button>
         </div>
       </div>
     </div>
@@ -794,7 +857,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
             <li class="pc-feat">Pagos: transferencia o link de pago</li>
             <li class="pc-feat">2 meses de soporte</li>
           </ul>
-          <button class="btn btn-g pc-cta cp-open" type="button">Cotizar →</button>
+          <button class="btn btn-g pc-cta cp-open" type="button" data-contact="Tienda Online" data-track-event="form_open" data-track-label="pricing_commerce_esencial">Cotizar →</button>
         </div>
         <div class="card pc hot">
           <div class="pc-badge">Más popular</div>
@@ -810,7 +873,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
             <li class="pc-feat">Página "Sobre nosotros" y FAQ</li>
             <li class="pc-feat">3 meses de soporte</li>
           </ul>
-          <button class="btn btn-p pc-cta cp-open" type="button">Cotizar →</button>
+          <button class="btn btn-p pc-cta cp-open" type="button" data-contact="Tienda Online" data-track-event="form_open" data-track-label="pricing_commerce_pro">Cotizar →</button>
         </div>
         <div class="card pc">
           <div class="pc-plan">Commerce Premium</div>
@@ -824,7 +887,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
             <li class="pc-feat">Diseño de marca completo</li>
             <li class="pc-feat">3 meses de soporte</li>
           </ul>
-          <button class="btn btn-g pc-cta cp-open" type="button">Cotizar →</button>
+          <button class="btn btn-g pc-cta cp-open" type="button" data-contact="Tienda Online" data-track-event="form_open" data-track-label="pricing_commerce_premium">Cotizar →</button>
         </div>
       </div>
     </div>
@@ -838,7 +901,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
     <h2 class="st rv d1">Preguntas frecuentes.</h2>
     <div class="faq-list rv d2">
       <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto demora hacer un sitio web?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">La mayoría de proyectos se entregan en máximo 5 días hábiles — sin importar si es landing page, sitio corporativo o tienda online. Se trabaja rápido sin sacrificar calidad.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué necesito para empezar?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Solo necesitas claridad sobre tu negocio y el objetivo que quieres lograr. Lo demás se trabaja juntos. Escríbenos por Instagram (@nuvikdigital) o completa el formulario de contacto.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué necesito para empezar?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Solo necesitas claridad sobre tu negocio y el objetivo que quieres lograr. Lo demás se trabaja juntos. Completa el formulario de contacto y, si prefieres una conversación más manual, también puedes escribirnos por Instagram.</div></div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Pueden rediseñar una web existente?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. El rediseño es uno de los servicios clave. Si tienes un sitio desactualizado, se transforma en algo moderno, profesional y perfectamente alineado con tu imagen actual.</div></div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Mi sitio se verá bien en celular?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí, 100%. Todos los proyectos se diseñan mobile-first desde el día uno. Funcionan perfectamente en celulares, tablets y computadoras.</div></div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué es Dar.io y para qué sirve?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Software de gestión integral para negocios. Controla inventario, ventas, costos y ganancias en tiempo real desde un dashboard completo. Incluye reportes automáticos e integración con múltiples plataformas.</div></div></div>
@@ -857,8 +920,8 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
     <h2 class="cta-h rv d1">¿Listo para llevar tu negocio al siguiente nivel?</h2>
     <p class="cta-s rv d2">Hablemos sobre tu proyecto. Sin compromisos, sin burocracia. Solo una conversación directa.</p>
     <div class="cta-btns rv d3">
-      <button class="btn btn-p cp-open" style="padding:13px 32px;font-size:15px" type="button">Cotiza ahora</button>
-      <a href="https://instagram.com/nuvikdigital" class="ig-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Nuvik Digital">
+      <button class="btn btn-p cp-open" style="padding:13px 32px;font-size:15px" type="button" data-contact="Consulta general" data-track-event="form_open" data-track-label="home_final_quote">Cotiza ahora</button>
+      <a href="https://instagram.com/nuvikdigital" class="ig-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Nuvik Digital" data-track-event="instagram_click" data-track-label="home_final_cta">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         @nuvikdigital en Instagram
       </a>
@@ -871,25 +934,32 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
   <div class="cp-box">
     <button class="cp-x" id="cp-close" type="button" aria-label="Cerrar formulario">✕</button>
     <h2 class="cp-h">Cuéntanos tu proyecto.</h2>
-    <p class="cp-sub">Te respondemos en menos de 24 horas.</p>
+    <p class="cp-sub">Este es nuestro canal principal de cotización. Te respondemos en menos de 24 horas.</p>
     <form id="cp-form" novalidate>
-      <div class="fg"><label for="cp-name">Nombre completo</label><input type="text" id="cp-name" class="fc" placeholder="Tu nombre" autocomplete="name" /></div>
-      <div class="fg"><label for="cp-email">Email</label><input type="email" id="cp-email" class="fc" placeholder="tu@email.com" autocomplete="email" /></div>
-      <div class="fg"><label for="cp-biz">Negocio / Empresa</label><input type="text" id="cp-biz" class="fc" placeholder="Nombre de tu negocio" /></div>
+      <input type="hidden" id="cp-time" value="" />
+      <div class="cp-hidden" aria-hidden="true">
+        <label for="cp-website-hp">No completar</label>
+        <input type="text" id="cp-website-hp" name="website_hp" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="fg"><label for="cp-name">Nombre completo</label><input type="text" id="cp-name" name="nombre" class="fc" placeholder="Tu nombre" autocomplete="name" required minlength="2" maxlength="100" /></div>
+      <div class="fg"><label for="cp-email">Email</label><input type="email" id="cp-email" name="email" class="fc" placeholder="tu@email.com" autocomplete="email" required /></div>
+      <div class="fg"><label for="cp-biz">Negocio / Empresa</label><input type="text" id="cp-biz" name="negocio" class="fc" placeholder="Nombre de tu negocio" maxlength="150" /></div>
       <div class="fg"><label for="cp-need">¿Qué necesitas?</label>
-        <select id="cp-need" class="fc">
+        <select id="cp-need" name="tipo" class="fc" required>
           <option value="">Selecciona una opción</option>
-          <option>Landing Page</option><option>Web Corporativa</option><option>Tienda Online</option>
-          <option>Rediseño Web</option><option>Dar.io</option><option>NexusChatBot</option>
-          <option>Agente WhatsApp</option><option>Otro</option>
+          <option value="Landing Page">Landing Page</option><option value="Web Corporativa">Web Corporativa</option><option value="Tienda Online">Tienda Online</option>
+          <option value="Rediseño Web">Rediseño Web</option><option value="Dar.io">Dar.io</option><option value="NexusChatBot">NexusChatBot</option>
+          <option value="Agente WhatsApp">Agente WhatsApp</option><option value="Consulta general">Consulta general</option><option value="Otro">Otro</option>
         </select>
       </div>
-      <div class="fg"><label for="cp-msg">Cuéntanos tu idea</label><textarea id="cp-msg" class="fc" placeholder="Describí brevemente tu proyecto o idea..." rows="4"></textarea></div>
+      <div class="fg"><label for="cp-msg">Cuéntanos tu idea</label><textarea id="cp-msg" name="mensaje" class="fc" placeholder="Describe brevemente tu proyecto o idea..." rows="4" required minlength="10" maxlength="2000"></textarea></div>
       <div class="fg"><label for="cp-web">¿Tienes web actualmente?</label>
-        <select id="cp-web" class="fc">
-          <option value="">Selecciona</option><option>Sí, tengo web</option><option>No, es mi primera web</option>
+        <select id="cp-web" name="web" class="fc">
+          <option value="">Selecciona</option><option value="Sí, tengo web">Sí, tengo web</option><option value="No, es mi primera web">No, es mi primera web</option>
         </select>
       </div>
+      <p class="cp-help">Usamos este formulario para centralizar demos, cotizaciones y seguimiento. Instagram queda como canal secundario.</p>
+      <div class="cp-status" id="cp-status" role="status" aria-live="polite"></div>
       <button type="submit" class="btn btn-p cp-send">Enviar mensaje →</button>
     </form>
   </div>
@@ -903,7 +973,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
         <a href="#inicio" class="flogo">nuvik.digital</a>
         <p class="ftag">Diseño Web, Software y Automatización Inteligente — Santiago, Chile.</p>
         <div class="fsocials">
-          <a href="https://instagram.com/nuvikdigital" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <a href="https://instagram.com/nuvikdigital" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-track-event="instagram_click" data-track-label="home_footer_social">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             @nuvikdigital
           </a>
@@ -917,7 +987,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
           </a>
         </div>
       </div>
-      <div class="flinks"><h4>Suite</h4><ul><li><a href="dario.html">Dar.io</a></li><li><a href="nexuschatbot.html">NexusChatBot</a></li><li><a href="#">Agentes WhatsApp</a></li></ul></div>
+      <div class="flinks"><h4>Suite</h4><ul><li><a href="dario.html">Dar.io</a></li><li><a href="nexuschatbot.html">NexusChatBot</a></li><li><button type="button" class="cp-open" data-contact="Agente WhatsApp" data-track-event="form_open" data-track-label="footer_whatsapp_beta">Agentes WhatsApp</button></li></ul></div>
       <div class="flinks"><h4>Empresa</h4><ul><li><a href="#servicios">Servicios</a></li><li><a href="#precios">Precios</a></li><li><a href="#proceso">Proceso</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     </div>
     <div class="footer-bot">
@@ -928,6 +998,9 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 </footer>
 
 <script>
+const TRACK_ENDPOINT='/.netlify/functions/track-event';
+const LEAD_ENDPOINT='/.netlify/functions/create-lead';
+
 // Nav scroll
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60),{passive:true});
@@ -939,7 +1012,7 @@ document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 // Counter animation
 const cObs=new IntersectionObserver(es=>es.forEach(e=>{
   if(!e.isIntersecting)return;
-  const t=parseInt(e.target.dataset.count);
+  const t=parseInt(e.target.dataset.count,10);
   let c=0,step=t/60;
   const id=setInterval(()=>{c=Math.min(c+step,t);e.target.textContent=Math.round(c);if(c>=t)clearInterval(id)},16);
   cObs.unobserve(e.target);
@@ -977,6 +1050,50 @@ document.querySelectorAll('.faq-q').forEach(btn=>{
   });
 });
 
+// Tracking
+function trackEvent(eventName,label='',extra={}){
+  if(!eventName)return;
+  const payload={
+    event:eventName,
+    label,
+    path:window.location.pathname,
+    href:window.location.href,
+    title:document.title,
+    ts:new Date().toISOString(),
+    ...extra,
+  };
+
+  if(Array.isArray(window.dataLayer)){
+    window.dataLayer.push(payload);
+  }
+
+  try{
+    const body=JSON.stringify(payload);
+    if(navigator.sendBeacon){
+      const blob=new Blob([body],{type:'application/json'});
+      navigator.sendBeacon(TRACK_ENDPOINT,blob);
+      return;
+    }
+    fetch(TRACK_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body,
+      keepalive:true,
+    }).catch(()=>{});
+  }catch(_error){
+    // Tracking should never break the experience.
+  }
+}
+
+document.querySelectorAll('[data-track-event]').forEach(el=>{
+  el.addEventListener('click',()=>{
+    trackEvent(el.dataset.trackEvent,el.dataset.trackLabel||'',{
+      contact:el.dataset.contact||'',
+      text:(el.textContent||'').trim().slice(0,80),
+    });
+  });
+});
+
 // Mobile nav
 const mobNav=document.getElementById('mob-nav');
 const navTog=document.getElementById('navtog');
@@ -987,24 +1104,117 @@ navTog.addEventListener('click',openMob);
 mobClose.addEventListener('click',closeMob);
 mobNav.addEventListener('click',e=>{if(e.target===mobNav)closeMob()});
 document.querySelectorAll('.mob-link,.mob-prod').forEach(el=>el.addEventListener('click',closeMob));
-// Also handle mob-cta: it opens CP and closes mob nav
 document.querySelectorAll('.mob-cta').forEach(el=>el.addEventListener('click',closeMob));
 
 // Contact panel
 const cp=document.getElementById('cp');
-const openCP=()=>{cp.classList.add('on');document.body.style.overflow='hidden'};
-const closeCP=()=>{cp.classList.remove('on');document.body.style.overflow=''};
-document.querySelectorAll('.cp-open').forEach(el=>el.addEventListener('click',openCP));
+const cpForm=document.getElementById('cp-form');
+const cpStatus=document.getElementById('cp-status');
+const cpNeed=document.getElementById('cp-need');
+const cpSend=cpForm.querySelector('.cp-send');
+const cpTime=document.getElementById('cp-time');
+const cpWebsiteHp=document.getElementById('cp-website-hp');
+const defaultSendText=cpSend.textContent;
+cpTime.value=String(Date.now()-4000);
+
+const setStatus=(tone,message='')=>{
+  cpStatus.textContent=message;
+  cpStatus.className='cp-status';
+  if(!message)return;
+  cpStatus.classList.add('show',tone);
+};
+
+const openCP=(contact='')=>{
+  if(contact){
+    cpNeed.value=contact;
+  }
+  cp.classList.add('on');
+  document.body.style.overflow='hidden';
+  setStatus();
+};
+
+const closeCP=()=>{
+  cp.classList.remove('on');
+  document.body.style.overflow='';
+};
+
+document.querySelectorAll('.cp-open').forEach(el=>{
+  el.addEventListener('click',()=>{
+    openCP(el.dataset.contact||'');
+  });
+});
+
 document.getElementById('cp-close').addEventListener('click',closeCP);
 cp.addEventListener('click',e=>{if(e.target===cp)closeCP()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCP();closeMob()}});
-document.getElementById('cp-form').addEventListener('submit',e=>{
+
+cpForm.addEventListener('submit',async e=>{
   e.preventDefault();
-  const btn=e.target.querySelector('[type=submit]');
-  btn.textContent='¡Enviado! Te contactamos pronto.';
-  btn.disabled=true;
-  setTimeout(()=>{closeCP();btn.textContent='Enviar mensaje →';btn.disabled=false},2200);
+  if(!cpForm.reportValidity())return;
+
+  const payload={
+    nombre:document.getElementById('cp-name').value.trim(),
+    email:document.getElementById('cp-email').value.trim(),
+    negocio:document.getElementById('cp-biz').value.trim(),
+    tipo:cpNeed.value,
+    mensaje:document.getElementById('cp-msg').value.trim(),
+    web:document.getElementById('cp-web').value,
+    website_hp:cpWebsiteHp.value,
+    _t:cpTime.value,
+  };
+
+  trackEvent('form_submit_attempt','home_contact_form',{contact:payload.tipo});
+  setStatus('pending','Enviando tu mensaje...');
+  cpSend.disabled=true;
+  cpSend.textContent='Enviando...';
+
+  try{
+    const res=await fetch(LEAD_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload),
+    });
+
+    let data={};
+    try{
+      data=await res.json();
+    }catch(_error){
+      data={};
+    }
+
+    if(!res.ok||!data.ok){
+      const message=data.error||'No pudimos enviar tu mensaje. Intenta nuevamente en unos minutos.';
+      throw new Error(message);
+    }
+
+    trackEvent('form_submit_success','home_contact_form',{contact:payload.tipo});
+    setStatus('ok','Mensaje enviado. Te contactaremos pronto.');
+    cpSend.textContent='Mensaje enviado';
+    cpForm.reset();
+    cpTime.value=String(Date.now()-4000);
+
+    window.setTimeout(()=>{
+      closeCP();
+      setStatus();
+      cpSend.disabled=false;
+      cpSend.textContent=defaultSendText;
+    },1800);
+  }catch(error){
+    const message=error instanceof Error ? error.message : 'No pudimos enviar tu mensaje.';
+    trackEvent('form_submit_error','home_contact_form',{contact:payload.tipo,error:message});
+    setStatus('err',message);
+    cpSend.disabled=false;
+    cpSend.textContent=defaultSendText;
+  }
 });
+
+const params=new URLSearchParams(window.location.search);
+const contactParam=params.get('contact');
+if(contactParam){
+  const section=document.getElementById('contacto');
+  if(section)section.scrollIntoView({behavior:'smooth',block:'start'});
+  window.setTimeout(()=>openCP(contactParam),180);
+}
 </script>
 
 <!-- NexusChat Widget -->
@@ -1014,8 +1224,8 @@ window.NexusChatConfig = {
   serverUrl: 'https://nexuschat-cgat.onrender.com',
   language: 'es',
   name: 'Asistente Nuvik',
-  welcomeMessage: '¡Hola! 👋 Soy el asistente de Nuvik Digital. ¿En qué te puedo ayudar hoy?',
-  placeholder: 'Escribí tu consulta...',
+  welcomeMessage: '¡Hola! Soy el asistente de Nuvik Digital. ¿En qué te puedo ayudar hoy?',
+  placeholder: 'Escribe tu consulta...',
   primaryColor: '#00D4FF',
   secondaryColor: '#00FFD1',
   theme: 'dark',
