@@ -288,8 +288,10 @@ section{padding:clamp(80px,10vw,120px) 0}
 .faq-item.on{border-color:rgba(var(--ar),.3)}
 .faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:18px 22px;font-weight:600;font-size:14px;cursor:pointer;text-align:left;gap:14px;color:var(--t1);transition:background var(--td)}
 .faq-q:hover{background:var(--s0)}
-.faq-ico{width:20px;height:20px;flex-shrink:0;border:1px solid var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all var(--td);font-size:14px;color:var(--t2);line-height:1}
+.faq-ico{width:20px;height:20px;flex-shrink:0;border:1px solid var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all var(--td);color:var(--t2)}
+.faq-ico svg{transition:transform var(--td)}
 .faq-item.on .faq-ico{background:rgba(var(--ar),.1);border-color:rgba(var(--ar),.3);color:var(--t1)}
+.faq-item.on .faq-ico svg{transform:rotate(90deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .32s var(--ease)}
 .faq-ai{padding:0 22px 18px;font-size:14px;color:var(--t2);line-height:1.65}
 
@@ -317,6 +319,7 @@ section{padding:clamp(80px,10vw,120px) 0}
 .fc:focus{outline:none;border-color:rgba(var(--ar),.5);box-shadow:0 0 0 3px rgba(var(--ar),.1)}
 textarea.fc{resize:vertical;min-height:90px}
 select.fc{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;appearance:none;padding-right:34px}
+option{background:#081420;color:#f1f5f9}
 .cp-send{width:100%;justify-content:center;padding:13px;font-size:14px;margin-top:6px}
 .cp-help{font-size:12px;color:var(--t3);line-height:1.55;margin:8px 0 10px}
 .cp-status{display:none;padding:11px 13px;border-radius:var(--r2);font-size:13px;line-height:1.5;margin-bottom:14px;border:1px solid transparent}
@@ -433,6 +436,27 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
   .mq-track{animation:none}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
+
+/* Theme toggle */
+.theme-tog{width:32px;height:32px;border-radius:50%;background:var(--s0);border:1px solid var(--b0);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--td);color:var(--t2);flex-shrink:0;margin-left:4px}
+.theme-tog:hover{background:var(--s1);border-color:var(--b1);color:var(--t1)}
+.ico-sun{display:none}
+[data-theme="light"] .ico-moon{display:none}
+[data-theme="light"] .ico-sun{display:block}
+
+/* Light mode tokens */
+[data-theme="light"]{
+  --bg:#f8fafc;--bg2:#f1f5f9;--bg3:#e2e8f0;
+  --t1:#0f172a;--t2:#475569;--t3:#94a3b8;
+  --s0:rgba(0,0,0,.04);--s1:rgba(0,0,0,.07);--s2:rgba(0,0,0,.12);
+  --b0:rgba(0,0,0,.09);--b1:rgba(0,0,0,.15);--b2:rgba(0,0,0,.24)
+}
+[data-theme="light"] .nav{background:rgba(248,250,252,.88)}
+[data-theme="light"] .nav.sc{background:rgba(248,250,252,.97);border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .mob-nav{background:var(--bg)}
+[data-theme="light"] .cp-ov{background:rgba(15,23,42,.6)}
+[data-theme="light"] .cp-box{background:var(--bg2)}
+[data-theme="light"] option{background:#f1f5f9;color:#0f172a}
   </style>
   <!-- Microsoft Clarity — activo -->
   <script type="text/javascript">
@@ -457,6 +481,10 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
     <a href="#faq" class="nav-link" role="menuitem">FAQ</a>
     <a href="#precios" class="nav-link" role="menuitem">Precios</a>
   </div>
+  <button id="theme-tog" class="theme-tog" type="button" aria-label="Cambiar tema">
+    <svg class="ico-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="ico-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
   <button class="btn btn-p btn-sm nav-cta cp-open" type="button" data-contact="Consulta general" data-track-event="form_open" data-track-label="home_nav_quote">Cotiza ahora</button>
   <button class="nav-tog" id="navtog" aria-label="Abrir menú" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -561,7 +589,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Suite -->
 <section id="suite">
   <div class="wrap">
-    <div class="ey rv">— Suite</div>
+    <div class="ey rv">Suite</div>
     <div class="sh">
       <h2 class="st rv d1">Todo lo que tu negocio necesita para crecer digitalmente.</h2>
     </div>
@@ -599,7 +627,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
   <div class="wrap">
     <div class="about-grid">
       <div>
-        <div class="ey rv">— Nosotros</div>
+        <div class="ey rv">Nosotros</div>
         <h2 class="st rv d1" style="max-width:480px">No solo construimos páginas.<br>Construimos soluciones.</h2>
         <p class="about-desc rv d2">Somos un equipo pequeño que diseña, construye y opera sus propias herramientas. Nuvik existe para que un negocio no tenga que elegir entre verse bien, responder rápido o tener orden operativo.</p>
         <div class="appr rv d3">
@@ -623,7 +651,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Prueba Real -->
 <section>
   <div class="wrap">
-    <div class="ey rv">— Prueba real</div>
+    <div class="ey rv">Prueba real</div>
     <div class="sh">
       <h2 class="st rv d1">Lo que ya puedes ver funcionando hoy.</h2>
       <p class="ss rv d2">Sin logos inventados ni humo. Estas son las pruebas que ya están activas y visibles en el ecosistema Nuvik.</p>
@@ -648,7 +676,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Servicios -->
 <section id="servicios">
   <div class="wrap">
-    <div class="ey rv">— Servicios</div>
+    <div class="ey rv">Servicios</div>
     <h2 class="st rv d1" style="margin-bottom:28px">Todo lo que hacemos.</h2>
     <div class="tabs rv d2" role="tablist" aria-label="Categorías de servicios">
       <button class="tab-btn on" data-tab="pres" role="tab" aria-selected="true">Presencia Digital</button>
@@ -689,7 +717,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Proceso -->
 <section id="proceso">
   <div class="wrap">
-    <div class="ey rv">— Proceso</div>
+    <div class="ey rv">Proceso</div>
     <div class="sh"><h2 class="st rv d1">De la idea al lanzamiento,<br>sin sorpresas.</h2></div>
     <div class="proc-grid">
       <div class="card pstep rv d1"><div class="pstep-num">01</div><div class="pstep-title">Descubrimiento</div><p class="pstep-desc">Partimos con un brief corto y una conversación directa para entender negocio, oferta, audiencia y objetivo comercial.</p></div>
@@ -708,8 +736,8 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Comparación -->
 <section style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
   <div class="wrap">
-    <div class="ey rv">— Comparación</div>
-    <h2 class="st rv d1">Web genérica vs. Web profesional.</h2>
+    <div class="ey rv">Comparación</div>
+    <h2 class="st rv d1">Web genérica VS Web profesional.</h2>
     <div class="rv d2" style="overflow-x:auto;margin-top:44px">
       <table class="cmp">
         <thead>
@@ -731,7 +759,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Industrias -->
 <section>
   <div class="wrap">
-    <div class="ey rv">— Industrias</div>
+    <div class="ey rv">Industrias</div>
     <h2 class="st rv d1">Industrias que atendemos.</h2>
     <div class="ind-flex rv d2" role="list">
       <span class="ind-tag" role="listitem">Clínicas y salud</span>
@@ -755,7 +783,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
   <div class="wrap">
     <div class="lm-inner">
       <div>
-        <div class="ey rv">— Gratis</div>
+        <div class="ey rv">Gratis</div>
         <h2 class="st rv d1" style="max-width:480px">¿Tu presencia digital está generando ventas o solo existe?</h2>
         <p class="ss rv d2">Revisamos tu sitio actual y te decimos exactamente qué está frenando tus ventas. Sin costo, sin compromiso. Respuesta en menos de 24 horas.</p>
       </div>
@@ -775,7 +803,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Capacidades -->
 <section style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
   <div class="wrap">
-    <div class="ey rv">— Capacidades</div>
+    <div class="ey rv">Capacidades</div>
     <h2 class="st rv d1">Construido para durar y convertir.</h2>
     <div class="cap-grid rv d2">
       <div class="cap-col">
@@ -818,7 +846,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- Precios -->
 <section id="precios">
   <div class="wrap">
-    <div class="ey rv">— Precios</div>
+    <div class="ey rv">Precios</div>
     <div class="sh">
       <h2 class="st rv d1">Planes claros, sin sorpresas.</h2>
       <p class="ss rv d2">Tres categorías según tu proyecto. Todos incluyen diseño responsivo, soporte y código 100% a medida. <span style="color:var(--t3)">Precios en CLP.</span></p>
@@ -974,23 +1002,23 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <!-- FAQ -->
 <section id="faq" style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
   <div class="wrap">
-    <div class="ey rv">— FAQ</div>
+    <div class="ey rv">FAQ</div>
     <h2 class="st rv d1">Preguntas frecuentes.</h2>
     <div class="faq-list rv d2">
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto demora hacer un sitio web?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">La mayoría de proyectos se entregan en máximo 5 días hábiles — sin importar si es landing page, sitio corporativo o tienda online. Se trabaja rápido sin sacrificar calidad.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué necesito para empezar?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Solo necesitas claridad sobre tu negocio y el objetivo que quieres lograr. Lo demás se trabaja juntos. Completa el formulario de contacto y, si prefieres una conversación más manual, también puedes escribirnos por Instagram.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Pueden rediseñar una web existente?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. El rediseño es uno de los servicios clave. Si tienes un sitio desactualizado, se transforma en algo moderno, profesional y perfectamente alineado con tu imagen actual.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Mi sitio se verá bien en celular?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí, 100%. Todos los proyectos se diseñan mobile-first desde el día uno. Funcionan perfectamente en celulares, tablets y computadoras.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué es Dar.io y para qué sirve?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Software de gestión integral para negocios. Controla inventario, ventas, costos y ganancias en tiempo real desde un dashboard completo. Incluye reportes automáticos e integración con múltiples plataformas.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿NexusChatBot funciona con cualquier sitio web?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. Se integra en cualquier sitio web con un fragmento de código simple. Aparece como burbuja flotante, atiende clientes 24/7 y puede derivar a un humano cuando sea necesario.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Los agentes de WhatsApp reemplazan a una persona?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Complementan el trabajo humano. Atienden consultas repetitivas y toman pedidos automáticamente. Para situaciones complejas, transfieren la conversación a una persona real.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Pueden ayudarme con dominio y hosting?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. Se orienta en la gestión o contratación de dominio y hosting. Si ya tienes ambos, se trabaja con lo que uses actualmente sin problema.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿El código del sitio me pertenece a mí?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí, el código es 100% tuyo desde el día que se entrega. No usamos builders con suscripción mensual ni plataformas que te dejan retenido. Lo que construimos te pertenece completamente y puedes hacer lo que quieras con él.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué pasa si necesito cambios después del lanzamiento?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Para eso existe el soporte post-lanzamiento incluido en todos los planes. Los cambios menores los hacemos sin burocracia. Para modificaciones más grandes, coordinamos una propuesta rápida y trabajamos hasta que el resultado quede exactamente como lo necesitas.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo sé que el diseño va a quedar como lo imagino?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Trabajamos en iteraciones con tu feedback directo. El paso de revisión en nuestro proceso no tiene límite de vueltas: ajustamos y refinamos hasta que el resultado te convence al 100%. Si el primer mockup no va por donde imaginabas, lo rehacemos. Tu conformidad es la meta, no la entrega por sí sola.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Trabajan con negocios pequeños o solo con empresas grandes?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">El foco está en PYMEs, negocios locales y profesionales en crecimiento. Son los que más se benefician de tener una presencia digital profesional sin pagar los precios de una agencia grande. También trabajamos con emprendedores que recién están construyendo su marca.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Tienen contrato o propuesta formal antes de arrancar?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. Antes de comenzar cualquier proyecto enviamos una propuesta por escrito con alcance, precio y tiempos estimados. Sin letra chica ni sorpresas. Todo queda claro desde el principio para que tomes la decisión con información completa.</div></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Por qué elegir Nuvik sobre una agencia más grande?<span class="faq-ico" aria-hidden="true">+</span></button><div class="faq-a" role="region"><div class="faq-ai">Porque hablas directamente con el CEO y el CTO — los mismos que diseñan y construyen tu proyecto, no con un ejecutivo de cuenta que coordina con alguien más. Eso significa respuestas rápidas, decisiones sin cuellos de botella y un equipo que realmente entiende lo que necesitas.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto demora hacer un sitio web?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">La mayoría de proyectos se entregan en máximo 5 días hábiles — sin importar si es landing page, sitio corporativo o tienda online. Se trabaja rápido sin sacrificar calidad.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué necesito para empezar?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Solo necesitas claridad sobre tu negocio y el objetivo que quieres lograr. Lo demás se trabaja juntos. Completa el formulario de contacto y, si prefieres una conversación más manual, también puedes escribirnos por Instagram.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Pueden rediseñar una web existente?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. El rediseño es uno de los servicios clave. Si tienes un sitio desactualizado, se transforma en algo moderno, profesional y perfectamente alineado con tu imagen actual.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Mi sitio se verá bien en celular?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Sí, 100%. Todos los proyectos se diseñan mobile-first desde el día uno. Funcionan perfectamente en celulares, tablets y computadoras.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué es Dar.io y para qué sirve?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Software de gestión integral para negocios. Controla inventario, ventas, costos y ganancias en tiempo real desde un dashboard completo. Incluye reportes automáticos e integración con múltiples plataformas.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿NexusChatBot funciona con cualquier sitio web?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. Se integra en cualquier sitio web con un fragmento de código simple. Aparece como burbuja flotante, atiende clientes 24/7 y puede derivar a un humano cuando sea necesario.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Los agentes de WhatsApp reemplazan a una persona?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Complementan el trabajo humano. Atienden consultas repetitivas y toman pedidos automáticamente. Para situaciones complejas, transfieren la conversación a una persona real.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Pueden ayudarme con dominio y hosting?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. Se orienta en la gestión o contratación de dominio y hosting. Si ya tienes ambos, se trabaja con lo que uses actualmente sin problema.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿El código del sitio me pertenece a mí?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Sí, el código es 100% tuyo desde el día que se entrega. No usamos builders con suscripción mensual ni plataformas que te dejan retenido. Lo que construimos te pertenece completamente y puedes hacer lo que quieras con él.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué pasa si necesito cambios después del lanzamiento?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Para eso existe el soporte post-lanzamiento incluido en todos los planes. Los cambios menores los hacemos sin burocracia. Para modificaciones más grandes, coordinamos una propuesta rápida y trabajamos hasta que el resultado quede exactamente como lo necesitas.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo sé que el diseño va a quedar como lo imagino?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Trabajamos en iteraciones con tu feedback directo. El paso de revisión en nuestro proceso no tiene límite de vueltas: ajustamos y refinamos hasta que el resultado te convence al 100%. Si el primer mockup no va por donde imaginabas, lo rehacemos. Tu conformidad es la meta, no la entrega por sí sola.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Trabajan con negocios pequeños o solo con empresas grandes?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">El foco está en PYMEs, negocios locales y profesionales en crecimiento. Son los que más se benefician de tener una presencia digital profesional sin pagar los precios de una agencia grande. También trabajamos con emprendedores que recién están construyendo su marca.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Tienen contrato o propuesta formal antes de arrancar?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Sí. Antes de comenzar cualquier proyecto enviamos una propuesta por escrito con alcance, precio y tiempos estimados. Sin letra chica ni sorpresas. Todo queda claro desde el principio para que tomes la decisión con información completa.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Por qué elegir Nuvik sobre una agencia más grande?<span class="faq-ico" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1l4 4-4 4"/></svg></span></button><div class="faq-a" role="region"><div class="faq-ai">Porque hablas directamente con el CEO y el CTO — los mismos que diseñan y construyen tu proyecto, no con un ejecutivo de cuenta que coordina con alguien más. Eso significa respuestas rápidas, decisiones sin cuellos de botella y un equipo que realmente entiende lo que necesitas.</div></div></div>
     </div>
   </div>
 </section>
@@ -999,14 +1027,14 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
 <section class="cta-final" id="contacto">
   <div class="hero-bg" aria-hidden="true"><div class="orb orb1"></div><div class="orb orb2" style="opacity:.5"></div></div>
   <div class="wrap cta-inner">
-    <div class="ey rv" style="justify-content:center">— ¿Listo?</div>
+    <div class="ey rv" style="justify-content:center">¿Listo?</div>
     <h2 class="cta-h rv d1">¿Listo para llevar tu negocio al siguiente nivel?</h2>
     <p class="cta-s rv d2">Hablemos sobre tu proyecto. Sin compromisos, sin burocracia. Solo una conversación directa.</p>
     <div class="cta-btns rv d3">
       <button class="btn btn-p cp-open" style="padding:13px 32px;font-size:15px" type="button" data-contact="Consulta general" data-track-event="form_open" data-track-label="home_final_quote">Cotiza ahora</button>
-      <a href="https://instagram.com/nuvikdigital" class="ig-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Nuvik Digital" data-track-event="instagram_click" data-track-label="home_final_cta">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        @nuvikdigital en Instagram
+      <a href="https://instagram.com/nuvikdigital" class="btn btn-g" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Nuvik Digital" data-track-event="instagram_click" data-track-label="home_final_cta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        @nuvikdigital
       </a>
     </div>
   </div>
@@ -1067,7 +1095,6 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
         <p class="ftag">Diseño Web, Software y Automatización Inteligente — Santiago, Chile.</p>
         <div class="fsocials">
           <a href="https://instagram.com/nuvikdigital" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-track-event="instagram_click" data-track-label="home_footer_social">
-            <span class="fsoc-dot" aria-hidden="true"></span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             @nuvikdigital
           </a>
@@ -1077,7 +1104,7 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
           </a>
           <a href="https://www.linkedin.com/in/nicolas-leonardo-torres-pf%C3%A4fflin-7579013bb/" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Nicolás Torres">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            CTO Nicolás
+            CTO Nicolas
           </a>
         </div>
       </div>
@@ -1086,7 +1113,6 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
     </div>
     <div class="footer-bot">
       <span class="fcopy">© 2026 nuvik.digital — Santiago, Chile</span>
-      <span class="fcopy">Hecho con código limpio.</span>
     </div>
   </div>
 </footer>
@@ -1398,6 +1424,19 @@ if(contactParam){
   if(section)section.scrollIntoView({behavior:'smooth',block:'start'});
   window.setTimeout(()=>openCP(contactParam),180);
 }
+
+// Theme toggle
+(function(){
+  const tog=document.getElementById('theme-tog');
+  const root=document.documentElement;
+  const saved=localStorage.getItem('nuvik-theme');
+  if(saved==='light')root.setAttribute('data-theme','light');
+  tog.addEventListener('click',()=>{
+    const isLight=root.getAttribute('data-theme')==='light';
+    if(isLight){root.removeAttribute('data-theme');localStorage.setItem('nuvik-theme','dark');}
+    else{root.setAttribute('data-theme','light');localStorage.setItem('nuvik-theme','light');}
+  });
+})();
 </script>
 
 <!-- NexusChat Widget -->

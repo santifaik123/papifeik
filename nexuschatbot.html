@@ -258,6 +258,31 @@ a.card,button.card{cursor:pointer}
   .dot-on{animation:none}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
+/* Contact panel */
+.cp-ov{position:fixed;inset:0;z-index:200;background:rgba(5,11,18,.75);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .22s var(--ease)}
+.cp-ov.on{opacity:1;pointer-events:all}
+.cp-box{position:absolute;right:0;top:0;bottom:0;width:100%;max-width:460px;background:var(--bg2);border-left:1px solid var(--b0);padding:44px 36px 36px;transform:translateX(100%);transition:transform .35s var(--ease);overflow-y:auto}
+.cp-ov.on .cp-box{transform:translateX(0)}
+.cp-x{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;background:var(--s1);border:1px solid var(--b0);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--t2);cursor:pointer;transition:all var(--td)}
+.cp-x:hover{background:var(--s2);color:var(--t1)}
+.cp-h{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--t1);margin-bottom:5px}
+.cp-sub{font-size:13px;color:var(--t2);margin-bottom:28px}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.fg label{font-size:12px;font-weight:600;color:var(--t2)}
+.fc{padding:10px 13px;background:var(--s0);border:1px solid var(--b0);border-radius:var(--r2);color:var(--t1);font-size:14px;transition:border-color var(--td);width:100%}
+.fc:focus{outline:none;border-color:rgba(var(--ar),.5);box-shadow:0 0 0 3px rgba(var(--ar),.1)}
+textarea.fc{resize:vertical;min-height:90px}
+select.fc{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;appearance:none;padding-right:34px}
+option{background:#081420;color:#f1f5f9}
+.cp-send{width:100%;justify-content:center;padding:13px;font-size:14px;margin-top:6px}
+.cp-help{font-size:12px;color:var(--t3);line-height:1.55;margin:8px 0 10px}
+.cp-status{display:none;padding:11px 13px;border-radius:var(--r2);font-size:13px;line-height:1.5;margin-bottom:14px;border:1px solid transparent}
+.cp-status.show{display:block}
+.cp-status.ok{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.22);color:#86efac}
+.cp-status.err{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:#fca5a5}
+.cp-status.pending{background:rgba(var(--ar),.08);border-color:rgba(var(--ar),.25);color:#bfdbfe}
+.cp-hidden{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media(max-width:768px){.cp-box{max-width:100%}}
   </style>
   <script type="text/javascript">
   (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w7qblbtkl4");
@@ -283,7 +308,7 @@ a.card,button.card{cursor:pointer}
     nuvik.digital
   </a>
   <div class="nav-logo">NEXUS<span>CHAT</span>BOT</div>
-  <a class="btn btn-p btn-sm" href="index.html?contact=NexusChatBot#contacto" data-track-event="form_open" data-track-label="nexus_nav_demo">Solicitar demo</a>
+  <button class="btn btn-p btn-sm cp-open" type="button" data-contact="NexusChatBot" data-track-event="form_open" data-track-label="nexus_nav_demo">Solicitar demo</button>
 </nav>
 
 <!-- Hero -->
@@ -298,7 +323,7 @@ a.card,button.card{cursor:pointer}
       <h1 class="hero-title rv d1">Tu web,<br>siempre <span class="grad">activa.</span></h1>
       <p class="hero-sub rv d2">NexusChatBot vive en tu sitio como una burbuja flotante. Responde, captura leads y convierte visitantes en clientes — sin que estés presente.</p>
       <div class="hero-ctas rv d3">
-        <a class="btn btn-p" href="index.html?contact=NexusChatBot#contacto" data-track-event="form_open" data-track-label="nexus_hero_demo">Solicitar demo</a>
+        <button class="btn btn-p cp-open" type="button" data-contact="NexusChatBot" data-track-event="form_open" data-track-label="nexus_hero_demo">Solicitar demo</button>
         <button class="btn btn-g" type="button" onclick="document.getElementById('como').scrollIntoView({behavior:'smooth'})">¿Cómo funciona?</button>
       </div>
       <div class="hero-tags rv d4">
@@ -380,7 +405,7 @@ a.card,button.card{cursor:pointer}
 <!-- Features -->
 <section id="features">
   <div class="wrap">
-    <div class="ey rv">— Capacidades</div>
+    <div class="ey rv">Capacidades</div>
     <div class="sh">
       <h2 class="st rv d1">Lo que hace NexusChatBot.</h2>
       <p class="ss rv d2">No es un FAQ glorificado. Entiende contexto, captura datos y aprende de tu negocio en tiempo real.</p>
@@ -423,7 +448,7 @@ a.card,button.card{cursor:pointer}
 <!-- Como funciona -->
 <section id="como" style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
   <div class="wrap">
-    <div class="ey rv">— Proceso</div>
+    <div class="ey rv">Proceso</div>
     <div class="sh">
       <h2 class="st rv d1">De cero a activo en 5 días.</h2>
       <p class="ss rv d2">Sin reuniones infinitas. Sin tecnicismos. Sin tocar código.</p>
@@ -442,7 +467,7 @@ a.card,button.card{cursor:pointer}
   <div class="wrap">
     <div class="demo-grid">
       <div>
-        <div class="ey rv">— En acción</div>
+        <div class="ey rv">En acción</div>
         <h2 class="st rv d1">Así se ve en tu web.</h2>
         <p class="ss rv d2">Una burbuja discreta en la esquina. Cuando el cliente la toca, se abre una ventana de chat rápida con la identidad visual de tu marca.</p>
         <ul class="demo-list rv d3">
@@ -482,7 +507,7 @@ a.card,button.card{cursor:pointer}
 <!-- Integrations -->
 <section style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
   <div class="wrap">
-    <div class="ey rv">— Compatibilidad</div>
+    <div class="ey rv">Compatibilidad</div>
     <h2 class="st rv d1">Se integra en cualquier web.</h2>
     <p class="ss rv d2">Un snippet. Sin importar cómo está construido tu sitio.</p>
     <div class="integ-grid rv d3">
@@ -503,11 +528,11 @@ a.card,button.card{cursor:pointer}
 <section class="cta-sec" id="cta">
   <div class="hero-bg" aria-hidden="true"><div class="orb orb1"></div><div class="orb orb2" style="opacity:.5"></div></div>
   <div class="wrap cta-inner">
-    <div class="ey rv" style="justify-content:center">— ¿Listo para automatizar?</div>
+    <div class="ey rv" style="justify-content:center">¿Listo para automatizar?</div>
     <h2 class="cta-h rv d1">Tu negocio merece un asistente 24/7.</h2>
     <p class="cta-s rv d2">15 minutos de demo. Te mostramos el bot en acción y en 5 días está en tu web.</p>
     <div class="cta-btns rv d3">
-      <a href="index.html?contact=NexusChatBot#contacto" class="btn btn-p" data-track-event="form_open" data-track-label="nexus_final_demo">Quiero una demo de NexusChatBot</a>
+      <button class="btn btn-p cp-open" type="button" data-contact="NexusChatBot" data-track-event="form_open" data-track-label="nexus_final_demo">Quiero una demo de NexusChatBot</button>
       <a href="https://instagram.com/nuvikdigital" class="btn btn-g" target="_blank" rel="noopener noreferrer" data-track-event="instagram_click" data-track-label="nexus_final_instagram">Hablar por Instagram</a>
     </div>
   </div>
@@ -527,7 +552,7 @@ a.card,button.card{cursor:pointer}
           </a>
           <a href="https://www.linkedin.com/in/nicolas-leonardo-torres-pf%C3%A4fflin-7579013bb/" class="fsoc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn CTO Nicolás">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            CTO Nicolás
+            CTO Nicolas
           </a>
         </div>
       </div>
@@ -545,8 +570,45 @@ a.card,button.card{cursor:pointer}
   </div>
 </footer>
 
+<!-- Contact Panel -->
+<div class="cp-ov" id="cp" role="dialog" aria-modal="true" aria-label="Formulario de contacto">
+  <div class="cp-box">
+    <button class="cp-x" id="cp-close" type="button" aria-label="Cerrar formulario">✕</button>
+    <h2 class="cp-h">Cuéntanos tu proyecto.</h2>
+    <p class="cp-sub">Te respondemos en menos de 24 horas.</p>
+    <form id="cp-form" novalidate>
+      <input type="hidden" id="cp-time" value="" />
+      <div class="cp-hidden" aria-hidden="true"><label for="cp-website-hp">No completar</label><input type="text" id="cp-website-hp" name="website_hp" tabindex="-1" autocomplete="off" /></div>
+      <div class="fg"><label for="cp-name">Nombre completo</label><input type="text" id="cp-name" name="nombre" class="fc" placeholder="Tu nombre" autocomplete="name" required minlength="2" maxlength="100" /></div>
+      <div class="fg"><label for="cp-email">Email</label><input type="email" id="cp-email" name="email" class="fc" placeholder="tu@email.com" autocomplete="email" required /></div>
+      <div class="fg"><label for="cp-biz">Negocio / Empresa</label><input type="text" id="cp-biz" name="negocio" class="fc" placeholder="Nombre de tu negocio" maxlength="150" /></div>
+      <div class="fg"><label for="cp-need">¿Qué necesitas?</label>
+        <select id="cp-need" name="tipo" class="fc" required>
+          <option value="">Selecciona una opción</option>
+          <option value="NexusChatBot">NexusChatBot</option><option value="Dar.io">Dar.io</option>
+          <option value="Landing Page">Landing Page</option><option value="Web Corporativa">Web Corporativa</option>
+          <option value="Tienda Online">Tienda Online</option><option value="Agente WhatsApp">Agente WhatsApp</option>
+          <option value="Consulta general">Consulta general</option>
+        </select>
+      </div>
+      <div class="fg"><label for="cp-msg">Cuéntanos tu idea</label><textarea id="cp-msg" name="mensaje" class="fc" placeholder="Describe brevemente tu proyecto..." rows="4" required minlength="10" maxlength="2000"></textarea></div>
+      <p class="cp-help">Usamos este formulario para centralizar demos, cotizaciones y seguimiento.</p>
+      <div class="cp-status" id="cp-status" role="status" aria-live="polite"></div>
+      <button type="submit" class="btn btn-p cp-send">Enviar mensaje →</button>
+    </form>
+  </div>
+</div>
+
 <script>
+const LEAD_ENDPOINT='/.netlify/functions/create-lead';
 const TRACK_ENDPOINT='/.netlify/functions/track-event';
+let utmData={};
+(function(){
+  const p=new URLSearchParams(window.location.search);
+  const d={utm_source:p.get('utm_source')||'',utm_medium:p.get('utm_medium')||'',utm_campaign:p.get('utm_campaign')||'',utm_content:p.get('utm_content')||'',referrer:document.referrer||'',landing_page:window.location.pathname+(window.location.search||''),device:(/Mobi|Android/i.test(navigator.userAgent)?'mobile':'desktop')};
+  if(d.utm_source){try{sessionStorage.setItem('nuvik_utm',JSON.stringify(d));}catch(_){} utmData=d;}
+  else{try{utmData=JSON.parse(sessionStorage.getItem('nuvik_utm')||'{}')||{};}catch(_){} utmData.referrer=utmData.referrer||d.referrer;utmData.landing_page=utmData.landing_page||d.landing_page;utmData.device=d.device;}
+})();
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>60),{passive:true});
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}}),{threshold:.12});
@@ -591,6 +653,43 @@ document.querySelectorAll('[data-track-event]').forEach(el=>{
       text:(el.textContent||'').trim().slice(0,80),
     });
   });
+});
+
+// Contact panel
+const cp=document.getElementById('cp');
+const cpForm=document.getElementById('cp-form');
+const cpStatus=document.getElementById('cp-status');
+const cpNeed=document.getElementById('cp-need');
+const cpSend=cpForm.querySelector('.cp-send');
+const cpTime=document.getElementById('cp-time');
+const cpWebsiteHp=document.getElementById('cp-website-hp');
+const defaultSendText=cpSend.textContent;
+cpTime.value=String(Date.now()-4000);
+const setStatus=(tone,message='')=>{cpStatus.textContent=message;cpStatus.className='cp-status';if(!message)return;cpStatus.classList.add('show',tone);};
+const openCP=(contact='')=>{if(contact)cpNeed.value=contact;cp.classList.add('on');document.body.style.overflow='hidden';setStatus();};
+const closeCP=()=>{cp.classList.remove('on');document.body.style.overflow='';};
+document.getElementById('cp-close').addEventListener('click',closeCP);
+cp.addEventListener('click',e=>{if(e.target===cp)closeCP()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCP()});
+document.querySelectorAll('.cp-open').forEach(el=>{el.addEventListener('click',()=>openCP(el.dataset.contact||''));});
+cpForm.addEventListener('submit',async e=>{
+  e.preventDefault();if(!cpForm.reportValidity())return;
+  const payload={nombre:document.getElementById('cp-name').value.trim(),email:document.getElementById('cp-email').value.trim(),negocio:document.getElementById('cp-biz').value.trim(),tipo:cpNeed.value,mensaje:document.getElementById('cp-msg').value.trim(),website_hp:cpWebsiteHp.value,_t:cpTime.value,...utmData};
+  trackEvent('form_submit_attempt','contact_form',{contact:payload.tipo});
+  setStatus('pending','Enviando tu mensaje...');cpSend.disabled=true;cpSend.textContent='Enviando...';
+  try{
+    const res=await fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok||!data.ok)throw new Error(data.error||'No pudimos enviar tu mensaje.');
+    trackEvent('form_submit_success','contact_form',{contact:payload.tipo});
+    setStatus('ok','Mensaje enviado. Te contactaremos pronto.');
+    cpSend.textContent='Mensaje enviado';cpForm.reset();cpTime.value=String(Date.now()-4000);
+    window.setTimeout(()=>{closeCP();setStatus();cpSend.disabled=false;cpSend.textContent=defaultSendText;},1800);
+  }catch(error){
+    const msg=error instanceof Error?error.message:'No pudimos enviar tu mensaje.';
+    trackEvent('form_submit_error','contact_form',{contact:payload.tipo,error:msg});
+    setStatus('err',msg);cpSend.disabled=false;cpSend.textContent=defaultSendText;
+  }
 });
 
 // Chat typing simulation
