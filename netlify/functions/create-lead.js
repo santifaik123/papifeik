@@ -143,7 +143,7 @@ exports.handler = async (event) => {
   }
 
   const {
-    nombre, email, negocio, tipo, mensaje, web, website_hp, _t,
+    nombre, email, negocio, tipo, presupuesto, mensaje, web, website_hp, _t,
     utm_source, utm_medium, utm_campaign, utm_content,
     referrer, landing_page, device,
   } = data;
@@ -337,6 +337,10 @@ exports.handler = async (event) => {
               <tr style="border-bottom:1px solid #1B2B40">
                 <td style="padding:12px 0;color:#8E94A0">Tipo</td>
                 <td style="padding:12px 0">${tipoLimpio ?? "—"}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #1B2B40">
+                <td style="padding:12px 0;color:#8E94A0">Presupuesto</td>
+                <td style="padding:12px 0">${limpiar(presupuesto, 50) ?? "—"}</td>
               </tr>
               <tr style="border-bottom:1px solid #1B2B40">
                 <td style="padding:12px 0;color:#8E94A0">Web actual</td>

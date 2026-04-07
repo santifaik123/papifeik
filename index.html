@@ -245,6 +245,12 @@ section{padding:clamp(80px,10vw,120px) 0}
 .ind-tag{padding:7px 15px;border-radius:var(--rf);background:var(--s0);border:1px solid var(--b0);font-size:13px;font-weight:500;color:var(--t2);transition:all var(--td)}
 .ind-tag:hover{border-color:rgba(var(--ar),.3);color:var(--t1);background:var(--s1)}
 
+/* Lead Magnet */
+.lm-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center}
+.lm-form{display:flex;flex-direction:column;gap:10px}
+.lm-btn{justify-content:center;padding:13px;font-size:14px}
+@media(max-width:768px){.lm-inner{grid-template-columns:1fr;gap:32px}}
+
 /* Capabilities */
 .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:52px}
 .cap-col{padding:32px;border-right:1px solid var(--b0)}
@@ -744,6 +750,28 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
   </div>
 </section>
 
+<!-- Lead Magnet — Diagnóstico Gratis -->
+<section id="diagnostico" style="border-top:1px solid rgba(37,99,235,.2);border-bottom:1px solid rgba(37,99,235,.2);background:linear-gradient(135deg,rgba(37,99,235,.07),rgba(6,182,212,.04))">
+  <div class="wrap">
+    <div class="lm-inner">
+      <div>
+        <div class="ey rv">— Gratis</div>
+        <h2 class="st rv d1" style="max-width:480px">¿Tu presencia digital está generando ventas o solo existe?</h2>
+        <p class="ss rv d2">Revisamos tu sitio actual y te decimos exactamente qué está frenando tus ventas. Sin costo, sin compromiso. Respuesta en menos de 24 horas.</p>
+      </div>
+      <div>
+        <form id="lm-form" class="lm-form rv d3" novalidate>
+          <input type="text" id="lm-name" class="fc" placeholder="Tu nombre" required minlength="2" maxlength="100" autocomplete="name" />
+          <input type="email" id="lm-email" class="fc" placeholder="tu@email.com" required autocomplete="email" />
+          <button type="submit" class="btn btn-p lm-btn">Quiero mi diagnóstico gratis →</button>
+          <p style="font-size:11px;color:var(--t3);text-align:center">Sin spam. Feedback real sobre tu presencia digital.</p>
+        </form>
+        <div id="lm-status" class="cp-status" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Capacidades -->
 <section style="background:var(--bg2);border-top:1px solid var(--b0);border-bottom:1px solid var(--b0)">
   <div class="wrap">
@@ -1007,6 +1035,16 @@ a.card,button.card,.suite-card,.p-card,.ind-pill{cursor:pointer}
           <option value="Agente WhatsApp">Agente WhatsApp</option><option value="Consulta general">Consulta general</option><option value="Otro">Otro</option>
         </select>
       </div>
+      <div class="fg"><label for="cp-budget">¿Cuál es tu presupuesto aproximado?</label>
+        <select id="cp-budget" name="presupuesto" class="fc">
+          <option value="">Selecciona (opcional)</option>
+          <option value="Menos de $300K">Menos de $300K</option>
+          <option value="$300K–$500K">$300K–$500K</option>
+          <option value="$500K–$900K">$500K–$900K</option>
+          <option value="Más de $900K">Más de $900K</option>
+          <option value="No sé aún">No sé aún</option>
+        </select>
+      </div>
       <div class="fg"><label for="cp-msg">Cuéntanos tu idea</label><textarea id="cp-msg" name="mensaje" class="fc" placeholder="Describe brevemente tu proyecto o idea..." rows="4" required minlength="10" maxlength="2000"></textarea></div>
       <div class="fg"><label for="cp-web">¿Tienes web actualmente?</label>
         <select id="cp-web" name="web" class="fc">
@@ -1254,6 +1292,39 @@ document.querySelectorAll('.cp-open').forEach(el=>{
   });
 });
 
+// Lead Magnet Form
+const lmForm=document.getElementById('lm-form');
+const lmStatus=document.getElementById('lm-status');
+if(lmForm){
+  lmForm.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(!lmForm.reportValidity())return;
+    const nombre=document.getElementById('lm-name').value.trim();
+    const email=document.getElementById('lm-email').value.trim();
+    const btn=lmForm.querySelector('button[type="submit"]');
+    const origText=btn.textContent;
+    btn.disabled=true;btn.textContent='Enviando...';
+    lmStatus.style.display='none';
+    try{
+      const res=await fetch(LEAD_ENDPOINT,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({nombre,email,tipo:'Diagnóstico gratis',mensaje:'Solicitud de diagnóstico gratuito',...utmData}),
+      });
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok||!data.ok)throw new Error(data.error||'Error al enviar');
+      trackEvent('lead_magnet_submit','diagnostico_gratis');
+      lmStatus.style.cssText='display:block;background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:#86efac';
+      lmStatus.textContent='Listo. Te escribimos con el diagnóstico en menos de 24 horas.';
+      lmForm.reset();
+    }catch(err){
+      lmStatus.style.cssText='display:block;background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#fca5a5';
+      lmStatus.textContent='No pudimos enviar. Intenta nuevamente.';
+      btn.disabled=false;btn.textContent=origText;
+    }
+  });
+}
+
 document.getElementById('cp-close').addEventListener('click',closeCP);
 cp.addEventListener('click',e=>{if(e.target===cp)closeCP()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCP();closeMob()}});
@@ -1267,6 +1338,7 @@ cpForm.addEventListener('submit',async e=>{
     email:document.getElementById('cp-email').value.trim(),
     negocio:document.getElementById('cp-biz').value.trim(),
     tipo:cpNeed.value,
+    presupuesto:document.getElementById('cp-budget').value,
     mensaje:document.getElementById('cp-msg').value.trim(),
     web:document.getElementById('cp-web').value,
     website_hp:cpWebsiteHp.value,
