@@ -1,3 +1,7 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+# Secuencia de email automatizada — corre todos los días a las 9 AM UTC
+[functions."email-sequence"]
+  schedule = "0 9 * * *"
